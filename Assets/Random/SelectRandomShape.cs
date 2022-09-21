@@ -7,46 +7,39 @@ using UnityEngine.UI;
 
 public class SelectRandomShape : MonoBehaviour
 {
-    public List<int> CurrentShapeList = new List<int>(); //현재 나와잇는 모양들
+    public List<Shape> CurrentShapeList = new List<Shape>(); //현재 나와잇는 모양들
     
-    public List<int> RandomShapeList = new List<int>(); //리스트 안에 있는 모양들
+    public List<Shape> RandomShapeList = new List<Shape>(); //리스트 안에 있는 모양들
 
-    public List<int> TempShapeList = new List<int>(); //보관함 좀더 잘 할수잇을듯 굳이 안쓰면서?
+    public List<Shape> WholeShapeList = new List<Shape>(); //전체의 리스트
 
 
     public int shapeCnt = 4; //화면에 뜨는 쉐이프에 개수
     void Start()
     {
-        int num1 = 1;
-        int num2 = 2;
-        int num3 = 3;
-        int num4 = 4;
-        int num5 = 5;
-        int num6 = 6;
-        int num7 = 7;
-        int num8 = 8;
-        int num9 = 9;
-        int num10 = 10;
+        for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length; i++)
+        {
+            Shape shape = new Shape();
+            shape.enumShape = (EnumShape)i;
+            string shapeString = System.Enum.GetName(typeof(EnumShape), i);
+            shape.sprite = Resources.Load<Sprite>($"Shapes/{shapeString}");
+            WholeShapeList.Add(shape);
+        }
+        //전체 리스트에 모든 쉐이프를 넣어둠
 
-
-
-        RandomShapeList.Add(num1);
-        RandomShapeList.Add(num2);
-        RandomShapeList.Add(num3);
-        RandomShapeList.Add(num4);
-        RandomShapeList.Add(num5);
-        RandomShapeList.Add(num6);
-        RandomShapeList.Add(num7);
-        RandomShapeList.Add(num8);
-        RandomShapeList.Add(num9);
-        RandomShapeList.Add(num10);
+        for(int i = 0; i < 10; i++)
+        {
+            RandomShapeList.Add(WholeShapeList[i]);
+        }
+        //처음 필요한 개수만큼 랜덤 리스트에 넣어둠
 
         ShuffleList(RandomShapeList);
+        //셔플
         
         for(int i = 0; i < shapeCnt; i++)
         {
-            CurrentShapeList.Add(RandomShapeList[0]); //랜덤에서 커렉트로 shapecnt만큼 옮김
-            RandomShapeList.RemoveAt(0);
+            CurrentShapeList.Add(RandomShapeList[0]); //랜덤리스트에서 커렉트리스트로 shapecnt만큼 옮김
+            RandomShapeList.RemoveAt(0); //화면의 보이는 쉐이프의 개수
         }
         //기본으로 완성
 
@@ -81,8 +74,8 @@ public class SelectRandomShape : MonoBehaviour
         CurrentShapeList.RemoveRange(0, shapeCnt);
 
         //난이도 조절코드 shapecnt가 바뀐다던가, shapelist의 수가 증가한다던가
-        shapeCnt++;
-        RandomShapeList.Add(0);
+        //shapeCnt++;
+        //RandomShapeList.Add();
 
         ShuffleList(RandomShapeList); //셔플
 
