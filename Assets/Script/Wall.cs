@@ -25,4 +25,10 @@ public class Wall : MonoBehaviour
         _originWall.SetActive(false);
         _brokenWall.SetActive(true);
     }
+
+    public void Reseting()
+    {
+        _originWall.SetActive(true);
+        _brokenWall.SetActive(false);
+    }
 }
