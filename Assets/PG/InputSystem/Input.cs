@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem; 
 
-public class Input : MonoBehaviour
+public class InputSystem : MonoBehaviour
 {
     public void OnDrag()
     {
