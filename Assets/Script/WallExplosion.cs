@@ -40,8 +40,8 @@ public class WallExplosion : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            _rigid[i].transform.rotation = Quaternion.Euler(Vector3.zero);
-            _rigid[i].gameObject.transform.position = _blocksTransform[i];
+            _rigid[i].transform.localRotation = Quaternion.Euler(Vector3.zero);
+            _rigid[i].gameObject.transform.localPosition = _blocksTransform[i];
             _rigid[i].isKinematic = true;
             _rigid[i].gameObject.SetActive(false);
         }
