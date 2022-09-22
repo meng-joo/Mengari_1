@@ -13,11 +13,18 @@ public class UIManager : MonoBehaviour
 
     public RectTransform cardPanel;
 
-    public List<Button> buttons = new List<Button>();
+    public List<Frame> buttons = new List<Frame>();
 
-    public Button card;
+    public Frame card;
 
     private Sequence _seq;
+
+    public SelectRandomShape selectRandomShape; // 나중에 고쳐야할듯
+
+    void Awake()
+    {
+        //selectRandomShape = GetComponent<SelectRandomShape>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +72,10 @@ public class UIManager : MonoBehaviour
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(250, 350);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 100);
         }
+        else if(Input.GetKeyDown(KeyCode.Space))
+        {
+            CreateCard();
+        }
     }
 
     public void OnClickStartButton()
@@ -91,5 +102,18 @@ public class UIManager : MonoBehaviour
         _seq.AppendCallback(() => { _seq.Kill();
             cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
         });
+
+        SetCardComponent();
+    }
+
+    private void SetCardComponent()
+    {
+        for(int i = 0; i < cardCount; i++)
+        {
+            buttons[i].button.image.sprite = selectRandomShape.CurrentShapeList[i].sprite;
+            buttons[i].enumShape = selectRandomShape.CurrentShapeList[i].enumShape;
+        }
+
+        
     }
 }
