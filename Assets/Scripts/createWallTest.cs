@@ -6,15 +6,35 @@ public class createWallTest : MonoBehaviour
 {
     public GameObject path;
     public GameObject wall;
+
+    private float createTime;
+
+    private bool isCanCreate;
+
     private void Start()
     {
         Instantiate(path);
+        isCanCreate = true;
+        createTime = 2f;
     }
-    void Update()
+
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if(isCanCreate)
         {
+            StartCoroutine(SpawnWall());
+            isCanCreate = false;
             Instantiate(wall);
         }
     }
+
+
+    IEnumerator SpawnWall()
+    {
+        yield return new WaitForSeconds(createTime);
+        isCanCreate = true;
+
+    }
+
 }
