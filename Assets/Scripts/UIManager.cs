@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
 
     private Sequence _seq;
 
-    private SelectRandomShape selectRandomShape; // ³ªÁß¿¡ °íÃÄ¾ßÇÒµí
+    private SelectRandomShape selectRandomShape; // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½Òµï¿½
 
     void Awake()
     {
@@ -50,7 +50,24 @@ public class UIManager : MonoBehaviour
             buttons.Add(newCard);
             newCard.GetComponent<Button>().enabled = false;
             newCard.GetComponent<Image>().enabled = false;
-            newCard.GetComponent<Button>().onClick.AddListener(delegate { ClickCard(); });
+
+            EventTrigger eventTrigger = newCard.gameObject.AddComponent<EventTrigger>();
+
+            EventTrigger.Entry entry_PointerDown = new EventTrigger.Entry();
+            entry_PointerDown.eventID = EventTriggerType.PointerDown;
+            entry_PointerDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
+            eventTrigger.triggers.Add(entry_PointerDown);
+
+            EventTrigger.Entry entry_PointerUp = new EventTrigger.Entry();
+            entry_PointerUp.eventID = EventTriggerType.PointerUp;
+            entry_PointerUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
+            eventTrigger.triggers.Add(entry_PointerUp);
+
+            newCard.GetComponent<Button>().onClick.AddListener(delegate { 
+                ClickCard();
+                
+            });
+            //newCard.gameObject.SetActive(false);
         }
     }
 
@@ -68,7 +85,7 @@ public class UIManager : MonoBehaviour
 
     public void IncreaseDifficult()
     {
-        //Ã³À½ ³­ÀÌµµ´Â »ý¼º°³¼ö 2°³ ¸®½ºÆ®°³¼ö 4°³
+        //Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½
     }
 
     public void StageUp()
@@ -111,7 +128,9 @@ public class UIManager : MonoBehaviour
     public void ClickCard()
     {
         var clickObject = EventSystem.current.currentSelectedGameObject;
-        clickObject.GetComponent<Image>().color = Color.gray;
+        
+        clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
+        //ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ interactable ï¿½ï¿½ï¿½ï¿½
         clickObject.GetComponent<Button>().enabled = false;
         clickedCards.Add(clickObject.GetComponent<Button>());
         curCardsClick++;
@@ -135,15 +154,27 @@ public class UIManager : MonoBehaviour
                 }
                 clickedCards.Clear();
             });
-
-
-
         }
-        Debug.Log(clickObject);
+    }
+
+    public void OnPointerDown(PointerEventData data)
+    {
+        var clickObject = EventSystem.current.currentSelectedGameObject;
+        _seq = DOTween.Sequence();
+        _seq.Append(clickObject.transform.DOScale(0.95f, 0.15f));
+        Debug.Log("Pointer Down");
 
     }
 
-    [ContextMenu("Ä«µå »ý¼º")]
+    public void OnPointerUp(PointerEventData data)
+    {
+        var clickObject = EventSystem.current.currentSelectedGameObject;
+        _seq = DOTween.Sequence();
+        _seq.Append(clickObject.transform.DOScale(1f, 0.15f));
+        Debug.Log("Pointer Up");
+    }
+
+    [ContextMenu("Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     public void CreateCard()
     {
 
@@ -157,10 +188,11 @@ public class UIManager : MonoBehaviour
         {
             if (buttons[i].GetComponent<Image>().enabled)
                 continue;
-            buttons[i].GetComponent<RectTransform>().localScale = new Vector3(2f, 2f, 0);
+            buttons[i].GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 0);
+            Debug.Log(buttons[i].GetComponent<RectTransform>().localScale);
             buttons[i].GetComponent<Image>().enabled = true;
             buttons[i].GetComponent<Button>().enabled = true;
-            _seq.Join(buttons[i].transform.DOScale(1f, 0.5f));
+            _seq.Join(buttons[i].transform.DOScale(1f, 0.3f));
         }
         _seq.AppendCallback(() => { _seq.Kill();
             cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
@@ -176,7 +208,5 @@ public class UIManager : MonoBehaviour
             buttons[i].button.image.sprite = selectRandomShape.CurrentShapeList[i].sprite;
             buttons[i].enumShape = selectRandomShape.CurrentShapeList[i].enumShape;
         }
-
-        
     }
 }
