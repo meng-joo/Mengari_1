@@ -8,7 +8,13 @@ using System;
 
 public class UIManager : MonoBehaviour
 {
-    public int cardCount = 2;
+    [SerializeField]
+    private int cardCount = 2;
+    public int CardCount
+    {
+        get => cardCount;
+        set => cardCount = value;
+    }
 
     public int finalCardsClick = 1;
     public int curCardsClick = 0;
@@ -27,11 +33,12 @@ public class UIManager : MonoBehaviour
 
     private Sequence _seq;
 
-    public SelectRandomShape selectRandomShape; // 나중에 고쳐야할듯
+    private SelectRandomShape selectRandomShape; // 나중에 고쳐야할듯
 
     void Awake()
     {
-        //selectRandomShape = GetComponent<SelectRandomShape>();
+
+        selectRandomShape = GetComponent<SelectRandomShape>();
     }
 
     // Start is called before the first frame update
@@ -44,50 +51,51 @@ public class UIManager : MonoBehaviour
             newCard.GetComponent<Button>().enabled = false;
             newCard.GetComponent<Image>().enabled = false;
             newCard.GetComponent<Button>().onClick.AddListener(delegate { ClickCard(); });
-            //newCard.gameObject.SetActive(false);
         }
-        //cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        StageUp();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            selectRandomShape.ClearList();
+            cardCount += 2;
+            CreateCard();
+        }
+        //StageUp();
+    }
+
+    public void IncreaseDifficult()
+    {
+        //처음 난이도는 생성개수 2개 리스트개수 4개
     }
 
     public void StageUp()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (cardCount == 2)
         {
-            cardCount = 2;
             finalCardsClick = 1;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(600, 700);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 50);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (cardCount == 4)
         {
-            cardCount = 4;
             finalCardsClick = 2;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(350, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(200, 50);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (cardCount == 6)
         {
-            cardCount = 6;
             finalCardsClick = 4;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(300, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(150, 50);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        else if (cardCount == 8)
         {
-            cardCount = 8;
             finalCardsClick = 5;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(250, 350);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 100);
-        }
-        else if(Input.GetKeyDown(KeyCode.Space))
-        {
-            CreateCard();
         }
     }
 
@@ -138,6 +146,11 @@ public class UIManager : MonoBehaviour
     [ContextMenu("카드 생성")]
     public void CreateCard()
     {
+
+        StageUp();
+
+        selectRandomShape.GameStart();
+
         _seq = DOTween.Sequence();
         cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
         for (int i=0;i<cardCount;i++)
