@@ -15,20 +15,28 @@ public class BulletManager : MonoBehaviour
     private LayerMask _layerMask;
     private void Awake()
     {
-        _mainCam = Camera.main; 
+        _mainCam = Camera.main;
     }
     private void Start()
     {
-        _layerMask = 1 << LayerMask.NameToLayer("Ground"); 
-        _screenSize = new Vector3(Screen.width / 2, Screen.height / 6,0); 
+        _layerMask = 1 << LayerMask.NameToLayer("Ground");
+        _screenSize = new Vector3(Screen.width / 2, Screen.height / 6, 0);
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            CreateBullet(); 
+        }
+    }
     /// <summary>
     /// 총알 생성
     /// </summary>
     [ContextMenu("CreateBullet")]
     public void CreateBullet()
     {
+        Debug.Log("총알 생성");
         Vector3 pos = Vector3.zero;
         RaycastHit hit;
         _ray = _mainCam.ScreenPointToRay(_screenSize);
@@ -43,20 +51,30 @@ public class BulletManager : MonoBehaviour
             Debug.LogError("총알을 생성할 수 없습니다(Raycast NULL)");
             return;
         }
-
         //pos = _mainCam.ScreenToWorldPoint(new Vector3(_screenSize.x, _screenSize.y, 1));
         //Debug.Log(pos); 
         pos.y = _bulletHeight;
+        StartCoroutine(CreateBullet(pos)); 
+    }
 
-        Bullet bullet = Instantiate(_bulletPrefab, pos, Quaternion.Euler(Vector3.right * 90));
+
+    IEnumerator CreateBullet(Vector3 bulletPos)
+    {
+        ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;
+        effect.transform.position = this.gameObject.transform.position;
+        effect.StartEffect();
+
+        yield return new WaitForSeconds(effect.Duration);
+
+        Bullet bullet = Instantiate(_bulletPrefab, bulletPos, Quaternion.Euler(Vector3.right * 90));
 
         Draggable draggable;
         draggable = bullet.GetComponent<Draggable>();
-
+        
         // 총알 드래그 이벤트 등록 
-        draggable.beginDragEvent = () => { draggable.beginDragEvent = null;     bullet.UpScale(true); };
-        draggable.endDragEvent = () => { draggable.endDragEvent = null;     bullet.MoveForward(); };
-        draggable.exitPointerEvent = () =>{ draggable.exitPointerEvent = null;      bullet.UpScale(false); };
+        draggable.beginDragEvent = () => { draggable.beginDragEvent = null; bullet.UpScale(true); };
+        draggable.endDragEvent = () => { draggable.endDragEvent = null; bullet.MoveForward(); };
+        draggable.exitPointerEvent = () => { draggable.exitPointerEvent = null; bullet.UpScale(false); };
     }
 
 }
