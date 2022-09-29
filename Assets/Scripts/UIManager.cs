@@ -237,22 +237,26 @@ public class UIManager : MonoBehaviour
         StageUp();
 
         //selectRandomShape.GameStart();
-
-        _seq = DOTween.Sequence();
-        cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
-        for (int i=0;i<cardCount;i++)
+        if(!isBoss)
         {
-            if (buttons[i].GetComponent<Image>().enabled)
-                continue;
-            buttons[i].GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 0);
-            Debug.Log(buttons[i].GetComponent<RectTransform>().localScale);
-            buttons[i].GetComponent<Image>().enabled = true;
-            buttons[i].GetComponent<Button>().enabled = true;
-            _seq.Join(buttons[i].transform.DOScale(1f, 0.3f));
+            _seq = DOTween.Sequence();
+            cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
+            for (int i = 0; i < cardCount; i++)
+            {
+                if (buttons[i].GetComponent<Image>().enabled)
+                    continue;
+                buttons[i].GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 0);
+                Debug.Log(buttons[i].GetComponent<RectTransform>().localScale);
+                buttons[i].GetComponent<Image>().enabled = true;
+                buttons[i].GetComponent<Button>().enabled = true;
+                _seq.Join(buttons[i].transform.DOScale(1f, 0.3f));
+            }
+            _seq.AppendCallback(() => {
+                _seq.Kill();
+                cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
+            });
         }
-        _seq.AppendCallback(() => { _seq.Kill();
-            cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
-        });
+
     }
 
     public void ShuffleList<T>(List<T> list)
