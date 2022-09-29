@@ -21,10 +21,6 @@ public class UIManager : MonoBehaviour
 
     public bool isBoss;
 
-    public Sprite bossSprite;
-    public EnumShape saveEnumShape; //보스전일때 바뀌기 전것
-    public Sprite saveSprite;
-
     public RectTransform lastCardLocation;
 
     public Button startButton;
@@ -49,7 +45,6 @@ public class UIManager : MonoBehaviour
 
     public List<int> randomList = new List<int>();
 
-
     void Awake()
     {
         selectRandomShape = GetComponent<SelectRandomShape>();
@@ -58,8 +53,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bossSprite = Resources.Load<Sprite>("Shapes/Boss");
-        for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length - 1; i++)
+        for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length; i++)
         {
             Shape shape = new Shape();
             shape.enumShape = (EnumShape)i;
@@ -73,9 +67,9 @@ public class UIManager : MonoBehaviour
 
         ShuffleList(ShapeList);
 
-        int count = System.Enum.GetValues(typeof(EnumShape)).Length - 1;
+        int count = System.Enum.GetValues(typeof(EnumShape)).Length;
 
-        for (int i=0;i< System.Enum.GetValues(typeof(EnumShape)).Length - 1; i++)
+        for (int i=0;i< System.Enum.GetValues(typeof(EnumShape)).Length; i++)
         {
             Frame newCard = Instantiate(card, cardPanel);
             buttons.Add(newCard);
@@ -184,57 +178,22 @@ public class UIManager : MonoBehaviour
                 {
                     clickedCards[i].GetComponent<Image>().enabled = false;
                     clickedCards[i].GetComponent<Image>().color = Color.black;
+
+
+                    int random = UnityEngine.Random.Range(cardCount + 1, System.Enum.GetValues(typeof(EnumShape)).Length);
+                    Shape shape= new Shape();
+                    shape.enumShape = clickedCards[i].shape.enumShape;
+                    shape.sprite = clickedCards[i].shape.sprite;
+                    Debug.Log(random);
+                    clickedCards[i].shape.enumShape = ShapeList[random].enumShape;
+                    clickedCards[i].shape.sprite = ShapeList[random].sprite;
+                    ShapeList[random].enumShape = shape.enumShape;
+                    ShapeList[random].sprite = shape.sprite;
                 }
-
-                if (!isBoss)
-                {
-                    for (int i = 0; i < clickedCards.Count; i++)
-                    {
-                        CardChange(i);
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < clickedCards.Count; i++)
-                    {
-                        CardChange(i);
-                    }
-
-                    int random = UnityEngine.Random.Range(0, clickedCards.Count);
-
-                    saveEnumShape = clickedCards[random].shape.enumShape;
-                    saveSprite = clickedCards[random].shape.sprite;
-                    clickedCards[random].shape.enumShape = EnumShape.Boss;
-                    clickedCards[random].shape.sprite = bossSprite;
-                    isBoss = false;
-                }
-
                 //생성코드
                 fillCard();
             });
         }
-    }
-
-
-    public void CardChange(int i)//선택된 카드를 바꿈
-    {
-        int random = UnityEngine.Random.Range(cardCount + 1, System.Enum.GetValues(typeof(EnumShape)).Length - 1);
-        
-        Shape shape = new Shape();
-        if(clickedCards[i].shape.enumShape == EnumShape.Boss)
-        {
-            shape.enumShape = saveEnumShape;
-            shape.sprite = saveSprite;
-        }
-        else
-        {
-            shape.enumShape = clickedCards[i].shape.enumShape;
-            shape.sprite = clickedCards[i].shape.sprite;
-        }
-        clickedCards[i].shape.enumShape = ShapeList[random].enumShape;
-        clickedCards[i].shape.sprite = ShapeList[random].sprite;
-        ShapeList[random].enumShape = shape.enumShape;
-        ShapeList[random].sprite = shape.sprite;
     }
 
     public void fillCard() //클릭되서 사용된 카드를 채운다.
@@ -278,16 +237,10 @@ public class UIManager : MonoBehaviour
         StageUp();
 
         //selectRandomShape.GameStart();
-<<<<<<< Updated upstream
 
         _seq = DOTween.Sequence();
         cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
         for (int i=0;i<cardCount;i++)
-=======
-        _seq = DOTween.Sequence();
-        cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
-        for (int i = 0; i < cardCount; i++)
->>>>>>> Stashed changes
         {
             if (buttons[i].GetComponent<Image>().enabled)
                 continue;
@@ -297,12 +250,7 @@ public class UIManager : MonoBehaviour
             buttons[i].GetComponent<Button>().enabled = true;
             _seq.Join(buttons[i].transform.DOScale(1f, 0.3f));
         }
-<<<<<<< Updated upstream
         _seq.AppendCallback(() => { _seq.Kill();
-=======
-        _seq.AppendCallback(() => {
-            _seq.Kill();
->>>>>>> Stashed changes
             cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
         });
     }
