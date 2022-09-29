@@ -5,96 +5,96 @@ using UnityEngine.UI;
 
 public class SelectRandomShape : MonoBehaviour
 {
-    UIManager uiManager;
+    //UIManager uiManager;
 
-    [SerializeField]
-    private List<Shape> currentShapeList = new List<Shape>(); //ÇöÀç ³ª¿ÍÀÕ´Â ¸ð¾çµé
+    //[SerializeField]
+    //private List<Shape> currentShapeList = new List<Shape>(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    public List<Shape> CurrentShapeList
-    {
-        get
-        {
-            return currentShapeList;
-        }
-    }
-    
-    [SerializeField]
-    private List<Shape> wholeShapeList = new List<Shape>(); //ÀüÃ¼ÀÇ ¸®½ºÆ® 16°³ 
+    //public List<Shape> CurrentShapeList
+    //{
+    //    get
+    //    {
+    //        return currentShapeList;
+    //    }
+    //}
 
-    private Shape GoldShapeList; // º¸½ºÀü ¸ð¾ç
+    //[SerializeField]
+    //private List<Shape> wholeShapeList = new List<Shape>(); //ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® 16ï¿½ï¿½
 
-    void Start()
-    {
-        if (uiManager == null)
-            uiManager = GetComponent<UIManager>();
+    //private Shape GoldShapeList; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length; i++)
-        {
-            Shape shape = new Shape();
-            shape.enumShape = (EnumShape)i;
-            string shapeString = System.Enum.GetName(typeof(EnumShape), i);
-            shape.sprite = Resources.Load<Sprite>($"Shapes/{shapeString}");
-            wholeShapeList.Add(shape);
-        }
+    //void Start()
+    //{
+    //    if (uiManager == null)
+    //        uiManager = GetComponent<UIManager>();
 
-    }
+    //    for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length; i++)
+    //    {
+    //        Shape shape = new Shape();
+    //        shape.enumShape = (EnumShape)i;
+    //        string shapeString = System.Enum.GetName(typeof(EnumShape), i);
+    //        shape.sprite = Resources.Load<Sprite>($"Shapes/{shapeString}");
+    //        wholeShapeList.Add(shape);
+    //    }
 
-    void Update()
-    {
+    //}
 
-    }
+    //void Update()
+    //{
 
-    public void GameStart()
-    {
-        
-        //ÀüÃ¼ ¸®½ºÆ®¿¡ ¸ðµç ½¦ÀÌÇÁ¸¦ ³Ö¾îµÒ
+    //}
 
-        //Ã³À½ ÇÊ¿äÇÑ °³¼ö¸¸Å­ ·£´ý ¸®½ºÆ®¿¡ ³Ö¾îµÒ
+    //public void GameStart()
+    //{
 
-        ShuffleList(wholeShapeList);
-        //¼ÅÇÃ
+    //    ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½
 
-        //start¸»°í ÇÔ¼ö·Î µû·Î ¿Å°Ü
-        Debug.Log(uiManager.CardCount);
-        for (int i = 0; i < uiManager.CardCount; i++)
-        {
-            currentShapeList.Add(wholeShapeList[0]); //·£´ý¸®½ºÆ®¿¡¼­ Ä¿·ºÆ®¸®½ºÆ®·Î shapecnt¸¸Å­ ¿Å±è
-            wholeShapeList.RemoveAt(0); //È­¸éÀÇ º¸ÀÌ´Â ½¦ÀÌÇÁÀÇ °³¼ö
-        }
-        //±âº»À¸·Î ¿Ï¼º
-    }
+    //    Ã³ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½
 
-    public void ClearList()
-    {
-        Debug.Log(uiManager.CardCount);
-        for (int i = 0; i < currentShapeList.Count; i++)
-        {
-            wholeShapeList.Add(currentShapeList[i]); // Ä¿·ºÆ®¸¦ ºñ¿ò
-        }
-        currentShapeList.RemoveRange(0, currentShapeList.Count);
-    }
+    //    ShuffleList(wholeShapeList);
+    //    ï¿½ï¿½ï¿½ï¿½
 
-    public void IncreaseDifficult()
-    {
-        //Ã³À½ ³­ÀÌµµ´Â »ý¼º°³¼ö 2°³ ¸®½ºÆ®°³¼ö 4°³
-    }
+    //    startï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½
+    //    Debug.Log(uiManager.CardCount);
+    //    for (int i = 0; i < uiManager.CardCount; i++)
+    //    {
+    //        currentShapeList.Add(wholeShapeList[0]); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ shapecntï¿½ï¿½Å­ ï¿½Å±ï¿½
+    //        wholeShapeList.RemoveAt(0); //È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //    }
+    //    ï¿½âº»ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¼ï¿½
+    //}
 
-    public void ShuffleList<T>(List<T> list)
-    {
-        int random1;
-        int random2;
+    //public void ClearList()
+    //{
+    //    Debug.Log(uiManager.CardCount);
+    //    for (int i = 0; i < currentShapeList.Count; i++)
+    //    {
+    //        wholeShapeList.Add(currentShapeList[i]); // Ä¿ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //    }
+    //    currentShapeList.RemoveRange(0, currentShapeList.Count);
+    //}
 
-        T tmp;
+    //public void IncreaseDifficult()
+    //{
+    //    Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½
+    //}
 
-        for (int index = 0; index < list.Count; ++index)
-        {
-            random1 = UnityEngine.Random.Range(0, list.Count);
-            random2 = UnityEngine.Random.Range(0, list.Count);
+    //public void ShuffleList<T>(List<T> list)
+    //{
+    //    int random1;
+    //    int random2;
 
-            tmp = list[random1];
-            list[random1] = list[random2];
-            list[random2] = tmp;
-        }
-    }
+    //    T tmp;
+
+    //    for (int index = 0; index < list.Count; ++index)
+    //    {
+    //        random1 = UnityEngine.Random.Range(0, list.Count);
+    //        random2 = UnityEngine.Random.Range(0, list.Count);
+
+    //        tmp = list[random1];
+    //        list[random1] = list[random2];
+    //        list[random2] = tmp;
+    //    }
+    //}
 
 }
