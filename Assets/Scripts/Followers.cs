@@ -9,7 +9,7 @@ public class Followers : MonoBehaviour
     void Update()
     {
         distance += speed * Time.deltaTime;
-        transform.position = pathCreator.path.GetPointAtDistance(distance);
-        transform.rotation = pathCreator.path.GetRotationAtDistance(distance);
+        transform.localPosition = pathCreator.path.GetPointAtDistance(distance);
+        transform.localRotation = pathCreator.path.GetRotationAtDistance(distance);
     }
 }
