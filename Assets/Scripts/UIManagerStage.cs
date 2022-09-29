@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using System;
 
-public class UIManager : MonoBehaviour
+public class UIManagerStage : MonoBehaviour
 {
     [SerializeField]
     private int cardCount = 2;
@@ -33,12 +33,12 @@ public class UIManager : MonoBehaviour
 
     private Sequence _seq;
 
-    private SelectRandomShape selectRandomShape; // ���߿� ���ľ��ҵ�
+    private SelectRandomShape1 selectRandomShape; // ���߿� ���ľ��ҵ�
 
     void Awake()
     {
 
-        selectRandomShape = GetComponent<SelectRandomShape>();
+        selectRandomShape = GetComponent<SelectRandomShape1>();
     }
 
     // Start is called before the first frame update

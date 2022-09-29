@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SelectRandomShape : MonoBehaviour
+public class SelectRandomShape1 : MonoBehaviour
 {
-    UIManager uiManager;
+    UIManagerStage uIManagerStage;
 
-    [SerializeField]
+   [SerializeField]
     private List<Shape> currentShapeList = new List<Shape>(); //현재 나와잇는 모양들
 
     public List<Shape> CurrentShapeList
@@ -25,8 +25,8 @@ public class SelectRandomShape : MonoBehaviour
 
     void Start()
     {
-        if (uiManager == null)
-            uiManager = GetComponent<UIManager>();
+        if (uIManagerStage == null)
+            uIManagerStage = GetComponent<UIManagerStage>();
 
         for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length; i++)
         {
@@ -55,8 +55,8 @@ public class SelectRandomShape : MonoBehaviour
         //셔플
 
         //start말고 함수로 따로 옮겨
-        Debug.Log(uiManager.CardCount);
-        for (int i = 0; i < uiManager.CardCount; i++)
+        Debug.Log(uIManagerStage.CardCount);
+        for (int i = 0; i < uIManagerStage.CardCount; i++)
         {
             currentShapeList.Add(wholeShapeList[0]); //랜덤리스트에서 커렉트리스트로 shapecnt만큼 옮김
             wholeShapeList.RemoveAt(0); //화면의 보이는 쉐이프의 개수
@@ -66,7 +66,7 @@ public class SelectRandomShape : MonoBehaviour
 
     public void ClearList()
     {
-        Debug.Log(uiManager.CardCount);
+        Debug.Log(uIManagerStage.CardCount);
         for (int i = 0; i < currentShapeList.Count; i++)
         {
             wholeShapeList.Add(currentShapeList[i]); // 커렉트를 비움
