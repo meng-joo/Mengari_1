@@ -640,6 +640,11 @@ MonoBehaviour:
   cardCount: 6
   finalCardsClick: 1
   curCardsClick: 0
+<<<<<<< Updated upstream
+=======
+  isBoss: 1
+  bossSprite: {fileID: 0}
+>>>>>>> Stashed changes
   lastCardLocation: {fileID: 1709229125}
   startButton: {fileID: 1266255504}
   cardPanel: {fileID: 1808419054}
