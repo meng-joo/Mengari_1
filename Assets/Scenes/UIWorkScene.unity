@@ -602,6 +602,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1519650223}
   - component: {fileID: 1519650224}
+  - component: {fileID: 1519650225}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -639,7 +640,10 @@ MonoBehaviour:
   cardCount: 6
   finalCardsClick: 1
   curCardsClick: 0
-  isBoss: 0
+  isBoss: 1
+  bossSprite: {fileID: 0}
+  saveEnumShape: 0
+  saveSprite: {fileID: 0}
   lastCardLocation: {fileID: 1709229125}
   startButton: {fileID: 1266255504}
   cardPanel: {fileID: 1808419054}
@@ -649,6 +653,18 @@ MonoBehaviour:
   card: {fileID: -1704433441549059882, guid: 84a1941dea524f043a6372f7dd9ed931, type: 3}
   ShapeList: []
   randomList: 
+--- !u!114 &1519650225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519650222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1db8d7cf9b5cb429ab02f0076a6095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1709229124
 GameObject:
   m_ObjectHideFlags: 0
