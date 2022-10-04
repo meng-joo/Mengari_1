@@ -9,7 +9,6 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-  
             if(_instance == null)
             {
                 _instance = FindObjectOfType<T>() as T; 
@@ -22,6 +21,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
                 DontDestroyOnLoad(_instance); 
             }
             return _instance;
+        
         }
     }
 }

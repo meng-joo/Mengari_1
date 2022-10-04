@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &100807578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 100807580}
+  - component: {fileID: 100807579}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &100807579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100807578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b5fe1a432cfed4e98dc5532faa8145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolingListSO: {fileID: 11400000, guid: 55699b2b5f7ebd74a9cd716af75699b2, type: 2}
+  poolList: []
+--- !u!4 &100807580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100807578}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.91, z: -17.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &214445525
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &504193427
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5044,6 +5090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb7b4b3ccdf1cd47a488d891a826222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolType: 0
   _effectSystem: {fileID: 0}
   _timer: 0
   _duration: 0
@@ -10150,6 +10197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: -343920032171740797, guid: 0c9eb42f75e0b72499498d294021df6b, type: 3}
+  _effect: {fileID: 88300708107879810, guid: 61d8dae0bd854c64ba0771cf8daecf69, type: 3}
   _bulletHeight: 2.16
 --- !u!4 &1133736283
 Transform:

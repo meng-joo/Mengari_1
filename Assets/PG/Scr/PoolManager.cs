@@ -30,8 +30,8 @@ public class PoolManager : MonoSingleton<PoolManager>
         for (int i =0; i<count; i++)
         {
             CreateItem(prefab);
-
-            poolDict[prefab.poolType].Enqueue(prefab); 
+            Push(prefab);
+            //poolDict[prefab.poolType].Enqueue(prefab); 
         }
      }
 
@@ -52,6 +52,7 @@ public class PoolManager : MonoSingleton<PoolManager>
         PoolableMono item = null;
         if (poolDict[poolType].Count <= 0)
         {
+            Debug.Log(poolType ); 
             foreach(var pool in poolList)
             {
                 if (pool.poolType == poolType)
@@ -59,18 +60,16 @@ public class PoolManager : MonoSingleton<PoolManager>
             }
             CreateItem(item);
         }
-        item = poolDict[poolType].Dequeue();
-        
-        item.gameObject.SetActive(true);
 
+        item = poolDict[poolType].Dequeue();
         item.Reset();
         return item;
     }
 
     public void Push(PoolableMono obj)
     {
-        obj.gameObject.SetActive(false);
         poolDict[obj.poolType].Enqueue(obj);
+        obj.gameObject.SetActive(false);
     }
 
 }

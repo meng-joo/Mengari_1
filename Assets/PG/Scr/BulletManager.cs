@@ -7,6 +7,8 @@ public class BulletManager : MonoBehaviour
     [SerializeField]
     private Bullet _bulletPrefab;
     [SerializeField]
+    private ParticleEffect _effect; 
+    [SerializeField]
     private float _bulletHeight; // 총알 생성시 높이 
     private Vector3 _screenSize;
     private Camera _mainCam;
@@ -60,13 +62,16 @@ public class BulletManager : MonoBehaviour
 
     IEnumerator CreateBullet(Vector3 bulletPos)
     {
-        ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;
-        effect.transform.position = this.gameObject.transform.position;
+        //ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;
+        ParticleEffect effect = Instantiate(_effect);
+        effect.transform.position = bulletPos;
         effect.StartEffect();
 
         yield return new WaitForSeconds(effect.Duration);
 
+        Debug.Log(effect.Duration); 
         Bullet bullet = Instantiate(_bulletPrefab, bulletPos, Quaternion.Euler(Vector3.right * 90));
+        bullet.gameObject.SetActive(true); 
 
         Draggable draggable;
         draggable = bullet.GetComponent<Draggable>();

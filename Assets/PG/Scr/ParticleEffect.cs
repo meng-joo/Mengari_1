@@ -15,7 +15,18 @@ public class ParticleEffect : PoolableMono
     private bool _isPlay = false;
 
     public float Duration => _duration; 
-    public ParticleSystem EffectSystem => _effectSystem;
+    public ParticleSystem EffectSystem
+    {
+        get
+        {
+            if(_effectSystem == null)
+            {
+                _effectSystem = GetComponent<ParticleSystem>();
+            }
+            return _effectSystem; 
+        }
+    }
+
 
     private void Awake()
     {
@@ -57,14 +68,15 @@ public class ParticleEffect : PoolableMono
     [ContextMenu("파티클 생성")]
     public void StartEffect()
     {
-        _effectSystem.Play();
+        gameObject.SetActive(true);
+        EffectSystem.Play();
         _isPlay = true; 
     }
 
     [ContextMenu("파티클 종료")]
     public void StopEffect()
     {
-        _effectSystem.Stop();
+        EffectSystem.Stop();
         _isPlay = false;
         _timer = 0f; 
     }
