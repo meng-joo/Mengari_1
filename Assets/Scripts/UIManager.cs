@@ -33,8 +33,6 @@ public class UIManager : MonoBehaviour
 
     public RectTransform stagePanel;
 
-    public int stageLevel = 1;
-
     public List<Image> stageImage = new List<Image>();
 
     public List<Frame> buttons = new List<Frame>();
@@ -44,6 +42,8 @@ public class UIManager : MonoBehaviour
     public Text stageText;
 
     public int frontStageNumber = 1;
+
+    public int backStageNumber = 1;
 
     public Frame BossCard;
 
@@ -126,69 +126,69 @@ public class UIManager : MonoBehaviour
         //StageUp();
     }
 
-    public void IncreaseDifficult()
+    public void UILevelUp()
     {
-        //ó�� ���̵��� �������� 2�� ����Ʈ���� 4��
+        frontStageNumber = WallSystem.stageLevel / 7;
+        backStageNumber = WallSystem.stageLevel % 7 + 1;
     }
+
 
     [ContextMenu("색칠")]
     public void StageLevelImage()
     {
-        if(stageLevel>=7)
+        if(backStageNumber==1)
         {
-            stageLevel = 1;
-            frontStageNumber++;
             for(int i=0;i<stageImage.Count;i++)
             {
                 stageImage[i].color = new Color(255, 255, 255);
             }
         }
-        int lvIdx = stageLevel - 1;
         _seq = DOTween.Sequence();
         _seq.Append(stageText.DOFade(0f, 0.8f));
         _seq.AppendCallback(() =>
         {
             stageText.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 0);
-            stageText.text = frontStageNumber + "-" + stageLevel;
+            stageText.text = frontStageNumber + "-" + backStageNumber;
             stageText.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
             stageText.GetComponent<RectTransform>().DOScale(1f, 0.6f);
         });
-        if (lvIdx != 5)
+        int index = backStageNumber - 1;
+        if (index != 5)
         {
-            _seq.Join(stageImage[lvIdx].DOColor(new Color(255, 22, 0), 0.1f));
-            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(2.5f, 0.3f));
-            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(1f, 0.4f));
+            _seq.Join(stageImage[index].DOColor(new Color(255, 22, 0), 0.1f));
+            _seq.Append(stageImage[index].GetComponent<RectTransform>().DOScale(2.5f, 0.3f));
+            _seq.Append(stageImage[index].GetComponent<RectTransform>().DOScale(1f, 0.4f));
         }
         else
         {
-            _seq.Join(stageImage[lvIdx].DOColor(new Color(0, 206, 255), 0.1f));
-            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(3f, 0.3f));
-            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(1.5f, 0.4f));
+            _seq.Join(stageImage[index].DOColor(new Color(0, 206, 255), 0.1f));
+            _seq.Append(stageImage[index].GetComponent<RectTransform>().DOScale(3f, 0.3f));
+            _seq.Append(stageImage[index].GetComponent<RectTransform>().DOScale(1.5f, 0.4f));
         }
         _seq.AppendCallback(() => { _seq.Kill(); });
     }
 
-    public void StageUp()
+    public void CardSizeCtrl()
     {
-        if (cardCount == 2)
+        if (frontStageNumber == 2)
         {
             finalCardsClick = 1;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(600, 700);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 50);
         }
-        else if (cardCount == 4)
+        else if (frontStageNumber == 4)
         {
             finalCardsClick = 2;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(350, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(200, 50);
         }
-        else if (cardCount == 6)
+        else if (frontStageNumber == 6)
         {
             finalCardsClick = 3;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(300, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(150, 50);
         }
-        else if (cardCount == 8)
+        else if (frontStageNumber == 8)
         {
             finalCardsClick = 4;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(250, 350);
@@ -323,7 +323,7 @@ public class UIManager : MonoBehaviour
     public void CreateCard() //처음생성
     {
 
-        StageUp();
+        CardSizeCtrl();
 
         //selectRandomShape.GameStart();
         if(!isBoss)
