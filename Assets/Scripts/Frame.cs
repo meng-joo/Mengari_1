@@ -7,5 +7,5 @@ public class Frame : MonoBehaviour
 {
     public Button button;
     //public Shape shape;
-    public EnumShape enumShape;
+    public Shape shape;
 }
