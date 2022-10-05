@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class InputTest : MonoBehaviour
 {
+    MeshRenderer meshRenderer;
+    SkinnedMeshRenderer sk; 
     public void OnDrag()
     {
     }
