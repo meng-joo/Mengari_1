@@ -867,6 +867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 940457561417323984}
+  - component: {fileID: 4590787811817110587}
   m_Layer: 0
   m_Name: Stage_Shape
   m_TagString: Untagged
@@ -893,6 +894,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4590787811817110587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034561489697915154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 816279bf25ffbd6459bb5098957d2080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shapeDataSO: {fileID: 11400000, guid: 202366d86af73954ea66ad6b9d1fad64, type: 2}
 --- !u!1 &5121715287771698964
 GameObject:
   m_ObjectHideFlags: 0

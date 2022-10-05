@@ -1324,7 +1324,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ce7ec48c5741eb408bcc1f2634b773d, type: 2}
+  - {fileID: 2100000, guid: 767ecdaea08d3574ab5b004d8c0650c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1571,7 +1571,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 220
+  m_VersionIndex: 223
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -14759,6 +14759,10 @@ PrefabInstance:
     - target: {fileID: 5034561489697915154, guid: 4d127871acb7213458f89845beceef78, type: 3}
       propertyPath: m_Name
       value: Stage_Shape
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966909334433519204, guid: 4d127871acb7213458f89845beceef78, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d127871acb7213458f89845beceef78, type: 3}
