@@ -640,16 +640,19 @@ MonoBehaviour:
   cardCount: 6
   finalCardsClick: 1
   curCardsClick: 0
+  isBoss: 1
+  bossSprite: {fileID: 0}
+  saveEnumShape: 0
+  saveSprite: {fileID: 0}
   lastCardLocation: {fileID: 1709229125}
   startButton: {fileID: 1266255504}
   cardPanel: {fileID: 1808419054}
   buttons: []
   clickedCards: []
+  BossCard: {fileID: 0}
   card: {fileID: -1704433441549059882, guid: 84a1941dea524f043a6372f7dd9ed931, type: 3}
   ShapeList: []
-  shape:
-    enumShape: 0
-    sprite: {fileID: 0}
+  randomList: 
 --- !u!114 &1519650225
 MonoBehaviour:
   m_ObjectHideFlags: 0
