@@ -19,15 +19,33 @@ public class UIManager : MonoBehaviour
     public int finalCardsClick = 1;
     public int curCardsClick = 0;
 
+    public bool isBoss;
+
+    public Sprite bossSprite;
+    public EnumShape saveEnumShape; //보스전일때 바뀌기 전것
+    public Sprite saveSprite;
+
     public RectTransform lastCardLocation;
 
     public Button startButton;
 
     public RectTransform cardPanel;
 
+    public RectTransform stagePanel;
+
+    public int stageLevel = 1;
+
+    public List<Image> stageImage = new List<Image>();
+
     public List<Frame> buttons = new List<Frame>();
 
-    public List<Button> clickedCards = new List<Button>();
+    public List<Frame> clickedCards = new List<Frame>();
+
+    public Text stageText;
+
+    public int frontStageNumber = 1;
+
+    public Frame BossCard;
 
     public Frame card;
 
@@ -35,21 +53,46 @@ public class UIManager : MonoBehaviour
 
     private SelectRandomShape selectRandomShape; // ���߿� ���ľ��ҵ�
 
+    public List<Shape> ShapeList = new List<Shape>();
+
+    //public Shape shape;
+
+    public List<int> randomList = new List<int>();
+
+
     void Awake()
     {
-
         selectRandomShape = GetComponent<SelectRandomShape>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        for(int i=0;i<8;i++)
+        bossSprite = Resources.Load<Sprite>("Shapes/Boss");
+        for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length - 1; i++)
         {
-            var newCard = Instantiate(card, cardPanel);
+            Shape shape = new Shape();
+            shape.enumShape = (EnumShape)i;
+            string shapeString = System.Enum.GetName(typeof(EnumShape), i);
+            shape.sprite = Resources.Load<Sprite>($"Shapes/{shapeString}");
+            ShapeList.Add(shape);
+            //randomList.Add(i);
+        }
+
+        //ShuffleList(randomList);
+
+        ShuffleList(ShapeList);
+
+        int count = System.Enum.GetValues(typeof(EnumShape)).Length - 1;
+
+        for (int i=0;i< System.Enum.GetValues(typeof(EnumShape)).Length - 1; i++)
+        {
+            Frame newCard = Instantiate(card, cardPanel);
             buttons.Add(newCard);
             newCard.GetComponent<Button>().enabled = false;
             newCard.GetComponent<Image>().enabled = false;
+            newCard.shape = ShapeList[i];
+            newCard.button.image.sprite = newCard.shape.sprite;
 
             EventTrigger eventTrigger = newCard.gameObject.AddComponent<EventTrigger>();
 
@@ -63,9 +106,9 @@ public class UIManager : MonoBehaviour
             entry_PointerUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
             eventTrigger.triggers.Add(entry_PointerUp);
 
-            newCard.GetComponent<Button>().onClick.AddListener(delegate { 
+            newCard.GetComponent<Button>().onClick.AddListener(delegate {
                 ClickCard();
-                
+
             });
             //newCard.gameObject.SetActive(false);
         }
@@ -76,8 +119,8 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            selectRandomShape.ClearList();
-            cardCount += 2;
+            //selectRandomShape.ClearList();
+            //cardCount += 2;
             CreateCard();
         }
         //StageUp();
@@ -86,6 +129,43 @@ public class UIManager : MonoBehaviour
     public void IncreaseDifficult()
     {
         //ó�� ���̵��� �������� 2�� ����Ʈ���� 4��
+    }
+
+    [ContextMenu("색칠")]
+    public void StageLevelImage()
+    {
+        if(stageLevel>=7)
+        {
+            stageLevel = 1;
+            frontStageNumber++;
+            for(int i=0;i<stageImage.Count;i++)
+            {
+                stageImage[i].color = new Color(255, 255, 255);
+            }
+        }
+        int lvIdx = stageLevel - 1;
+        _seq = DOTween.Sequence();
+        _seq.Append(stageText.DOFade(0f, 0.8f));
+        _seq.AppendCallback(() =>
+        {
+            stageText.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 0);
+            stageText.text = frontStageNumber + "-" + stageLevel;
+            stageText.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
+            stageText.GetComponent<RectTransform>().DOScale(1f, 0.6f);
+        });
+        if (lvIdx != 5)
+        {
+            _seq.Join(stageImage[lvIdx].DOColor(new Color(255, 22, 0), 0.1f));
+            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(2.5f, 0.3f));
+            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(1f, 0.4f));
+        }
+        else
+        {
+            _seq.Join(stageImage[lvIdx].DOColor(new Color(0, 206, 255), 0.1f));
+            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(3f, 0.3f));
+            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(1.5f, 0.4f));
+        }
+        _seq.AppendCallback(() => { _seq.Kill(); });
     }
 
     public void StageUp()
@@ -104,13 +184,13 @@ public class UIManager : MonoBehaviour
         }
         else if (cardCount == 6)
         {
-            finalCardsClick = 4;
+            finalCardsClick = 3;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(300, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(150, 50);
         }
         else if (cardCount == 8)
         {
-            finalCardsClick = 5;
+            finalCardsClick = 4;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(250, 350);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 100);
         }
@@ -121,6 +201,7 @@ public class UIManager : MonoBehaviour
         _seq = DOTween.Sequence();
         _seq.Append(startButton.transform.DOScale(0f, 0.15f));
         _seq.Append(cardPanel.DOAnchorPosY(-cardPanel.anchoredPosition.y, 0.5f));
+        _seq.Join(stagePanel.DOAnchorPosY(stagePanel.anchoredPosition.y - 270f, 0.5f));
         _seq.AppendCallback(() => { _seq.Kill(); });
         startButton.gameObject.SetActive(false);
     }
@@ -128,11 +209,11 @@ public class UIManager : MonoBehaviour
     public void ClickCard()
     {
         var clickObject = EventSystem.current.currentSelectedGameObject;
-        
+
         clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
         //��ư �������� interactable ����
         clickObject.GetComponent<Button>().enabled = false;
-        clickedCards.Add(clickObject.GetComponent<Button>());
+        clickedCards.Add(clickObject.GetComponent<Frame>());
         curCardsClick++;
         if (curCardsClick == finalCardsClick)
         {
@@ -146,15 +227,80 @@ public class UIManager : MonoBehaviour
                 curCardsClick = 0;
                 cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
                 cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
-                
+
                 for (int i = 0; i < clickedCards.Count; i++)
                 {
                     clickedCards[i].GetComponent<Image>().enabled = false;
                     clickedCards[i].GetComponent<Image>().color = Color.black;
                 }
-                clickedCards.Clear();
+
+                if (!isBoss)
+                {
+                    for (int i = 0; i < clickedCards.Count; i++)
+                    {
+                        CardChange(i);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < clickedCards.Count; i++)
+                    {
+                        CardChange(i);
+                    }
+
+                    int random = UnityEngine.Random.Range(0, clickedCards.Count);
+
+                    saveEnumShape = clickedCards[random].shape.enumShape;
+                    saveSprite = clickedCards[random].shape.sprite;
+                    clickedCards[random].shape.enumShape = EnumShape.Boss;
+                    clickedCards[random].shape.sprite = bossSprite;
+                    isBoss = false;
+                }
+
+                //생성코드
+                fillCard();
             });
         }
+    }
+
+
+    public void CardChange(int i)//선택된 카드를 바꿈
+    {
+        int random = UnityEngine.Random.Range(cardCount + 1, System.Enum.GetValues(typeof(EnumShape)).Length - 1);
+        
+        Shape shape = new Shape();
+        if(clickedCards[i].shape.enumShape == EnumShape.Boss)
+        {
+            shape.enumShape = saveEnumShape;
+            shape.sprite = saveSprite;
+        }
+        else
+        {
+            shape.enumShape = clickedCards[i].shape.enumShape;
+            shape.sprite = clickedCards[i].shape.sprite;
+        }
+        clickedCards[i].shape.enumShape = ShapeList[random].enumShape;
+        clickedCards[i].shape.sprite = ShapeList[random].sprite;
+        ShapeList[random].enumShape = shape.enumShape;
+        ShapeList[random].sprite = shape.sprite;
+    }
+
+    public void fillCard() //클릭되서 사용된 카드를 채운다.
+    {
+        _seq = DOTween.Sequence();
+        for (int i = 0; i < clickedCards.Count; i++)
+        {
+            clickedCards[i].GetComponent<Image>().sprite = clickedCards[i].shape.sprite;
+            clickedCards[i].GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 0);
+            clickedCards[i].GetComponent<Image>().enabled = true;
+            clickedCards[i].GetComponent<Button>().enabled = true;
+            _seq.Join(clickedCards[i].transform.DOScale(1f, 0.3f));
+        }
+        _seq.AppendCallback(() => {
+            _seq.Kill();
+            cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
+        });
+        clickedCards.Clear();
     }
 
     public void OnPointerDown(PointerEventData data)
@@ -162,8 +308,6 @@ public class UIManager : MonoBehaviour
         var clickObject = EventSystem.current.currentSelectedGameObject;
         _seq = DOTween.Sequence();
         _seq.Append(clickObject.transform.DOScale(0.95f, 0.15f));
-        Debug.Log("Pointer Down");
-
     }
 
     public void OnPointerUp(PointerEventData data)
@@ -171,42 +315,54 @@ public class UIManager : MonoBehaviour
         var clickObject = EventSystem.current.currentSelectedGameObject;
         _seq = DOTween.Sequence();
         _seq.Append(clickObject.transform.DOScale(1f, 0.15f));
-        Debug.Log("Pointer Up");
     }
 
+
+
     [ContextMenu("ī�� ����")]
-    public void CreateCard()
+    public void CreateCard() //처음생성
     {
 
         StageUp();
 
-        selectRandomShape.GameStart();
-
-        _seq = DOTween.Sequence();
-        cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
-        for (int i=0;i<cardCount;i++)
+        //selectRandomShape.GameStart();
+        if(!isBoss)
         {
-            if (buttons[i].GetComponent<Image>().enabled)
-                continue;
-            buttons[i].GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 0);
-            Debug.Log(buttons[i].GetComponent<RectTransform>().localScale);
-            buttons[i].GetComponent<Image>().enabled = true;
-            buttons[i].GetComponent<Button>().enabled = true;
-            _seq.Join(buttons[i].transform.DOScale(1f, 0.3f));
+            _seq = DOTween.Sequence();
+            cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
+            for (int i = 0; i < cardCount; i++)
+            {
+                if (buttons[i].GetComponent<Image>().enabled)
+                    continue;
+                buttons[i].GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 0);
+                Debug.Log(buttons[i].GetComponent<RectTransform>().localScale);
+                buttons[i].GetComponent<Image>().enabled = true;
+                buttons[i].GetComponent<Button>().enabled = true;
+                _seq.Join(buttons[i].transform.DOScale(1f, 0.3f));
+            }
+            _seq.AppendCallback(() => {
+                _seq.Kill();
+                cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
+            });
         }
-        _seq.AppendCallback(() => { _seq.Kill();
-            cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
-        });
 
-        SetCardComponent();
     }
 
-    private void SetCardComponent()
+    public void ShuffleList<T>(List<T> list)
     {
-        for(int i = 0; i < cardCount; i++)
+        int random1;
+        int random2;
+
+        T tmp;
+
+        for (int index = 0; index < 250; ++index)
         {
-            buttons[i].button.image.sprite = selectRandomShape.CurrentShapeList[i].sprite;
-            buttons[i].enumShape = selectRandomShape.CurrentShapeList[i].enumShape;
+            random1 = UnityEngine.Random.Range(0, list.Count);
+            random2 = UnityEngine.Random.Range(0, list.Count);
+
+            tmp = list[random1];
+            list[random1] = list[random2];
+            list[random2] = tmp;
         }
     }
 }
