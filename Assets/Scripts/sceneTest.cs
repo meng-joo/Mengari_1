@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class sceneTest : MonoBehaviour
 {
+
     void Update()
     {
         if(Input.GetMouseButtonDown(1)|| Input.GetMouseButtonDown(0))

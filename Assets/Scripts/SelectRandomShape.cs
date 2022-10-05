@@ -8,7 +8,7 @@ public class SelectRandomShape : MonoBehaviour
     //UIManager uiManager;
 
     //[SerializeField]
-    //private List<Shape> currentShapeList = new List<Shape>(); //ÇöÀç ³ª¿ÍÀÕ´Â ¸ð¾çµé
+    //private List<Shape> currentShapeList = new List<Shape>(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     //public List<Shape> CurrentShapeList
     //{
@@ -19,9 +19,9 @@ public class SelectRandomShape : MonoBehaviour
     //}
 
     //[SerializeField]
-    //private List<Shape> wholeShapeList = new List<Shape>(); //ÀüÃ¼ÀÇ ¸®½ºÆ® 16°³ 
+    //private List<Shape> wholeShapeList = new List<Shape>(); //ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® 16ï¿½ï¿½
 
-    //private Shape GoldShapeList; // º¸½ºÀü ¸ð¾ç
+    //private Shape GoldShapeList; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     //void Start()
     //{
@@ -47,21 +47,21 @@ public class SelectRandomShape : MonoBehaviour
     //public void GameStart()
     //{
 
-    //    ÀüÃ¼ ¸®½ºÆ®¿¡ ¸ðµç ½¦ÀÌÇÁ¸¦ ³Ö¾îµÒ
+    //    ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½
 
-    //    Ã³À½ ÇÊ¿äÇÑ °³¼ö¸¸Å­ ·£´ý ¸®½ºÆ®¿¡ ³Ö¾îµÒ
+    //    Ã³ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½
 
     //    ShuffleList(wholeShapeList);
-    //    ¼ÅÇÃ
+    //    ï¿½ï¿½ï¿½ï¿½
 
-    //    start¸»°í ÇÔ¼ö·Î µû·Î ¿Å°Ü
+    //    startï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å°ï¿½
     //    Debug.Log(uiManager.CardCount);
     //    for (int i = 0; i < uiManager.CardCount; i++)
     //    {
-    //        currentShapeList.Add(wholeShapeList[0]); //·£´ý¸®½ºÆ®¿¡¼­ Ä¿·ºÆ®¸®½ºÆ®·Î shapecnt¸¸Å­ ¿Å±è
-    //        wholeShapeList.RemoveAt(0); //È­¸éÀÇ º¸ÀÌ´Â ½¦ÀÌÇÁÀÇ °³¼ö
+    //        currentShapeList.Add(wholeShapeList[0]); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ shapecntï¿½ï¿½Å­ ï¿½Å±ï¿½
+    //        wholeShapeList.RemoveAt(0); //È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     //    }
-    //    ±âº»À¸·Î ¿Ï¼º
+    //    ï¿½âº»ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¼ï¿½
     //}
 
     //public void ClearList()
@@ -69,14 +69,14 @@ public class SelectRandomShape : MonoBehaviour
     //    Debug.Log(uiManager.CardCount);
     //    for (int i = 0; i < currentShapeList.Count; i++)
     //    {
-    //        wholeShapeList.Add(currentShapeList[i]); // Ä¿·ºÆ®¸¦ ºñ¿ò
+    //        wholeShapeList.Add(currentShapeList[i]); // Ä¿ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     //    }
     //    currentShapeList.RemoveRange(0, currentShapeList.Count);
     //}
 
     //public void IncreaseDifficult()
     //{
-    //    Ã³À½ ³­ÀÌµµ´Â »ý¼º°³¼ö 2°³ ¸®½ºÆ®°³¼ö 4°³
+    //    Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½
     //}
 
     //public void ShuffleList<T>(List<T> list)
