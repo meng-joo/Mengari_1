@@ -29,16 +29,17 @@ public class PoolManager : MonoSingleton<PoolManager>
         Debug.Log(prefab.name); 
         for (int i =0; i<count; i++)
         {
-            CreateItem(prefab);
-            Push(prefab);
+            PoolableMono obj = CreateItem(prefab);
+            Push(obj);
             //poolDict[prefab.poolType].Enqueue(prefab); 
         }
      }
 
-    private void CreateItem(PoolableMono item)
+    private PoolableMono CreateItem(PoolableMono item)
     {
-        GameObject obj = Instantiate(item,transform).gameObject;
-        obj.SetActive(false); 
+        PoolableMono obj = Instantiate(item,transform);
+        obj.gameObject.SetActive(false);
+        return obj;
     }
 
     public PoolableMono Pop(PoolType poolType)
@@ -62,6 +63,7 @@ public class PoolManager : MonoSingleton<PoolManager>
         }
 
         item = poolDict[poolType].Dequeue();
+        item.gameObject.SetActive(true); 
         item.Reset();
         return item;
     }

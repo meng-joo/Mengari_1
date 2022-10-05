@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening; 
 
 public class ParticleEffect : PoolableMono
 {
@@ -13,6 +14,9 @@ public class ParticleEffect : PoolableMono
     private float _duration; 
     [SerializeField]
     private bool _isPlay = false;
+
+    [SerializeField]
+    private Material _mat; 
 
     public float Duration => _duration; 
     public ParticleSystem EffectSystem
@@ -31,22 +35,19 @@ public class ParticleEffect : PoolableMono
     private void Awake()
     {
         _effectSystem = GetComponent<ParticleSystem>();
-    }
-    private void Start()
-    {
-        //_duration =
         var a = _effectSystem.GetComponentsInChildren<ParticleSystem>();
-        for(int i = 0; i < a.Length; i++)
+        for (int i = 0; i < a.Length; i++)
         {
-            float dur = a[i].main.duration; 
+            float dur = a[i].main.duration;
             if (_duration < dur)
             {
-                _duration = dur; 
+                _duration = dur;
             }
         }
-        _isPlay = false; 
+        _isPlay = false;
     }
 
+    Color color; 
     private void Update()
     {
         if(_isPlay == true)
@@ -57,6 +58,7 @@ public class ParticleEffect : PoolableMono
                 StopEffect();
                 // CreateBullet();
             }
+            return; 
         }
     }
     
@@ -64,6 +66,7 @@ public class ParticleEffect : PoolableMono
     {
 
     }
+    // alpha 값 스윽 감소 
 
     [ContextMenu("파티클 생성")]
     public void StartEffect()
@@ -78,7 +81,18 @@ public class ParticleEffect : PoolableMono
     {
         EffectSystem.Stop();
         _isPlay = false;
-        _timer = 0f; 
+        _timer = 0f;
+
+        FadeOut(); 
+    }
+
+    /// <summary>
+    /// alpha값 내려가도록 
+    /// </summary>
+    private void FadeOut()
+    {
+        Debug.Log("페이드아웃"); 
+        _mat.DOFade(0, 0.2f);
     }
 
     public override void Reset()

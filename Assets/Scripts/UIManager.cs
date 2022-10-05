@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     public bool isBoss;
 
     public Sprite bossSprite;
-    public EnumShape saveEnumShape; //보스전일때 바뀌기 전것
+    public EnumShape saveEnumShape; //보스?�일??바뀌기 ?�것
     public Sprite saveSprite;
 
     public RectTransform lastCardLocation;
@@ -131,7 +131,7 @@ public class UIManager : MonoBehaviour
         //ó�� ���̵��� �������� 2�� ����Ʈ���� 4��
     }
 
-    [ContextMenu("색칠")]
+    [ContextMenu("?�칠")]
     public void StageLevelImage()
     {
         if(stageLevel>=7)
@@ -257,14 +257,14 @@ public class UIManager : MonoBehaviour
                     isBoss = false;
                 }
 
-                //생성코드
+                //?�성코드
                 fillCard();
             });
         }
     }
 
 
-    public void CardChange(int i)//선택된 카드를 바꿈
+    public void CardChange(int i)//?�택??카드�?바꿈
     {
         int random = UnityEngine.Random.Range(cardCount + 1, System.Enum.GetValues(typeof(EnumShape)).Length - 1);
         
@@ -285,7 +285,7 @@ public class UIManager : MonoBehaviour
         ShapeList[random].sprite = shape.sprite;
     }
 
-    public void fillCard() //클릭되서 사용된 카드를 채운다.
+    public void fillCard() //?�릭?�서 ?�용??카드�?채운??
     {
         _seq = DOTween.Sequence();
         for (int i = 0; i < clickedCards.Count; i++)
@@ -320,7 +320,7 @@ public class UIManager : MonoBehaviour
 
 
     [ContextMenu("ī�� ����")]
-    public void CreateCard() //처음생성
+    public void CreateCard() //처음?�성
     {
 
         StageUp();

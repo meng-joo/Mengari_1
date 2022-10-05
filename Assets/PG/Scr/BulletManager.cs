@@ -67,9 +67,10 @@ public class BulletManager : MonoBehaviour
         effect.transform.position = bulletPos;
         effect.StartEffect();
 
-        yield return new WaitForSeconds(effect.Duration);
+        yield return new WaitForSeconds(effect.Duration); // 10초 
 
         Debug.Log(effect.Duration); 
+
         Bullet bullet = Instantiate(_bulletPrefab, bulletPos, Quaternion.Euler(Vector3.right * 90));
         bullet.gameObject.SetActive(true); 
 
@@ -82,4 +83,16 @@ public class BulletManager : MonoBehaviour
         draggable.exitPointerEvent = () => { draggable.exitPointerEvent = null; bullet.UpScale(false); };
     }
 
+    PoolableMono obj; 
+    [ContextMenu("생성")]
+    public void Pop()
+    {
+        obj = PoolManager.Instance.Pop(PoolType.BulletCreateEffect);
+    }
+
+    [ContextMenu("삭제")]
+    public void Push()
+    {
+        PoolManager.Instance.Push(obj);
+    }
 }
