@@ -210,7 +210,7 @@ public class UIManagerStage : MonoBehaviour
         for(int i = 0; i < cardCount; i++)
         {
             buttons[i].button.image.sprite = selectRandomShape.CurrentShapeList[i].sprite;
-            buttons[i].enumShape = selectRandomShape.CurrentShapeList[i].enumShape;
+            buttons[i].shape.enumShape = selectRandomShape.CurrentShapeList[i].enumShape;
         }
     }
 }

@@ -27,9 +27,19 @@ public class UIManager : MonoBehaviour
 
     public RectTransform cardPanel;
 
+    public RectTransform stagePanel;
+
+    public int stageLevel = 1;
+
+    public List<Image> stageImage = new List<Image>();
+
     public List<Frame> buttons = new List<Frame>();
 
     public List<Frame> clickedCards = new List<Frame>();
+
+    public Text stageText;
+
+    public int frontStageNumber = 1;
 
     public Frame BossCard;
 
@@ -115,6 +125,43 @@ public class UIManager : MonoBehaviour
         //ó�� ���̵��� �������� 2�� ����Ʈ���� 4��
     }
 
+    [ContextMenu("색칠")]
+    public void StageLevelImage()
+    {
+        if(stageLevel>=7)
+        {
+            stageLevel = 1;
+            frontStageNumber++;
+            for(int i=0;i<stageImage.Count;i++)
+            {
+                stageImage[i].color = new Color(255, 255, 255);
+            }
+        }
+        int lvIdx = stageLevel - 1;
+        _seq = DOTween.Sequence();
+        _seq.Append(stageText.DOFade(0f, 0.8f));
+        _seq.AppendCallback(() =>
+        {
+            stageText.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 0);
+            stageText.text = frontStageNumber + "-" + stageLevel;
+            stageText.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
+            stageText.GetComponent<RectTransform>().DOScale(1f, 0.6f);
+        });
+        if (lvIdx != 5)
+        {
+            _seq.Join(stageImage[lvIdx].DOColor(new Color(255, 22, 0), 0.1f));
+            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(2.5f, 0.3f));
+            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(1f, 0.4f));
+        }
+        else
+        {
+            _seq.Join(stageImage[lvIdx].DOColor(new Color(0, 206, 255), 0.1f));
+            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(3f, 0.3f));
+            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(1.5f, 0.4f));
+        }
+        _seq.AppendCallback(() => { _seq.Kill(); });
+    }
+
     public void StageUp()
     {
         if (cardCount == 2)
@@ -148,6 +195,7 @@ public class UIManager : MonoBehaviour
         _seq = DOTween.Sequence();
         _seq.Append(startButton.transform.DOScale(0f, 0.15f));
         _seq.Append(cardPanel.DOAnchorPosY(-cardPanel.anchoredPosition.y, 0.5f));
+        _seq.Join(stagePanel.DOAnchorPosY(stagePanel.anchoredPosition.y - 270f, 0.5f));
         _seq.AppendCallback(() => { _seq.Kill(); });
         startButton.gameObject.SetActive(false);
     }
