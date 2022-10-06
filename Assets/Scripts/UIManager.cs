@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
@@ -22,7 +23,9 @@ public class UIManager : MonoBehaviour
     public bool isBoss;
 
     public Sprite bossSprite;
+
     public EnumShape saveEnumShape; //보스전일때 바뀌기 전것
+
     public Sprite saveSprite;
 
     public RectTransform lastCardLocation;
@@ -59,6 +62,9 @@ public class UIManager : MonoBehaviour
 
     public List<int> randomList = new List<int>();
 
+    public WallManager wallManager;
+
+    private int stageLevel = 1;
 
     void Awake()
     {
@@ -68,6 +74,10 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        wallManager.levelUpEvent.AddListener(() => StageLevelImage());
+        wallManager.levelUpEvent.AddListener(() => UILevelUp());
+        wallManager.levelUpEvent.AddListener(() => CardSizeCtrl());
+        wallManager.levelUpEvent.AddListener(() => ClickCard());
         bossSprite = Resources.Load<Sprite>("Shapes/Boss");
         for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length - 1; i++)
         {
@@ -123,16 +133,19 @@ public class UIManager : MonoBehaviour
             //cardCount += 2;
             CreateCard();
         }
+
         //StageUp();
     }
 
+    //!!!!!!!!!!!!!!!!!!!!
     public void UILevelUp()
     {
-        frontStageNumber = WallSystem.stageLevel / 7;
-        backStageNumber = WallSystem.stageLevel % 7 + 1;
+        frontStageNumber = WallManager.stageLevel / 7+1;
+        backStageNumber = WallManager.stageLevel % 7 + 1;
     }
 
 
+    //!!!!!!!!!!!!!!!!!!!!
     [ContextMenu("색칠")]
     public void StageLevelImage()
     {
@@ -168,29 +181,34 @@ public class UIManager : MonoBehaviour
         _seq.AppendCallback(() => { _seq.Kill(); });
     }
 
+    //!!!!!!!!!!!!!!!!!!!!
     public void CardSizeCtrl()
     {
-        if (frontStageNumber == 2)
+        if (frontStageNumber == 1)
         {
             finalCardsClick = 1;
+            cardCount = 2;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(600, 700);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 50);
         }
-        else if (frontStageNumber == 4)
+        else if (frontStageNumber == 2)
         {
             finalCardsClick = 2;
+            cardCount = 4;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(350, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(200, 50);
         }
-        else if (frontStageNumber == 6)
+        else if (frontStageNumber == 3)
         {
             finalCardsClick = 3;
+            cardCount = 6;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(300, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(150, 50);
         }
-        else if (frontStageNumber == 8)
+        else if (frontStageNumber == 4)
         {
             finalCardsClick = 4;
+            cardCount = 8;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(250, 350);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 100);
         }
@@ -205,6 +223,8 @@ public class UIManager : MonoBehaviour
         _seq.AppendCallback(() => { _seq.Kill(); });
         startButton.gameObject.SetActive(false);
     }
+
+
 
     public void ClickCard()
     {
@@ -258,7 +278,9 @@ public class UIManager : MonoBehaviour
                 }
 
                 //생성코드
-                fillCard();
+                CardSizeCtrl();
+
+                CreateCard();
             });
         }
     }
@@ -285,23 +307,6 @@ public class UIManager : MonoBehaviour
         ShapeList[random].sprite = shape.sprite;
     }
 
-    public void fillCard() //클릭되서 사용된 카드를 채운다.
-    {
-        _seq = DOTween.Sequence();
-        for (int i = 0; i < clickedCards.Count; i++)
-        {
-            clickedCards[i].GetComponent<Image>().sprite = clickedCards[i].shape.sprite;
-            clickedCards[i].GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 0);
-            clickedCards[i].GetComponent<Image>().enabled = true;
-            clickedCards[i].GetComponent<Button>().enabled = true;
-            _seq.Join(clickedCards[i].transform.DOScale(1f, 0.3f));
-        }
-        _seq.AppendCallback(() => {
-            _seq.Kill();
-            cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
-        });
-        clickedCards.Clear();
-    }
 
     public void OnPointerDown(PointerEventData data)
     {
@@ -317,12 +322,9 @@ public class UIManager : MonoBehaviour
         _seq.Append(clickObject.transform.DOScale(1f, 0.15f));
     }
 
-
-
     [ContextMenu("ī�� ����")]
     public void CreateCard() //처음생성
     {
-
         CardSizeCtrl();
 
         //selectRandomShape.GameStart();

@@ -1,6 +1,7 @@
 using UnityEngine;
 using PathCreation;
 using System.Collections;
+using UnityEngine.Events;
 
 public class Followers : MonoBehaviour
 {
@@ -10,20 +11,21 @@ public class Followers : MonoBehaviour
     float distance;
 
     private bool isLazer = false;
+    private WallManager wallManager;    
 
     private void Start()
     {
-        WallSystem.stageLevel = 0;
+        wallManager = GameObject.Find("Manager").GetComponent<WallManager>();
         StartCoroutine(Timer());
     }
 
     void Update()
     {
+
+        speed = Mathf.Log(WallManager.stageLevel * 1.00001f);
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("스테이지 레벨 : "+WallSystem.stageLevel++);
-            speed = Mathf.Log(WallSystem.stageLevel * 80f);
-            Debug.Log("속도 : "+speed);
+            
 
         }
 
@@ -43,12 +45,17 @@ public class Followers : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(time);
-        if(other.CompareTag("Bullet"))
+        if (collision.transform.CompareTag("Bullet"))
         {
-            WallSystem.stageLevel++;
+            Debug.Log("됬음");
+            WallManager.stageLevel++;
+            wallManager.levelUpEvent?.Invoke();
         }
     }
+
+
 }
