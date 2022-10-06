@@ -63,24 +63,26 @@ public class BulletManager : MonoBehaviour
     IEnumerator CreateBullet(Vector3 bulletPos)
     {
         //ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;
-        ParticleEffect effect = Instantiate(_effect);
+        ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;
         effect.transform.position = bulletPos;
         effect.StartEffect();
 
         yield return new WaitForSeconds(effect.Duration); // 10초 
 
-        Debug.Log(effect.Duration); 
+        Debug.Log(effect.Duration);
 
-        Bullet bullet = Instantiate(_bulletPrefab, bulletPos, Quaternion.Euler(Vector3.right * 90));
+        //Bullet bullet = Instantiate(_bulletPrefab, bulletPos, Quaternion.Euler(Vector3.right * 90));
+        Bullet bullet = PoolManager.Instance.Pop(PoolType.Bullet) as Bullet;
+        bullet.SetPosAndRot(bulletPos,Vector3.right * 90);
         bullet.gameObject.SetActive(true); 
 
         Draggable draggable;
         draggable = bullet.GetComponent<Draggable>();
         
         // 총알 드래그 이벤트 등록 
-        draggable.beginDragEvent = () => { draggable.beginDragEvent = null; bullet.UpScale(true); };
+        draggable.beginDragEvent = () => { draggable.beginDragEvent = null; bullet.UpScale(); };
         draggable.endDragEvent = () => { draggable.endDragEvent = null; bullet.MoveForward(); };
-        draggable.exitPointerEvent = () => { draggable.exitPointerEvent = null; bullet.UpScale(false); };
+        //draggable.exitPointerEvent = () => { draggable.exitPointerEvent = null; bullet.MoveForward(); };
     }
 
     PoolableMono obj; 

@@ -17,6 +17,7 @@ public class Wall : MonoBehaviour
         if(other.CompareTag("Bullet"))
         {
             HitBullet();
+            other.GetComponent<Bullet>().DestroyBullet(); 
         }
     }
 
