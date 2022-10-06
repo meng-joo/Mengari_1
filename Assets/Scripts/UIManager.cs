@@ -56,6 +56,8 @@ public class UIManager : MonoBehaviour
 
     private SelectRandomShape selectRandomShape; // ���߿� ���ľ��ҵ�
 
+    private GridLayoutGroup cardGridLayoutGroup;
+
     public List<Shape> ShapeList = new List<Shape>();
 
     //public Shape shape;
@@ -79,6 +81,7 @@ public class UIManager : MonoBehaviour
         wallManager.levelUpEvent.AddListener(() => CardSizeCtrl());
         wallManager.levelUpEvent.AddListener(() => ClickCard());
         bossSprite = Resources.Load<Sprite>("Shapes/Boss");
+        cardGridLayoutGroup = cardPanel.GetComponent<GridLayoutGroup>();
         for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length - 1; i++)
         {
             Shape shape = new Shape();
@@ -127,6 +130,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CardSizeCtrl();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //selectRandomShape.ClearList();
@@ -140,8 +144,8 @@ public class UIManager : MonoBehaviour
     //!!!!!!!!!!!!!!!!!!!!
     public void UILevelUp()
     {
-        frontStageNumber = WallManager.stageLevel / 7+1;
-        backStageNumber = WallManager.stageLevel % 7 + 1;
+        frontStageNumber = WallManager.stageLevel / 6 + 1;
+        backStageNumber = WallManager.stageLevel % 6 + 1;
     }
 
 
@@ -188,29 +192,29 @@ public class UIManager : MonoBehaviour
         {
             finalCardsClick = 1;
             cardCount = 2;
-            cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(600, 700);
-            cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 50);
+            cardGridLayoutGroup.cellSize = new Vector2(600, 700);
+            cardGridLayoutGroup.spacing = new Vector2(100, 50);
         }
         else if (frontStageNumber == 2)
         {
             finalCardsClick = 2;
             cardCount = 4;
-            cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(350, 400);
-            cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(200, 50);
+            cardGridLayoutGroup.cellSize = new Vector2(350, 400);
+            cardGridLayoutGroup.spacing = new Vector2(200, 50);
         }
         else if (frontStageNumber == 3)
         {
             finalCardsClick = 3;
             cardCount = 6;
-            cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(300, 400);
-            cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(150, 50);
+            cardGridLayoutGroup.cellSize = new Vector2(300, 400);
+            cardGridLayoutGroup.spacing = new Vector2(150, 50);
         }
         else if (frontStageNumber == 4)
         {
             finalCardsClick = 4;
             cardCount = 8;
-            cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(250, 350);
-            cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 100);
+            cardGridLayoutGroup.cellSize = new Vector2(250, 350);
+            cardGridLayoutGroup.spacing = new Vector2(100, 100);
         }
     }
 
@@ -228,6 +232,8 @@ public class UIManager : MonoBehaviour
 
     public void ClickCard()
     {
+        if (curCardsClick >= finalCardsClick)
+            return;
         var clickObject = EventSystem.current.currentSelectedGameObject;
 
         clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
@@ -244,10 +250,8 @@ public class UIManager : MonoBehaviour
             }
             _seq.AppendCallback(() => {
                 _seq.Kill();
-                curCardsClick = 0;
-                cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
-                cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
-
+                //cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
+                //cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
                 for (int i = 0; i < clickedCards.Count; i++)
                 {
                     clickedCards[i].GetComponent<Image>().enabled = false;
@@ -276,10 +280,6 @@ public class UIManager : MonoBehaviour
                     clickedCards[random].shape.sprite = bossSprite;
                     isBoss = false;
                 }
-
-                //생성코드
-                CardSizeCtrl();
-
                 CreateCard();
             });
         }
@@ -310,28 +310,33 @@ public class UIManager : MonoBehaviour
 
     public void OnPointerDown(PointerEventData data)
     {
+        if (curCardsClick >= finalCardsClick)
+            return;
         var clickObject = EventSystem.current.currentSelectedGameObject;
-        _seq = DOTween.Sequence();
-        _seq.Append(clickObject.transform.DOScale(0.95f, 0.15f));
+        //_seq = DOTween.Sequence();
+        //_seq.Append(clickObject.transform.DOScale(0.95f, 0.15f));
+        clickObject.transform.DOScale(0.95f, 0.15f);
     }
 
     public void OnPointerUp(PointerEventData data)
     {
+        if (curCardsClick >= finalCardsClick)
+            return;
         var clickObject = EventSystem.current.currentSelectedGameObject;
-        _seq = DOTween.Sequence();
-        _seq.Append(clickObject.transform.DOScale(1f, 0.15f));
+        //_seq = DOTween.Sequence();
+        //_seq.Append(clickObject.transform.DOScale(1f, 0.15f));
+        clickObject.transform.DOScale(1f, 0.15f);
     }
 
     [ContextMenu("ī�� ����")]
     public void CreateCard() //처음생성
     {
-        CardSizeCtrl();
-
+        //CardSizeCtrl();
         //selectRandomShape.GameStart();
         if(!isBoss)
         {
             _seq = DOTween.Sequence();
-            cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
+            //cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
             for (int i = 0; i < cardCount; i++)
             {
                 if (buttons[i].GetComponent<Image>().enabled)
@@ -342,12 +347,14 @@ public class UIManager : MonoBehaviour
                 buttons[i].GetComponent<Button>().enabled = true;
                 _seq.Join(buttons[i].transform.DOScale(1f, 0.3f));
             }
+
             _seq.AppendCallback(() => {
                 _seq.Kill();
                 cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
             });
         }
-
+        curCardsClick = 0;
+        clickedCards.Clear();
     }
 
     public void ShuffleList<T>(List<T> list)
