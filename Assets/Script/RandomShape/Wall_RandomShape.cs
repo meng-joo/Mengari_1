@@ -5,10 +5,7 @@ using UnityEngine;
 public class Wall_RandomShape : MonoBehaviour
 {
     public ShapeDataSO _shapeDataSO;
-    private List<Material> shapeData = new List<Material>();
-    private MeshRenderer[] _meshRenderer;
-    //private Dictionary<GameObject, Material> wall_Shape = new Dictionary<GameObject, Material>();
-    public MeshRenderer[] wall_Shape = new MeshRenderer[20];
+    public List<Material> shapeData = new List<Material>();
 
     private void Awake()
     {
@@ -18,6 +15,12 @@ public class Wall_RandomShape : MonoBehaviour
         }
 
         ShapeShake();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            ShapeShake();
     }
 
     void ShapeShake()
@@ -31,6 +34,8 @@ public class Wall_RandomShape : MonoBehaviour
             shapeData[randA] = shapeData[randB];
             shapeData[randB] = _mat;
         }
+
+        ShowShape();
     }
 
     void ShowShape()
@@ -39,11 +44,10 @@ public class Wall_RandomShape : MonoBehaviour
         {
             for (int j = 0; j < transform.GetChild(i).childCount; j++)
             {
+                transform.GetChild(i).GetChild(j).GetComponent<MeshRenderer>().material = shapeData[j];
                 //wall_Shape[] = 
                 //wall_Shape.Add(transform.GetChild(i).gameObject, transform.GetChild(i).GetChild(j).GetComponent<MeshRenderer>().material);
             }
         }
     }
-
-
 }
