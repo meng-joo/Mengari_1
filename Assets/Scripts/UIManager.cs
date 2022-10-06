@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
@@ -22,7 +23,9 @@ public class UIManager : MonoBehaviour
     public bool isBoss;
 
     public Sprite bossSprite;
-    public EnumShape saveEnumShape; //보스?�일??바뀌기 ?�것
+
+    public EnumShape saveEnumShape; //보스전일때 바뀌기 전것
+
     public Sprite saveSprite;
 
     public RectTransform lastCardLocation;
@@ -33,8 +36,6 @@ public class UIManager : MonoBehaviour
 
     public RectTransform stagePanel;
 
-    public int stageLevel = 1;
-
     public List<Image> stageImage = new List<Image>();
 
     public List<Frame> buttons = new List<Frame>();
@@ -44,6 +45,8 @@ public class UIManager : MonoBehaviour
     public Text stageText;
 
     public int frontStageNumber = 1;
+
+    public int backStageNumber = 1;
 
     public Frame BossCard;
 
@@ -59,6 +62,9 @@ public class UIManager : MonoBehaviour
 
     public List<int> randomList = new List<int>();
 
+    public WallManager wallManager;
+
+    private int stageLevel = 1;
 
     void Awake()
     {
@@ -68,6 +74,10 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        wallManager.levelUpEvent.AddListener(() => StageLevelImage());
+        wallManager.levelUpEvent.AddListener(() => UILevelUp());
+        wallManager.levelUpEvent.AddListener(() => CardSizeCtrl());
+        wallManager.levelUpEvent.AddListener(() => ClickCard());
         bossSprite = Resources.Load<Sprite>("Shapes/Boss");
         for (int i = 0; i < System.Enum.GetValues(typeof(EnumShape)).Length - 1; i++)
         {
@@ -123,74 +133,82 @@ public class UIManager : MonoBehaviour
             //cardCount += 2;
             CreateCard();
         }
+
         //StageUp();
     }
 
-    public void IncreaseDifficult()
+    //!!!!!!!!!!!!!!!!!!!!
+    public void UILevelUp()
     {
-        //ó�� ���̵��� �������� 2�� ����Ʈ���� 4��
+        frontStageNumber = WallManager.stageLevel / 7+1;
+        backStageNumber = WallManager.stageLevel % 7 + 1;
     }
 
-    [ContextMenu("?�칠")]
+
+    //!!!!!!!!!!!!!!!!!!!!
+    [ContextMenu("색칠")]
     public void StageLevelImage()
     {
-        if(stageLevel>=7)
+        if(backStageNumber==1)
         {
-            stageLevel = 1;
-            frontStageNumber++;
             for(int i=0;i<stageImage.Count;i++)
             {
                 stageImage[i].color = new Color(255, 255, 255);
             }
         }
-        int lvIdx = stageLevel - 1;
         _seq = DOTween.Sequence();
         _seq.Append(stageText.DOFade(0f, 0.8f));
         _seq.AppendCallback(() =>
         {
             stageText.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 0);
-            stageText.text = frontStageNumber + "-" + stageLevel;
+            stageText.text = frontStageNumber + "-" + backStageNumber;
             stageText.DOFade(1f, 0.5f).SetEase(Ease.OutQuad);
             stageText.GetComponent<RectTransform>().DOScale(1f, 0.6f);
         });
-        if (lvIdx != 5)
+        int index = backStageNumber - 1;
+        if (index != 5)
         {
-            _seq.Join(stageImage[lvIdx].DOColor(new Color(255, 22, 0), 0.1f));
-            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(2.5f, 0.3f));
-            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(1f, 0.4f));
+            _seq.Join(stageImage[index].DOColor(new Color(255, 22, 0), 0.1f));
+            _seq.Append(stageImage[index].GetComponent<RectTransform>().DOScale(2.5f, 0.3f));
+            _seq.Append(stageImage[index].GetComponent<RectTransform>().DOScale(1f, 0.4f));
         }
         else
         {
-            _seq.Join(stageImage[lvIdx].DOColor(new Color(0, 206, 255), 0.1f));
-            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(3f, 0.3f));
-            _seq.Append(stageImage[lvIdx].GetComponent<RectTransform>().DOScale(1.5f, 0.4f));
+            _seq.Join(stageImage[index].DOColor(new Color(0, 206, 255), 0.1f));
+            _seq.Append(stageImage[index].GetComponent<RectTransform>().DOScale(3f, 0.3f));
+            _seq.Append(stageImage[index].GetComponent<RectTransform>().DOScale(1.5f, 0.4f));
         }
         _seq.AppendCallback(() => { _seq.Kill(); });
     }
 
-    public void StageUp()
+    //!!!!!!!!!!!!!!!!!!!!
+    public void CardSizeCtrl()
     {
-        if (cardCount == 2)
+        if (frontStageNumber == 1)
         {
             finalCardsClick = 1;
+            cardCount = 2;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(600, 700);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 50);
         }
-        else if (cardCount == 4)
+        else if (frontStageNumber == 2)
         {
             finalCardsClick = 2;
+            cardCount = 4;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(350, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(200, 50);
         }
-        else if (cardCount == 6)
+        else if (frontStageNumber == 3)
         {
             finalCardsClick = 3;
+            cardCount = 6;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(300, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(150, 50);
         }
-        else if (cardCount == 8)
+        else if (frontStageNumber == 4)
         {
             finalCardsClick = 4;
+            cardCount = 8;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(250, 350);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 100);
         }
@@ -205,6 +223,8 @@ public class UIManager : MonoBehaviour
         _seq.AppendCallback(() => { _seq.Kill(); });
         startButton.gameObject.SetActive(false);
     }
+
+
 
     public void ClickCard()
     {
@@ -257,14 +277,16 @@ public class UIManager : MonoBehaviour
                     isBoss = false;
                 }
 
-                //?�성코드
-                fillCard();
+                //생성코드
+                CardSizeCtrl();
+
+                CreateCard();
             });
         }
     }
 
 
-    public void CardChange(int i)//?�택??카드�?바꿈
+    public void CardChange(int i)//선택된 카드를 바꿈
     {
         int random = UnityEngine.Random.Range(cardCount + 1, System.Enum.GetValues(typeof(EnumShape)).Length - 1);
         
@@ -285,23 +307,6 @@ public class UIManager : MonoBehaviour
         ShapeList[random].sprite = shape.sprite;
     }
 
-    public void fillCard() //?�릭?�서 ?�용??카드�?채운??
-    {
-        _seq = DOTween.Sequence();
-        for (int i = 0; i < clickedCards.Count; i++)
-        {
-            clickedCards[i].GetComponent<Image>().sprite = clickedCards[i].shape.sprite;
-            clickedCards[i].GetComponent<RectTransform>().localScale = new Vector3(1.5f, 1.5f, 0);
-            clickedCards[i].GetComponent<Image>().enabled = true;
-            clickedCards[i].GetComponent<Button>().enabled = true;
-            _seq.Join(clickedCards[i].transform.DOScale(1f, 0.3f));
-        }
-        _seq.AppendCallback(() => {
-            _seq.Kill();
-            cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
-        });
-        clickedCards.Clear();
-    }
 
     public void OnPointerDown(PointerEventData data)
     {
@@ -317,13 +322,10 @@ public class UIManager : MonoBehaviour
         _seq.Append(clickObject.transform.DOScale(1f, 0.15f));
     }
 
-
-
     [ContextMenu("ī�� ����")]
-    public void CreateCard() //처음?�성
+    public void CreateCard() //처음생성
     {
-
-        StageUp();
+        CardSizeCtrl();
 
         //selectRandomShape.GameStart();
         if(!isBoss)

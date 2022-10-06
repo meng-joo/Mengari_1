@@ -79,9 +79,8 @@ public class UIManagerStage : MonoBehaviour
             selectRandomShape.ClearList();
             if(cardCount != 8)
             {
-                cardCount += 2;
+                //cardCount += 2;
             }
-
             CreateCard();
         }
         //StageUp();
@@ -148,7 +147,7 @@ public class UIManagerStage : MonoBehaviour
             _seq.AppendCallback(() => {
                 _seq.Kill();
                 curCardsClick = 0;
-                cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
+                //cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
                 cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
                 
                 for (int i = 0; i < clickedCards.Count; i++)
@@ -187,7 +186,7 @@ public class UIManagerStage : MonoBehaviour
         selectRandomShape.GameStart();
 
         _seq = DOTween.Sequence();
-        cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
+        //cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
         for (int i=0;i<cardCount;i++)
         {
             if (buttons[i].GetComponent<Image>().enabled)
