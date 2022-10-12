@@ -234,22 +234,36 @@ public class UIManager : MonoBehaviour
     {
         if (curCardsClick >= finalCardsClick)
             return;
+        Debug.Log("Button");
         var clickObject = EventSystem.current.currentSelectedGameObject;
 
-        clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
-        //��ư �������� interactable ����
-        clickObject.GetComponent<Button>().enabled = false;
-        clickedCards.Add(clickObject.GetComponent<Frame>());
-        curCardsClick++;
-        if (curCardsClick == finalCardsClick)
+        if(clickObject.GetComponent<Image>().color!=Color.gray)
         {
             _seq = DOTween.Sequence();
+            curCardsClick++;
+            //clickObject.GetComponent<Button>().enabled = false;
+            clickedCards.Add(clickObject.GetComponent<Frame>());
+            _seq.Append(clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f));
+        }
+        else
+        {
+            _seq = DOTween.Sequence();
+            curCardsClick--;
+            //clickObject.GetComponent<Button>().enabled = false;
+            clickedCards.Remove(clickObject.GetComponent<Frame>());
+            _seq.Append(clickObject.GetComponent<Image>().DOColor(Color.black, 0.1f));
+        }
+
+        //��ư �������� interactable ����
+        if (curCardsClick == finalCardsClick)
+        {
+            
             for (int i = 0; i < clickedCards.Count; i++)
             {
                 _seq.Join(clickedCards[i].GetComponent<RectTransform>().DOMove(lastCardLocation.transform.position, 0.6f));
             }
             _seq.AppendCallback(() => {
-                _seq.Kill();
+                //_seq.Kill();
                 //cardPanel.GetComponent<GridLayoutGroup>().enabled = false;
                 //cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
                 for (int i = 0; i < clickedCards.Count; i++)
@@ -315,17 +329,19 @@ public class UIManager : MonoBehaviour
         var clickObject = EventSystem.current.currentSelectedGameObject;
         //_seq = DOTween.Sequence();
         //_seq.Append(clickObject.transform.DOScale(0.95f, 0.15f));
-        clickObject.transform.DOScale(0.95f, 0.15f);
+        Debug.Log("PointerDown");
+        clickObject.transform.DOScale(0.75f, 0.2f).SetEase(Ease.OutBack);
     }
 
     public void OnPointerUp(PointerEventData data)
     {
         if (curCardsClick >= finalCardsClick)
             return;
+        Debug.Log("PointerUp");
         var clickObject = EventSystem.current.currentSelectedGameObject;
         //_seq = DOTween.Sequence();
         //_seq.Append(clickObject.transform.DOScale(1f, 0.15f));
-        clickObject.transform.DOScale(1f, 0.15f);
+        clickObject.transform.DOScale(1f, 0.2f);
     }
 
     [ContextMenu("ī�� ����")]
@@ -349,7 +365,6 @@ public class UIManager : MonoBehaviour
             }
 
             _seq.AppendCallback(() => {
-                _seq.Kill();
                 cardPanel.GetComponent<GridLayoutGroup>().enabled = true;
             });
         }
