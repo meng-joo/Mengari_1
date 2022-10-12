@@ -15,28 +15,29 @@ public class Bullet : PoolableMono
         _rigid = GetComponent<Rigidbody>(); 
     }
 
-    public void UpScale(bool isScaleUp)
+    public void UpScale()
     {
         DOTween.KillAll();
-        if(isScaleUp == true)
-        {
-            transform.DOScale(1.2f, 0.3f);
-            return;
-        }
-        transform.DOScale(1f, 0.3f);
+        transform.DOScale(1.2f, 0.3f);
+    }
+
+    public void SetPosAndRot(Vector3 pos, Vector3 angle)
+    {
+        transform.position = pos;
+        transform.eulerAngles = angle; 
     }
    
     // 총알 앞으로 이동 
     public void MoveForward()
     {
         Debug.Log("앞으로 이동"); 
-        _rigid.AddForce(Vector3.forward * _bulletSpeed,ForceMode.Impulse);
+        _rigid.AddForce(Vector3.back * _bulletSpeed,ForceMode.Impulse);
     }
 
     // 총알 충돌시 삭제 (레이캐스트) 
     public void DestroyBullet()
     {
-        this.gameObject.SetActive(false); 
+        PoolManager.Instance.Push(this); 
     }
 
     // 총알 생성시 중앙 이펙트 있다가 생성 
@@ -49,5 +50,6 @@ public class Bullet : PoolableMono
 
     public override void Reset()
     {
+        transform.position = Vector2.one; 
     }
 }
