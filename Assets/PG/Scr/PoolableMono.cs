@@ -7,4 +7,9 @@ public abstract class PoolableMono : MonoBehaviour
     public PoolType poolType; 
     public abstract void Reset();
 
+    public void SetPosAndRot(Vector3 pos, Vector3 rot)
+    {
+        transform.position = pos;
+        transform.eulerAngles = rot;  
+    }
 }

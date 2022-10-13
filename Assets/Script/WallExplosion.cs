@@ -46,7 +46,7 @@ public class WallExplosion : MonoBehaviour
             //_rigid[i].gameObject.SetActive(false);
         }
 
-        _wall.Reseting();
+        PoolManager.Instance.Push(_wall);
 
 
         yield break;

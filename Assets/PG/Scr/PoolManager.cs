@@ -78,7 +78,11 @@ public class PoolManager : MonoSingleton<PoolManager>
 
 public enum PoolType
 {
+    None = -1,
     Bullet,
-    BulletCreateEffect
+    BulletCreateEffect,
+    Wall_1 = 100,
+    Wall_2,
+    Wall_3,
 }
 

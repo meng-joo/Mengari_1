@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 8417362175390485291}
   - component: {fileID: 23863651931047672}
   - component: {fileID: 1039804785414885771}
+  - component: {fileID: 3273228491227636041}
   m_Layer: 0
   m_Name: Wall_2
   m_TagString: Untagged
@@ -442,8 +443,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43f9de2b4680454c9fe4799e0eb571c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolType: 0
   _brokenWall: {fileID: 0}
   _originWall: {fileID: 0}
+--- !u!114 &3273228491227636041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417362175390485290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3551afd89bdbfd041aca7f1191212272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathCreator: {fileID: 0}
+  speed: 0
+  time: 0
 --- !u!1001 &5062175782777843398
 PrefabInstance:
   m_ObjectHideFlags: 0
