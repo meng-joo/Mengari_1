@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class DaeheeUI : MonoBehaviour
 {
@@ -10,14 +11,12 @@ public class DaeheeUI : MonoBehaviour
 
     public RectTransform cardPanelTransform;
 
+    public Image cardPanelImage;
+
+    public Transform camera;
+
     public Sequence _seq;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.W))
@@ -28,8 +27,30 @@ public class DaeheeUI : MonoBehaviour
         {
             CardPanelRst();
         }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            Wrong();
+        }
+    }
+    #region Wrong
+    void Wrong()
+    {
+        _seq = DOTween.Sequence();
+
+        _seq.Append(camera.DOShakePosition(3f, 0.2f));
+        _seq.Join(cardPanelImage.DOColor(Color.red, 0.3f)
+            .OnComplete(() =>
+                _seq.Append(cardPanelImage.DOColor(Color.white, 3f))
+                ));
+        _seq.AppendCallback(() =>
+        {
+            _seq.Kill();
+        });
     }
 
+    #endregion
+
+    #region CardPanelRst
     void CardPanelRst()
     {
         _seq = DOTween.Sequence();
@@ -43,11 +64,13 @@ public class DaeheeUI : MonoBehaviour
             _seq.Kill();
         });
     }
+    #endregion
 
+    #region StageRst
     void StageRst()
     {
         _seq = DOTween.Sequence();
-        foreach(Image image in stageImage)
+        foreach (Image image in stageImage)
         {
             _seq.Append(image.DOColor(new Color(255, 255, 255), 0.1f));
             _seq.Join(image.transform.DOScale(1.5f, 0.1f));
@@ -61,4 +84,6 @@ public class DaeheeUI : MonoBehaviour
             _seq.Kill();
         });
     }
+    #endregion
+
 }
