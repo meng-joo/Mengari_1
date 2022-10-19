@@ -40,7 +40,6 @@ public class Followers : MonoBehaviour
         distance += speed * Time.deltaTime;
         transform.localPosition = pathCreator.path.GetPointAtDistance(distance) + _upYPos;
         transform.localRotation = pathCreator.path.GetRotationAtDistance(distance);
-
     }
 
     IEnumerator Timer()

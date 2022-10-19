@@ -12,7 +12,8 @@ public class PoolManager : MonoSingleton<PoolManager>
 
     private void Awake()
     {
-        foreach(var pool in _poolingListSO.poolingList)
+        _poolingListSO = Resources.Load("SO/PoolingListSO") as PoolingListSO; 
+        foreach (var pool in _poolingListSO.poolingList)
         {
             CreatePool(pool.prefab, pool.count); 
         }

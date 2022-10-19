@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43f9de2b4680454c9fe4799e0eb571c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 0
+  poolType: 102
   _brokenWall: {fileID: 0}
   _originWall: {fileID: 0}
 --- !u!65 &3118935891284024280
@@ -668,6 +668,7 @@ MonoBehaviour:
   pathCreator: {fileID: 0}
   speed: 0
   time: 0
+  _upYPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6914816324479670498
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,9 @@ public class WallManager : MonoBehaviour
 
     [SerializeField]
     private Transform _createdTrans;
-    
+
+    [SerializeField]
+    private List<Wall> _wallList = new List<Wall>(); 
     // 벽 생성 , 벽 삭제, 벽 체크 레이캐스트 
 
     /// <summary>
@@ -22,6 +24,8 @@ public class WallManager : MonoBehaviour
         PoolType poolType = SelectRandomWall();
         Wall wall = PoolManager.Instance.Pop(poolType) as Wall;
         wall.SetPosAndRot(_createdTrans.position, Vector3.zero);
+
+        _wallList.Add(wall); 
     }
 
     /// <summary>

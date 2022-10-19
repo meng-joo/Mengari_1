@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class Wall : PoolableMono
 {
-    public GameObject _brokenWall, _originWall;
+    private GameObject _brokenWall, _originWall;
 
-    public void Start()
+    public GameObject BrokenWall => _brokenWall ??= transform.GetChild(0).GetChild(0).gameObject;
+    public GameObject OriginWall => _originWall ??= transform.GetChild(0).GetChild(1).gameObject;
+    public void Awake()
     {
-        _originWall = transform.GetChild(0).gameObject;
-        _brokenWall = transform.GetChild(1).gameObject;
-
-        
+        SetWall(); 
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        //if(other.CompareTag("Bullet"))
-        //{
-        //    HitBullet();
-        //    other.GetComponent<Bullet>().DestroyBullet(); 
-        //}
-        //else if(other.CompareTag("Laser"))
-        //{
-        //    //HitBullet();
-        //}
+        if (other.CompareTag("Bullet"))
+        {
+            HitBullet();
+            other.GetComponent<Bullet>().DestroyBullet();
+        }
+        else if (other.CompareTag("Laser"))
+        {
+            //HitBullet();
+        }
+    }
+
+    private void SetWall()
+    {
+        _originWall ??= transform.GetChild(0).GetChild(0).gameObject;
+        _brokenWall ??= transform.GetChild(0).GetChild(1).gameObject;
     }
 
     public void HitBullet()
@@ -41,7 +46,7 @@ public class Wall : PoolableMono
 
     public override void Reset()
     {
-        _originWall.SetActive(true);
-        _brokenWall.SetActive(false);
+        OriginWall.SetActive(true);
+        BrokenWall.SetActive(false);
     }
 }
