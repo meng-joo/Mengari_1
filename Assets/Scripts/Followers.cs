@@ -23,16 +23,15 @@ public class Followers : MonoBehaviour
     {
 
         speed = Mathf.Log(WallManager.stageLevel * 1.00001f);
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            speed = Mathf.Log(WallManager.stageLevel * 80f);
             
-
         }
-
         distance += speed * Time.deltaTime;
         transform.localPosition = pathCreator.path.GetPointAtDistance(distance);
         transform.localRotation = pathCreator.path.GetRotationAtDistance(distance);
-
     }
 
     IEnumerator Timer()
