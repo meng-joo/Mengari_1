@@ -31,6 +31,10 @@ public class DaeheeUI : MonoBehaviour
         {
             Wrong();
         }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            GameOver();
+        }
     }
     #region Wrong
     void Wrong()
@@ -79,6 +83,31 @@ public class DaeheeUI : MonoBehaviour
                 _seq.Append(image.transform.DOScale(1.0f, 0.1f));
             });
         }
+        _seq.AppendCallback(() =>
+        {
+            _seq.Kill();
+        });
+    }
+    #endregion
+
+    #region GameOver
+    void GameOver()
+    {
+        _seq = DOTween.Sequence();
+        foreach (Image image in stageImage)
+        {
+            _seq.Append(image.DOColor(new Color(0, 0, 0), 0.1f));
+            _seq.Join(image.transform.DOScale(1.5f, 0.1f));
+            _seq.AppendCallback(() =>
+            {
+                _seq.Append(image.transform.DOScale(1.0f, 0.1f));
+            });
+        }
+        foreach (Image image in stageImage)
+        {
+            _seq.Append(image.transform.DOScale(0.0f, 0.1f));
+        }
+        _seq.Join(cardPanelTransform.DOMoveY(-475.25f, 3f)).SetEase(Ease.OutBounce);
         _seq.AppendCallback(() =>
         {
             _seq.Kill();
