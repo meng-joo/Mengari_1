@@ -4,24 +4,40 @@ using UnityEngine;
 
 public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T _instance;
+    private static bool shuttingDown = false;
+    private static T instance = null;
+    private static object locker = new object();
     public static T Instance
     {
         get
         {
-            if(_instance == null)
+            if (shuttingDown)
             {
-                _instance = FindObjectOfType<T>() as T; 
-                if(_instance == null)
-                {
-                    _instance = new GameObject() as T;
-                    _instance.name = typeof(T).Name;
-                    _instance.gameObject.AddComponent<T>(); 
-                }
-                DontDestroyOnLoad(_instance); 
+                Debug.LogWarning("[MonoSinngleTon] Instance" + typeof(T) + "aleready destroyed. Returning null.");
+                return instance;
             }
-            return _instance;
-        
+            lock (locker)
+            {
+                if (instance == null)
+                {
+                    instance = (T)FindObjectOfType(typeof(T));
+                    if (instance == null)
+                    {
+                        GameObject temp = new GameObject(typeof(T).ToString());
+                        instance = temp.AddComponent<T>();
+                        DontDestroyOnLoad(temp);
+                    }
+                }
+            }
+            return instance;
         }
+    }
+    private void OnApplicationQuit()
+    {
+        shuttingDown = true;
+    }
+    private void OnDestroy()
+    {
+        shuttingDown = true;
     }
 }
