@@ -15,6 +15,7 @@ public class BulletManager : MonoBehaviour
 
     private Ray _ray;
     private LayerMask _layerMask;
+
     private void Awake()
     {
         _mainCam = Camera.main;

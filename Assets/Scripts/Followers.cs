@@ -22,6 +22,10 @@ public class Followers : MonoBehaviour
         pathCreator ??= FindObjectOfType<PathCreator>(); 
     }
 
+    private void OnEnable()
+    {
+        speed = 0; 
+    }
     private void Start()
     {
         wallManager = GameObject.Find("Manager").GetComponent<WallManager>();
@@ -32,10 +36,10 @@ public class Followers : MonoBehaviour
     {
 
         // speed = Mathf.Log(WallManager.stageLevel * 1.00001f);
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
             speed = Mathf.Log(WallManager.stageLevel * 80f);
-        }
+        //}
 
         distance += speed * Time.deltaTime;
         transform.localPosition = pathCreator.path.GetPointAtDistance(distance) + _upYPos;

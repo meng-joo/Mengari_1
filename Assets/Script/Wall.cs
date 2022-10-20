@@ -17,12 +17,14 @@ public class Wall : PoolableMono
     {
         if (other.CompareTag("Bullet"))
         {
+            Debug.Log("충돌");
             HitBullet();
             other.GetComponent<Bullet>().DestroyBullet();
         }
         else if (other.CompareTag("Laser"))
         {
-            //HitBullet();
+            Debug.Log("충돌");
+            HitBullet();
         }
     }
 

@@ -11,7 +11,7 @@ public class WallExplosion : MonoBehaviour
 
     private void Awake()
     {
-        _wall = transform.parent.GetComponent<Wall>();
+        _wall ??= transform.GetComponentInParent<Wall>();
         for (int i = 0; i < transform.childCount; i++)
         {
             _rigid.Add(transform.GetChild(i).GetComponent<Rigidbody>());
