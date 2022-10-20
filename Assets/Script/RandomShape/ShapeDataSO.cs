@@ -6,4 +6,6 @@ using UnityEngine;
 public class ShapeDataSO : ScriptableObject
 {
     public Material[] _allShape;
+
+    public Shape[] _allCardShape;
 }
