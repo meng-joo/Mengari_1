@@ -21,3 +21,20 @@ MonoBehaviour:
   - {fileID: 2100000, guid: fd533d9a88209364ea9094d92d822d79, type: 2}
   - {fileID: 2100000, guid: 076132e6fd1d4714ebce6ffffdc2f848, type: 2}
   - {fileID: 2100000, guid: c2357e5cee176ac438d2b8f58edcd4a3, type: 2}
+  _allCardShape:
+  - enumShape: 0
+    sprite: {fileID: 21300000, guid: b25f26cd88095cb489f172e028bc733e, type: 3}
+  - enumShape: 8
+    sprite: {fileID: 21300000, guid: 34010433f014551448fb454999c2e9d3, type: 3}
+  - enumShape: 2
+    sprite: {fileID: 21300000, guid: 3124367213f062340b3f3009a95801c8, type: 3}
+  - enumShape: 1
+    sprite: {fileID: 21300000, guid: fe0e362f05aa47d4885123280a87f45a, type: 3}
+  - enumShape: 5
+    sprite: {fileID: 21300000, guid: 29bdceaa44314494896d861d91980fd7, type: 3}
+  - enumShape: 4
+    sprite: {fileID: 21300000, guid: 4037fd2e5f36c624d9956f2c9507b82f, type: 3}
+  - enumShape: 7
+    sprite: {fileID: 21300000, guid: 63f082771cea4fe41b47538eddb08f4f, type: 3}
+  - enumShape: 9
+    sprite: {fileID: 21300000, guid: aae69082d25e02d45be2d6be18d49c11, type: 3}
