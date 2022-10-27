@@ -25,7 +25,10 @@ public class WallManager : MonoBehaviour
         Wall wall = PoolManager.Instance.Pop(poolType) as Wall;
         wall.SetPosAndRot(_createdTrans.position, Vector3.zero);
 
-        _wallList.Add(wall); 
+        if(_wallList.Contains(wall) == false)
+        {
+            _wallList.Add(wall);
+        }
     }
 
     /// <summary>

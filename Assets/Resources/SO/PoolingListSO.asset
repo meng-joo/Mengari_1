@@ -21,10 +21,10 @@ MonoBehaviour:
     count: 2
   - poolType: 100
     prefab: {fileID: 4686817462802282566, guid: 0a2fb6809fde45b489740c9f42ee1ce8, type: 3}
-    count: 3
+    count: 1
   - poolType: 101
     prefab: {fileID: 7029858186274988968, guid: d6ff5bcf71c81fc418a20da901663aab, type: 3}
-    count: 3
+    count: 1
   - poolType: 102
     prefab: {fileID: 7542207928701873322, guid: 8c6caf4bdbba67849a98521fd70ee291, type: 3}
-    count: 3
+    count: 1

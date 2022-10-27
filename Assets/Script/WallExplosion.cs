@@ -28,7 +28,7 @@ public class WallExplosion : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             _rigid[i].isKinematic = false;
-            _rigid[i].AddExplosionForce(25f, transform.position - new Vector3(0, -2, 0), 2f, 12, ForceMode.Impulse);
+            _rigid[i].AddExplosionForce(100, transform.position - new Vector3(0, -2, 0), 2f, 12, ForceMode.Impulse);
         }
 
         StartCoroutine(SetOrigin());

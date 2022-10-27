@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Wall : PoolableMono
 {
+    private Vector3 _originPos; 
+    private Followers _followers; 
     private GameObject _brokenWall, _originWall;
+
 
     public GameObject BrokenWall => _brokenWall ??= transform.GetChild(0).GetChild(0).gameObject;
     public GameObject OriginWall => _originWall ??= transform.GetChild(0).GetChild(1).gameObject;
     public void Awake()
     {
+        _followers = GetComponentInChildren<Followers>(); 
         SetWall(); 
     }
 
@@ -37,6 +41,7 @@ public class Wall : PoolableMono
 
     public void HitBullet()
     {
+        _followers.enabled = false; 
         _originWall.SetActive(false);
         _brokenWall.SetActive(true);
     }
@@ -47,8 +52,16 @@ public class Wall : PoolableMono
         _brokenWall.SetActive(false);
     }
 
+    public override void SetPosAndRot(Vector3 pos, Vector3 rot)
+    {
+        _originPos = pos; 
+        base.SetPosAndRot(pos, rot);
+    }
     public override void Reset()
     {
+        // 포지션 지정 
+        transform.position = _originPos;
+        _followers.enabled = true;  
         OriginWall.SetActive(true);
         BrokenWall.SetActive(false);
     }

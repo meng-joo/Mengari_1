@@ -24,6 +24,7 @@ public class Followers : MonoBehaviour
 
     private void OnEnable()
     {
+        distance = 0; 
         speed = 0; 
     }
     private void Start()
