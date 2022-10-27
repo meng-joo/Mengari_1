@@ -598,6 +598,7 @@ GameObject:
   - component: {fileID: 6914816324299711828}
   - component: {fileID: 6914816324299711829}
   - component: {fileID: 3118935891284024280}
+  - component: {fileID: 7142679764110874261}
   m_Layer: 0
   m_Name: Wall_3
   m_TagString: Untagged
@@ -636,6 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43f9de2b4680454c9fe4799e0eb571c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolType: 102
   _brokenWall: {fileID: 0}
   _originWall: {fileID: 0}
 --- !u!65 &3118935891284024280
@@ -651,6 +653,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7142679764110874261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6914816324299711831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3551afd89bdbfd041aca7f1191212272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathCreator: {fileID: 0}
+  speed: 0
+  time: 0
+  _upYPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6914816324479670498
 GameObject:
   m_ObjectHideFlags: 0

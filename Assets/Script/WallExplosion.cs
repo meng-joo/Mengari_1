@@ -11,7 +11,7 @@ public class WallExplosion : MonoBehaviour
 
     private void Awake()
     {
-        _wall = transform.parent.GetComponent<Wall>();
+        _wall ??= transform.GetComponentInParent<Wall>();
         for (int i = 0; i < transform.childCount; i++)
         {
             _rigid.Add(transform.GetChild(i).GetComponent<Rigidbody>());
@@ -28,7 +28,7 @@ public class WallExplosion : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             _rigid[i].isKinematic = false;
-            _rigid[i].AddExplosionForce(25f, transform.position - new Vector3(0, -2, 0), 2f, 12, ForceMode.Impulse);
+            _rigid[i].AddExplosionForce(100, transform.position - new Vector3(0, -2, 0), 2f, 12, ForceMode.Impulse);
         }
 
         StartCoroutine(SetOrigin());
@@ -46,7 +46,7 @@ public class WallExplosion : MonoBehaviour
             //_rigid[i].gameObject.SetActive(false);
         }
 
-        _wall.Reseting();
+        PoolManager.Instance.Push(_wall);
 
 
         yield break;

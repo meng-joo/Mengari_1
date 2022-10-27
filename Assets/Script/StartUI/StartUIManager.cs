@@ -12,10 +12,12 @@ public class StartUIManager : MonoBehaviour
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _settingButton;
     [SerializeField] private Button _storeBackButton;
+    [SerializeField] private Button _settingBackButton;
     [SerializeField] private List<GameObject> _startImageList = new List<GameObject>();
 
     [Header("이미지들")]
     [SerializeField] private Image _storeBackGround;
+    [SerializeField] private Image _settingBackGround;
 
     Sequence seq;
 
@@ -25,6 +27,12 @@ public class StartUIManager : MonoBehaviour
         _startButton.onClick.AddListener(() => StartGame());
         _settingButton.onClick.AddListener(() => PopupSetting());
         _storeBackButton.onClick.AddListener(() => CloseStoreUI());
+        _settingBackButton.onClick.AddListener(() => CloseSetting());
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void StartGame()
@@ -38,20 +46,30 @@ public class StartUIManager : MonoBehaviour
     {
         seq = DOTween.Sequence();
 
-        ButtonClickEffect(_storeButton, true);
-        seq.AppendInterval(0.4f);
+        ButtonClickEffect(_storeButton, true, false);
+        seq.AppendInterval(0.5f);
         seq.Append(_storeBackGround.transform.DOMoveY(2560 / 2, 0.26f));
     }
 
     private void PopupSetting()
     {
-        ButtonClickEffect(_settingButton, true);
+        seq = DOTween.Sequence();
+
+        ButtonClickEffect(_settingButton, false, false);
+        seq.AppendInterval(0.1f);
+        seq.Append(_settingBackGround.transform.DOMoveY(2560 / 2, 0.15f));
     }
 
     private void CloseStoreUI()
     {
-        ButtonClickEffect(_storeBackButton);
+        ButtonClickEffect(_storeBackButton, false, true);
         _storeBackGround.transform.DOMoveY(-2560 / 2, 0.34f);
+    }
+
+    private void CloseSetting()
+    {
+        ButtonClickEffect(_settingBackButton, false, true);
+        _settingBackGround.transform.DOMoveY(2560 + (2560 / 2), 0.34f);
     }
 
     /// <summary>
@@ -59,7 +77,7 @@ public class StartUIManager : MonoBehaviour
     /// </summary>
     /// <param name="button"></param>
     /// <param name="isFade"></param>
-    private void ButtonClickEffect(Button button, bool isFade = false)
+    private void ButtonClickEffect(Button button, bool isFade = false, bool isAble = false)
     {
         seq = DOTween.Sequence();
 
@@ -70,14 +88,17 @@ public class StartUIManager : MonoBehaviour
 
         for (int i = 0; i < _startImageList.Count; i++)
         {
-            seq.Append(_startImageList[i].GetComponent<Image>()?.DOFade(fadevalue, 0.05f));
-            seq.Append(_startImageList[i].GetComponent<TextMeshProUGUI>()?.DOFade(fadevalue, 0.05f));
-
             Button b = _startImageList[i].GetComponent<Button>();
             if (b != null)
             {
-                seq.AppendCallback(() => b.interactable = !isFade);
+                seq.AppendCallback(() => b.interactable = isAble);
             }
+        }
+
+        for (int i = 0; i < _startImageList.Count; i++)
+        {
+            seq.Append(_startImageList[i].GetComponent<Image>()?.DOFade(fadevalue, 0.05f));
+            seq.Append(_startImageList[i].GetComponent<TextMeshProUGUI>()?.DOFade(fadevalue, 0.05f));
         }
     }
 }

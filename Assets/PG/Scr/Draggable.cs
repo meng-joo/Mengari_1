@@ -39,7 +39,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler//
         Debug.Log("클릭");
         _startClickPos = eventData.position;
         Debug.Log("시작 클릭" + _startClickPos);
-        // beginDragEvent?.Invoke();
+         beginDragEvent?.Invoke();
     }
 
 
