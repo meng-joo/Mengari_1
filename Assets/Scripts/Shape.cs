@@ -9,9 +9,4 @@ public class Shape
 {
     public EnumShape enumShape;
     public Sprite sprite;
-    
-    public void OnClickEvent()
-    {
-        //Do Something!
-    }
 }
