@@ -52,4 +52,22 @@ public class WallManager : MonoBehaviour
         }
         return poolType; 
     }
+    public int nowLevel;
+
+    private void Update()
+    {
+        nowLevel = stageLevel;
+    }
+
+    [ContextMenu("Up")]
+    public void Up()
+    {
+        stageLevel++;
+    }
+
+    [ContextMenu("Down")]
+    public void Down()
+    {
+        stageLevel--;
+    }
 }
