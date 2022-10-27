@@ -2235,6 +2235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1316845904}
   - component: {fileID: 1316845905}
+  - component: {fileID: 1316845907}
   - component: {fileID: 1316845906}
   m_Layer: 0
   m_Name: Manager
@@ -2313,6 +2314,29 @@ MonoBehaviour:
   levelUpEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1316845907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316845903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af04180ae12095f46b55d3bf0c0ce486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageImage:
+  - {fileID: 370957495}
+  - {fileID: 1770053154}
+  - {fileID: 1376608400}
+  - {fileID: 133436472}
+  - {fileID: 1447376076}
+  - {fileID: 820079342}
+  cardPanelTransform: {fileID: 323817243}
+  cardPanelImage: {fileID: 323817245}
+  camera: {fileID: 325549834}
+  stageTextTransform: {fileID: 887896081}
 --- !u!1 &1376608399
 GameObject:
   m_ObjectHideFlags: 0

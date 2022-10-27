@@ -17,6 +17,8 @@ public class DaeheeUI : MonoBehaviour
 
     public Sequence _seq;
 
+    public RectTransform stageTextTransform;
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.W))
@@ -94,9 +96,11 @@ public class DaeheeUI : MonoBehaviour
     void GameOver()
     {
         _seq = DOTween.Sequence();
+        _seq.Append(stageTextTransform.DORotate((new Vector3(0, 0, 360)), 2.5f, RotateMode.LocalAxisAdd).SetEase(Ease.Linear));
+        _seq.Join(stageTextTransform.DOScale((new Vector3(0,0,0)), 2.5f));
         foreach (Image image in stageImage)
         {
-            _seq.Append(image.DOColor(new Color(0, 0, 0), 0.1f));
+            _seq.Join(image.DOColor(new Color(0, 0, 0), 0.1f));
             _seq.Join(image.transform.DOScale(1.5f, 0.1f));
             _seq.AppendCallback(() =>
             {
@@ -111,7 +115,7 @@ public class DaeheeUI : MonoBehaviour
         _seq.AppendCallback(() =>
         {
             _seq.Kill();
-        });
+        });     
     }
     #endregion
 
