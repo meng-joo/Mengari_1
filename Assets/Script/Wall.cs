@@ -20,6 +20,7 @@ public class Wall : PoolableMono
             Debug.Log("충돌");
             HitBullet();
             other.GetComponent<Bullet>().DestroyBullet();
+            // 진동 
         }
         else if (other.CompareTag("Laser"))
         {

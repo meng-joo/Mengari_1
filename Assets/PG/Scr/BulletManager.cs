@@ -9,7 +9,7 @@ public class BulletManager : MonoBehaviour
     [SerializeField]
     private ParticleEffect _effect; 
     [SerializeField]
-    private float _bulletHeight; // 총알 생성시 높이 
+    private float _bulletHeight = 0.3f; // 총알 생성시 높이 
     private Vector3 _screenSize;
     private Camera _mainCam;
 
@@ -47,6 +47,7 @@ public class BulletManager : MonoBehaviour
         if (Physics.Raycast(_ray, out hit, 1000, _layerMask))
         {
             pos = hit.point;
+            pos.y += _bulletHeight;
             Debug.DrawRay(_ray.origin, _ray.direction * 1000f, Color.red, 5f);
         }
         else
@@ -56,26 +57,27 @@ public class BulletManager : MonoBehaviour
         }
         //pos = _mainCam.ScreenToWorldPoint(new Vector3(_screenSize.x, _screenSize.y, 1));
         //Debug.Log(pos); 
-        pos.y = _bulletHeight;
+        //pos.y = _bulletHeight;
         StartCoroutine(CreateBullet(pos)); 
     }
 
 
     IEnumerator CreateBullet(Vector3 bulletPos)
     {
-        //ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;
-        ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;
-        effect.transform.position = bulletPos;
-        effect.StartEffect();
-
-        yield return new WaitForSeconds(effect.Duration); // 10초 
-
-        Debug.Log(effect.Duration);
-
-        //Bullet bullet = Instantiate(_bulletPrefab, bulletPos, Quaternion.Euler(Vector3.right * 90));
+        //ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;"
         Bullet bullet = PoolManager.Instance.Pop(PoolType.Bullet) as Bullet;
-        bullet.SetPosAndRot(bulletPos,Vector3.right * 90);
-        bullet.gameObject.SetActive(true); 
+
+        bullet.SetPosAndRot(bulletPos, Vector3.right * 90 + Vector3.up * 90);
+
+        bullet.ParticleEffect.transform.position = bulletPos;
+        bullet.ParticleEffect.StartEffect();
+
+        yield return new WaitForSeconds(bullet.ParticleEffect.Duration);  
+
+        Debug.Log(bullet.ParticleEffect.Duration);
+
+        bullet.Rendering(true); 
+        //Bullet bullet = Instantiate(_bulletPrefab, bulletPos, Quaternion.Euler(Vector3.right * 90));
 
         Draggable draggable;
         draggable = bullet.GetComponent<Draggable>();
@@ -86,16 +88,4 @@ public class BulletManager : MonoBehaviour
         //draggable.exitPointerEvent = () => { draggable.exitPointerEvent = null; bullet.MoveForward(); };
     }
 
-    PoolableMono obj; 
-    [ContextMenu("생성")]
-    public void Pop()
-    {
-        obj = PoolManager.Instance.Pop(PoolType.BulletCreateEffect);
-    }
-
-    [ContextMenu("삭제")]
-    public void Push()
-    {
-        PoolManager.Instance.Push(obj);
-    }
 }
