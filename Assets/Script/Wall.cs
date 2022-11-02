@@ -6,6 +6,7 @@ public class Wall : PoolableMono
 {
     private Vector3 _originPos; 
     private Followers _followers; 
+    [SerializeField]
     private GameObject _brokenWall, _originWall;
 
 
@@ -35,7 +36,7 @@ public class Wall : PoolableMono
 
     private void SetWall()
     {
-        _originWall ??= transform.GetChild(0).GetChild(0).gameObject;
+        _originWall ??= transform.GetChild(0).GetChild(0).gameObject; 
         _brokenWall ??= transform.GetChild(0).GetChild(1).gameObject;
     }
 

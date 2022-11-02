@@ -15,7 +15,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler//
     [SerializeField]
     private Vector2 _startClickPos;
     [SerializeField]
-    private Vector2 endPos; 
+    private Vector2 endPos;
 
     public void OnPointerClick(PointerEventData eventData)
     {

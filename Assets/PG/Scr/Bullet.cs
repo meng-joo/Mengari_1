@@ -9,12 +9,18 @@ public class Bullet : PoolableMono
     private CapsuleCollider _capsuleCollider;
     private ParticleEffect _particleEffect;
 
-
     // ÃÑ¾Ë Å©±â up
     private Rigidbody _rigid;
     private float _bulletSpeed = 50;
 
-    public ParticleEffect ParticleEffect => _particleEffect; 
+    public ParticleEffect ParticleEffect => _particleEffect;
+
+    private Vector3 _originScale;
+
+    private void Start()
+    {
+        _originScale = transform.localScale;
+    }
     private void Awake()
     {
         _rigid = GetComponent<Rigidbody>();
