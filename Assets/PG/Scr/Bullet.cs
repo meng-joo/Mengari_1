@@ -15,7 +15,7 @@ public class Bullet : PoolableMono
 
     public ParticleEffect ParticleEffect => _particleEffect;
 
-    private Vector3 _originScale = Vector3.one;
+    private Vector3 _originScale = Vector3.one * 4;
 
     private void Start()
     {
