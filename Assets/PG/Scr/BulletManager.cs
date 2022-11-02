@@ -67,7 +67,7 @@ public class BulletManager : MonoBehaviour
         //ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;"
         Bullet bullet = PoolManager.Instance.Pop(PoolType.Bullet) as Bullet;
 
-        bullet.SetPosAndRot(bulletPos, Vector3.right * 90 + Vector3.up * 90);
+        bullet.SetPosAndRot(bulletPos, Vector3.up * 270);
 
         bullet.ParticleEffect.transform.position = bulletPos;
         bullet.ParticleEffect.StartEffect();
