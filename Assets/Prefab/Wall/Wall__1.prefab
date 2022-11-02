@@ -65,6 +65,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 100
+  _brokenWall: {fileID: 2710207080807750119}
+  _originWall: {fileID: 8288897386968291232}
 --- !u!65 &8578247685165006460
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -177,8 +179,18 @@ PrefabInstance:
     - {fileID: 6664430427588758084, guid: b602b693859cd504a8c262c094a5601d, type: 3}
     - {fileID: 652653302, guid: b602b693859cd504a8c262c094a5601d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b602b693859cd504a8c262c094a5601d, type: 3}
+--- !u!1 &2710207080807750119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1296621642942386677, guid: b602b693859cd504a8c262c094a5601d, type: 3}
+  m_PrefabInstance: {fileID: 3774597548440897554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8288897386457709006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5145930167479759324, guid: b602b693859cd504a8c262c094a5601d, type: 3}
+  m_PrefabInstance: {fileID: 3774597548440897554}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8288897386968291232 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5145930169047441330, guid: b602b693859cd504a8c262c094a5601d, type: 3}
   m_PrefabInstance: {fileID: 3774597548440897554}
   m_PrefabAsset: {fileID: 0}

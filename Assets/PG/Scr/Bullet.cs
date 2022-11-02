@@ -11,11 +11,11 @@ public class Bullet : PoolableMono
 
     // 총알 크기 up
     private Rigidbody _rigid;
-    private float _bulletSpeed = 50;
+    private float _bulletSpeed = 100;
 
     public ParticleEffect ParticleEffect => _particleEffect;
 
-    private Vector3 _originScale;
+    private Vector3 _originScale = Vector3.one;
 
     private void Start()
     {
@@ -33,7 +33,7 @@ public class Bullet : PoolableMono
     public void UpScale()
     {
         DOTween.KillAll();
-        transform.DOScale(0.4f, 0.3f);
+        transform.DOScale(_originScale.x * 1.2f, _originScale.y * 1.2f);
     }
 
     // 총알 앞으로 이동 
@@ -63,7 +63,8 @@ public class Bullet : PoolableMono
 
     public override void Reset()
     {
-        transform.position = Vector2.one;
+        transform.position = Vector3.one;
+        transform.localScale = _originScale; 
         Rendering(false); 
     }
     // 날아갈때 렌더러 이펙트, 화면으로 빨려들어가는 듯한 효과(진동, 아웃포커싱) 
