@@ -11,9 +11,9 @@ public class Wall_RandomShape : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < _shapeDataSO._allShape.Length; i++)
+        for (int i = 0; i < _shapeDataSO._allCardShape.Length; i++)
         {
-            shapeData.Add(_shapeDataSO._allShape[i]);
+            shapeData.Add(_shapeDataSO._allCardShape[i]._allShape);
             spriteData.Add(_shapeDataSO._allCardShape[i].sprite);
             enumData.Add(_shapeDataSO._allCardShape[i].enumShape);
         }

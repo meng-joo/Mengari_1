@@ -5,7 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/ShapeDataSO")]
 public class ShapeDataSO : ScriptableObject
 {
-    public Material[] _allShape;
-
     public Shape[] _allCardShape;
 }

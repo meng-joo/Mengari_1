@@ -8,14 +8,19 @@ public class Wall : PoolableMono
     private Followers _followers; 
     [SerializeField]
     private GameObject _brokenWall, _originWall;
-
+    //private GameObject _randomShape;
 
     public GameObject BrokenWall => _brokenWall ??= transform.GetChild(0).GetChild(0).gameObject;
     public GameObject OriginWall => _originWall ??= transform.GetChild(0).GetChild(1).gameObject;
-    public void Awake()
+    private void Awake()
     {
         _followers = GetComponentInChildren<Followers>(); 
         SetWall(); 
+    }
+
+    private void Start()
+    {
+     //   _randomShape = transform.GetChild(3).GetComponent<GameObject>();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -44,6 +49,7 @@ public class Wall : PoolableMono
     {
         _followers.enabled = false; 
         _originWall.SetActive(false);
+    //    _randomShape.SetActive(false);
         _brokenWall.SetActive(true);
     }
 
@@ -64,6 +70,7 @@ public class Wall : PoolableMono
         transform.position = _originPos;
         _followers.enabled = true;  
         OriginWall.SetActive(true);
+     //   _randomShape.SetActive(true);
         BrokenWall.SetActive(false);
     }
 }

@@ -1490,7 +1490,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh69166
+  m_Name: pb_Mesh33406
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3132,18 +3132,25 @@ MonoBehaviour:
   clickedCards: []
   shapeList:
   - enumShape: 0
+    _allShape: {fileID: 0}
     sprite: {fileID: 21300000, guid: b25f26cd88095cb489f172e028bc733e, type: 3}
   - enumShape: 0
+    _allShape: {fileID: 0}
     sprite: {fileID: 0}
   - enumShape: 0
+    _allShape: {fileID: 0}
     sprite: {fileID: 0}
   - enumShape: 0
+    _allShape: {fileID: 0}
     sprite: {fileID: 0}
   - enumShape: 0
+    _allShape: {fileID: 0}
     sprite: {fileID: 0}
   - enumShape: 0
+    _allShape: {fileID: 0}
     sprite: {fileID: 0}
   - enumShape: 0
+    _allShape: {fileID: 0}
     sprite: {fileID: 0}
   cardGridLayoutGroup: {fileID: 323817244}
   cardPanel: {fileID: 323817243}
@@ -3986,6 +3993,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1812274462}
+    - target: {fileID: 6914816324560861271, guid: 2fad261a7b7360f4c9ab671cac8434f2, type: 3}
+      propertyPath: m_VersionIndex
+      value: 226
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fad261a7b7360f4c9ab671cac8434f2, type: 3}
 --- !u!43 &1812274462
@@ -3994,7 +4005,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-162232
+  m_Name: pb_Mesh-5122
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
