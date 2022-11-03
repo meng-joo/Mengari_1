@@ -23,7 +23,7 @@ public class WallManager : MonoBehaviour
     {
         PoolType poolType = SelectRandomWall();
         Wall wall = PoolManager.Instance.Pop(poolType) as Wall;
-        wall.SetPosAndRot(_createdTrans.position, Vector3.zero);
+        wall.SetPosAndRot(_createdTrans.position, Vector3.up * 90);
 
         if(_wallList.Contains(wall) == false)
         {
