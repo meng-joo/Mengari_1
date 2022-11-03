@@ -27,7 +27,7 @@ public class Wall_RandomShape : MonoBehaviour
             ShapeShake();
     }
 
-    void ShapeShake()
+    public void ShapeShake()
     {
         for (int i = 0; i < 50; i++)
         {
@@ -47,17 +47,17 @@ public class Wall_RandomShape : MonoBehaviour
             enumData[randB] = _enum;
         }
 
-        ShowShape();
+        //ShowShape();
     }
 
-    void ShowShape()
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            for (int j = 0; j < transform.GetChild(i).childCount; j++)
-            {
-                transform.GetChild(i).GetChild(j).GetComponent<MeshRenderer>().material = shapeData[j];
-            }
-        }
-    }
+    //void ShowShape()
+    //{
+    //    for (int i = 0; i < transform.childCount; i++)
+    //    {
+    //        for (int j = 0; j < transform.GetChild(i).childCount; j++)
+    //        {
+    //            transform.GetChild(i).GetChild(j).GetComponent<MeshRenderer>().material = shapeData[j];
+    //        }
+    //    }
+    //}
 }
