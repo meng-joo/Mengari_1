@@ -12,7 +12,8 @@ public class PoolManager : MonoSingleton<PoolManager>
 
     private void Awake()
     {
-        foreach(var pool in _poolingListSO.poolingList)
+        _poolingListSO = Resources.Load("SO/PoolingListSO") as PoolingListSO; 
+        foreach (var pool in _poolingListSO.poolingList)
         {
             CreatePool(pool.prefab, pool.count); 
         }
@@ -59,7 +60,8 @@ public class PoolManager : MonoSingleton<PoolManager>
                 if (pool.poolType == poolType)
                     item = pool; 
             }
-            CreateItem(item);
+            PoolableMono newObj = CreateItem(item);
+            Push(newObj);
         }
 
         item = poolDict[poolType].Dequeue();
@@ -78,7 +80,10 @@ public class PoolManager : MonoSingleton<PoolManager>
 
 public enum PoolType
 {
+    None = -1,
     Bullet,
-    BulletCreateEffect
+    Wall_1 = 100,
+    Wall_2,
+    Wall_3,
 }
 

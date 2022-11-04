@@ -10,5 +10,5 @@ public enum EnumShape
     Clover,
     Diamond,
     Star,
-    Boss, //보스는 무조건 마지막에 있어야함
+    Bonus, //보스는 무조건 마지막에 있어야함
 }

@@ -14,11 +14,16 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
                 _instance = FindObjectOfType<T>() as T; 
                 if(_instance == null)
                 {
-                    _instance = new GameObject() as T;
-                    _instance.name = typeof(T).Name;
-                    _instance.gameObject.AddComponent<T>(); 
+                    var singletonObj = new GameObject();
+                    _instance = singletonObj.AddComponent<T>();
+                    singletonObj.name = typeof(T).ToString();
+
+                    DontDestroyOnLoad(singletonObj);
+
+                    //_instance = new GameObject() as T;
+                    // _instance.name = typeof(T).ToString();
+                    // _instance.gameObject.AddComponent<T>(); 
                 }
-                DontDestroyOnLoad(_instance); 
             }
             return _instance;
         

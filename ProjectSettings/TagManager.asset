@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Bullet
   - Wall
-  - Lazer
+  - Laser
   layers:
   - Default
   - TransparentFX
@@ -16,7 +16,7 @@ TagManager:
   - UI
   - 
   - Ground
-  - 
+  - Wall
   - 
   - 
   - 

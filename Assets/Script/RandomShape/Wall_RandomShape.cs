@@ -6,12 +6,16 @@ public class Wall_RandomShape : MonoBehaviour
 {
     public ShapeDataSO _shapeDataSO;
     public List<Material> shapeData = new List<Material>();
+    public List<Sprite> spriteData = new List<Sprite>();
+    public List<EnumShape> enumData = new List<EnumShape>();
 
     private void Awake()
     {
-        for (int i = 0; i < _shapeDataSO._allShape.Length; i++)
+        for (int i = 0; i < _shapeDataSO._allCardShape.Length; i++)
         {
-            shapeData.Add(_shapeDataSO._allShape[i]);
+            shapeData.Add(_shapeDataSO._allCardShape[i]._allShape);
+            spriteData.Add(_shapeDataSO._allCardShape[i].sprite);
+            enumData.Add(_shapeDataSO._allCardShape[i].enumShape);
         }
 
         ShapeShake();
@@ -33,6 +37,14 @@ public class Wall_RandomShape : MonoBehaviour
             Material _mat = shapeData[randA];
             shapeData[randA] = shapeData[randB];
             shapeData[randB] = _mat;
+
+            Sprite _sprite = spriteData[randA];
+            spriteData[randA] = spriteData[randB];
+            spriteData[randB] = _sprite;
+
+            EnumShape _enum = enumData[randA];
+            enumData[randA] = enumData[randB];
+            enumData[randB] = _enum;
         }
 
         ShowShape();
@@ -45,8 +57,6 @@ public class Wall_RandomShape : MonoBehaviour
             for (int j = 0; j < transform.GetChild(i).childCount; j++)
             {
                 transform.GetChild(i).GetChild(j).GetComponent<MeshRenderer>().material = shapeData[j];
-                //wall_Shape[] = 
-                //wall_Shape.Add(transform.GetChild(i).gameObject, transform.GetChild(i).GetChild(j).GetComponent<MeshRenderer>().material);
             }
         }
     }

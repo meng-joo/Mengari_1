@@ -8,10 +8,6 @@ using UnityEngine.UI;
 public class Shape
 {
     public EnumShape enumShape;
+    public Material _allShape;
     public Sprite sprite;
-    
-    public void OnClickEvent()
-    {
-        //Do Something!
-    }
 }
