@@ -18,7 +18,7 @@ public struct ReturnMsg
     public string msg;
 }
 
-public class SaveManager : MonoBehaviour
+public class SaveManager : MonoSingleton<SaveManager>
 {
     #region SERVER
     private readonly string URL = "http://localhost:50000";
@@ -28,6 +28,11 @@ public class SaveManager : MonoBehaviour
     #endregion
 
     [SerializeField] UserData userData;
+    public UserData USERDATA
+    {
+        get => userData;
+        set => userData = value;
+    }
 
     private void Start()
     {
@@ -80,6 +85,7 @@ public class SaveManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("deviceId", DEVICEID);
         form.AddField("userName", userData.userName);
+        form.AddField("userMoney", userData.userMoney);
         form.AddField("frontStageNumber", userData.frontStageNumber);
         form.AddField("backStageNumber", userData.backStageNumber);
 

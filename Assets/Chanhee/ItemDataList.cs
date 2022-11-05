@@ -6,6 +6,4 @@ using UnityEngine;
 public class ItemDataList : ScriptableObject
 {
     public List<ItemData> itemDataLists;
-
-    public ItemData useItem;
 }
