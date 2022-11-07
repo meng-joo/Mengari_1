@@ -179,6 +179,10 @@ public class DaeheeUIGameOver : MonoBehaviour
 
     #endregion
     #endregion
+
+
+
+
     public void RestartGame()
 	{
         SoundManager.instance.SFXPlay("ui", uiAudioClip);
