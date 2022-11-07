@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7fc5c85ce352e4b9366309c162153d, type: 3}
   m_Name: UserData
   m_EditorClassIdentifier: 
-  userId: 0
-  deviceId: 
+  userId: 18
+  deviceId: 2e8e990c4f26160f738c6872c42d25c373614559
   userName: 
+  userMoney: 0
   frontStageNumber: 1
   backStageNumber: 1

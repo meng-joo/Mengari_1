@@ -21,7 +21,7 @@ public struct ReturnMsg
 public class SaveManager : MonoSingleton<SaveManager>
 {
     #region SERVER
-    private readonly string URL = "http://localhost:50000";
+    private readonly string URL = "http://172.31.3.19:50000";
 
     private string DEVICEID = string.Empty;
     private bool isLoading = false;
