@@ -704,7 +704,7 @@ RectTransform:
   - {fileID: 1063794865}
   - {fileID: 1775259395}
   m_Father: {fileID: 1048562050}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -881,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114167975436913618, guid: 322f52de856074945be6833dbdc4c85b, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9114167975436913618, guid: 322f52de856074945be6833dbdc4c85b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1311,8 +1311,8 @@ RectTransform:
   m_Children:
   - {fileID: 1337457090}
   - {fileID: 2028642710}
-  - {fileID: 183484109}
   - {fileID: 611588627}
+  - {fileID: 183484109}
   - {fileID: 115195495}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -1575,6 +1575,7 @@ MonoBehaviour:
   _storeBackGround: {fileID: 183484107}
   _settingBackGround: {fileID: 115195493}
   uiAudioClip: {fileID: 8300000, guid: 8f0144e8bc3a2aa449fd317d94a3b6c4, type: 3}
+  _isMute: 0
 --- !u!1 &1337457089
 GameObject:
   m_ObjectHideFlags: 0

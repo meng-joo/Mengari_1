@@ -25,6 +25,7 @@ public class DaeheeRefactoringUI : MonoBehaviour
     [Header("사운드클립")]
     public AudioClip uiAudioClip;
 
+    [SerializeField] private bool _isMute;
 
     Sequence seq;
 
@@ -41,11 +42,13 @@ public class DaeheeRefactoringUI : MonoBehaviour
         {
             btn.onClick.AddListener(() => UISound());
         }
+        _isMute = false;
     }
 
     private void UISound()
     {
-        SoundManager.instance.SFXPlay("ui", uiAudioClip);
+        if(!_isMute)
+            SoundManager.instance.SFXPlay("ui", uiAudioClip);
     }
 
     private void Restart()
