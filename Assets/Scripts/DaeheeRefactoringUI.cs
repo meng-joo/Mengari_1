@@ -15,23 +15,37 @@ public class DaeheeRefactoringUI : MonoBehaviour
     [SerializeField] private Button _settingButton;
     [SerializeField] private Button _settingBackButton;
     [SerializeField] private Button _restartButton;
+    [SerializeField] private List<Button> _btnGrp;
     [SerializeField] private List<GameObject> _endImageList = new List<GameObject>();
 
     [Header("이미지들")]
     [SerializeField] private Image _storeBackGround;
     [SerializeField] private Image _settingBackGround;
 
+    [Header("사운드클립")]
+    public AudioClip uiAudioClip;
+
 
     Sequence seq;
 
     private void Awake()
     {
-        _storeBackButton.interactable = true;
+
         _storeButton.onClick.AddListener(() => PopUpStoreUI());
         _storeBackButton.onClick.AddListener(() => CloseStoreUI());
         _settingButton.onClick.AddListener(() => PopupSetting());
         _settingBackButton.onClick.AddListener(() => CloseSetting());
         _restartButton.onClick.AddListener(() => Restart());
+
+        foreach(Button btn in _btnGrp)
+        {
+            btn.onClick.AddListener(() => UISound());
+        }
+    }
+
+    private void UISound()
+    {
+        SoundManager.instance.SFXPlay("ui", uiAudioClip);
     }
 
     private void Restart()

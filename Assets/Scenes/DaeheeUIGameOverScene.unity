@@ -1558,6 +1558,14 @@ MonoBehaviour:
   _storeBackButton: {fileID: 1626073012}
   _settingButton: {fileID: 1862010147}
   _settingBackButton: {fileID: 118413890}
+  _restartButton: {fileID: 2028642713}
+  _btnGrp:
+  - {fileID: 1775259398}
+  - {fileID: 2028642713}
+  - {fileID: 1063794868}
+  - {fileID: 1862010147}
+  - {fileID: 1626073012}
+  - {fileID: 118413890}
   _endImageList:
   - {fileID: 1626073010}
   - {fileID: 1862010143}
@@ -1566,6 +1574,7 @@ MonoBehaviour:
   - {fileID: 118413888}
   _storeBackGround: {fileID: 183484107}
   _settingBackGround: {fileID: 115195493}
+  uiAudioClip: {fileID: 8300000, guid: 8f0144e8bc3a2aa449fd317d94a3b6c4, type: 3}
 --- !u!1 &1337457089
 GameObject:
   m_ObjectHideFlags: 0
