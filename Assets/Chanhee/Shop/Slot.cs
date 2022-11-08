@@ -27,25 +27,25 @@ public class Slot : MonoBehaviour
     {
         _itemData = itemData;
 
-        _nameText.text = _itemData.itemName;
-        _costText.text = _itemData.itemCost.ToString();
-        _image.sprite = _itemData.itemSprite;
+        //_nameText.text = _itemData.itemName;
+        //_costText.text = _itemData.itemCost.ToString();
+        //_image.sprite = _itemData.itemSprite;
 
-        _useBtn.onClick.AddListener(() => UseBtn());
-        _buyBtn.onClick.AddListener(() => BuyBtn());
+        //_useBtn.onClick.AddListener(() => UseBtn());
+        //_buyBtn.onClick.AddListener(() => BuyBtn());
 
-        if (_itemData.itemUnlock)
-        {
-            // 아이템이 잠김
-            _lockImage.alpha = 0.3f;
-            _lockImage.blocksRaycasts = true;
-            return;
-        }
-        else
-        {
-            _lockImage.alpha = 0;
-            _lockImage.blocksRaycasts = false;
-        }
+        //if (_itemData.itemUnlock)
+        //{
+        //    // 아이템이 잠김
+        //    _lockImage.alpha = 0.3f;
+        //    _lockImage.blocksRaycasts = true;
+        //    return;
+        //}
+        //else
+        //{
+        //    _lockImage.alpha = 0;
+        //    _lockImage.blocksRaycasts = false;
+        //}
     }
 
     public void UseBtn()
