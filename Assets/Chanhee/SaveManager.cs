@@ -33,6 +33,13 @@ public class SaveManager : MonoSingleton<SaveManager>
         get => userData;
         set => userData = value;
     }
+    [SerializeField] private ItemDataList itemDataList;
+    public ItemDataList ITEMDATALIST
+    {
+        get => itemDataList;
+        set => itemDataList = value;
+    }
+
 
     private void Start()
     {

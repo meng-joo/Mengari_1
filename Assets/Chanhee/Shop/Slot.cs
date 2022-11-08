@@ -23,7 +23,7 @@ public class Slot : MonoBehaviour
         set => SetItemData(value);
     }
 
-    void SetItemData(ItemData itemData)
+    public void SetItemData(ItemData itemData)
     {
         _itemData = itemData;
 
@@ -53,7 +53,11 @@ public class Slot : MonoBehaviour
         if (_itemData.itemUnlock) return;
         if (_itemData.itemBuy)
         {
-            // ±³Ã¼;
+            ItemData item = SaveManager.Instance.ITEMDATALIST.usingItemData;
+            item.itemUse = false;
+
+            SaveManager.Instance.ITEMDATALIST.usingItemData = _itemData;
+            _itemData.itemUse = true;
         }
         else
         {
@@ -66,7 +70,9 @@ public class Slot : MonoBehaviour
         if (_itemData.itemUnlock) return;
         if (_itemData.itemCost <= SaveManager.Instance.USERDATA.userMoney)
         {
-            // buy;
+            SaveManager.Instance.USERDATA.userMoney -= _itemData.itemCost;
+            SaveManager.Instance.SaveUserData();
+            _itemData.itemBuy = true;
         }
         else
         {
