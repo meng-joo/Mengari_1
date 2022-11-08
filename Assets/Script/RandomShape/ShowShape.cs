@@ -4,23 +4,14 @@ using UnityEngine;
 
 public class ShowShape : MonoBehaviour
 {
-    private Wall_RandomShape randomShape;
-    // Start is called before the first frame update
+    public Wall_RandomShape randomShape;
+
     void Start()
     {
-        randomShape = GameObject.Find("Manager").GetComponent<Wall_RandomShape>();
+        randomShape = FindObjectOfType<Wall_RandomShape>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Invoke("ShowShapeMaterial", 1f);
-        }
-    }
-
-    void ShowShapeMaterial()
+    public void ShowShapeMaterial()
     {
         for (int i = 0; i < transform.childCount; i++)
         {

@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using Random = UnityEngine.Random; 
 public class WallManager : MonoBehaviour
 {
     public static int stageLevel = 1;
@@ -10,10 +11,14 @@ public class WallManager : MonoBehaviour
 
     [SerializeField]
     private Transform _createdTrans;
+    
 
     [SerializeField]
-    private List<Wall> _wallList = new List<Wall>(); 
+    private List<Wall> _wallList = new List<Wall>();
     // 벽 생성 , 벽 삭제, 벽 체크 레이캐스트 
+
+
+    
 
     /// <summary>
     ///  벽 생성 
@@ -21,9 +26,12 @@ public class WallManager : MonoBehaviour
     [ContextMenu("벽 생성")]
     public void CreateWall()
     {
+        Debug.Log("벽 생성"); 
         PoolType poolType = SelectRandomWall();
         Wall wall = PoolManager.Instance.Pop(poolType) as Wall;
+        wall.SetShape(); 
         wall.SetPosAndRot(_createdTrans.position, Vector3.up * 90);
+
 
         if(_wallList.Contains(wall) == false)
         {

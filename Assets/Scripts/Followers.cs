@@ -60,7 +60,7 @@ public class Followers : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(time);
+        //Debug.Log(time);
         if (collision.transform.CompareTag("Bullet"))
         {
             Debug.Log("‰çÀ½");

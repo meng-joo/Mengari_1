@@ -13,6 +13,7 @@ public class PoolManager : MonoSingleton<PoolManager>
     private void Awake()
     {
         _poolingListSO = Resources.Load("SO/PoolingListSO") as PoolingListSO; 
+        
         foreach (var pool in _poolingListSO.poolingList)
         {
             CreatePool(pool.prefab, pool.count); 
@@ -34,6 +35,7 @@ public class PoolManager : MonoSingleton<PoolManager>
             Push(obj);
             //poolDict[prefab.poolType].Enqueue(prefab); 
         }
+        Debug.Log("POOOOL");
      }
 
     private PoolableMono CreateItem(PoolableMono item)
