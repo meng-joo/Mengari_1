@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DaeheeRefactoringUI : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class DaeheeRefactoringUI : MonoBehaviour
     [SerializeField] private Button _storeBackButton;
     [SerializeField] private Button _settingButton;
     [SerializeField] private Button _settingBackButton;
+    [SerializeField] private Button _restartButton;
     [SerializeField] private List<GameObject> _endImageList = new List<GameObject>();
 
     [Header("이미지들")]
@@ -29,6 +31,12 @@ public class DaeheeRefactoringUI : MonoBehaviour
         _storeBackButton.onClick.AddListener(() => CloseStoreUI());
         _settingButton.onClick.AddListener(() => PopupSetting());
         _settingBackButton.onClick.AddListener(() => CloseSetting());
+        _restartButton.onClick.AddListener(() => Restart());
+    }
+
+    private void Restart()
+    {
+        SceneManager.LoadScene(1);
     }
     private void PopUpStoreUI()
     {
