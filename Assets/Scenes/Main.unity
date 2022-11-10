@@ -3055,7 +3055,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Skin
+  m_text: Bullet Skin
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 02c47632ad5aa78498ce0b626dca4950, type: 2}
   m_sharedMaterial: {fileID: 7829880703082338454, guid: 02c47632ad5aa78498ce0b626dca4950, type: 2}
