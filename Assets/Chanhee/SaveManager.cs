@@ -45,11 +45,20 @@ public class SaveManager : MonoSingleton<SaveManager>
     {
         DEVICEID = SystemInfo.deviceUniqueIdentifier;
 
+        StartCoroutine(A());
+
         if (!isLoading)
         {
             isLoading = true;
             LoadUserData();
         }
+    }
+
+    IEnumerator A()
+    {
+        UnityWebRequest req = UnityWebRequest.Get($"{URL}/userList");
+
+        yield return req.SendWebRequest();
     }
 
     private void OnApplicationQuit()
