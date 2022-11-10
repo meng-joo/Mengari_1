@@ -16,8 +16,10 @@ public class StartUIManager : MonoBehaviour
     [SerializeField] private List<GameObject> _startImageList = new List<GameObject>();
 
     [Header("이미지들")]
-    [SerializeField] private Image _storeBackGround;
-    [SerializeField] private Image _settingBackGround;
+    [SerializeField] private RectTransform _storeBackGround;
+    [SerializeField] private RectTransform _settingBackGround;
+
+    private int _height; 
 
     Sequence seq;
 
@@ -48,7 +50,7 @@ public class StartUIManager : MonoBehaviour
 
         ButtonClickEffect(_storeButton, true, false);
         seq.AppendInterval(0.5f);
-        seq.Append(_storeBackGround.transform.DOMoveY(2560 / 2, 0.26f));
+        seq.Append(_storeBackGround.DOAnchorPosY(0, 0.26f));
     }
 
     private void PopupSetting()
@@ -56,20 +58,20 @@ public class StartUIManager : MonoBehaviour
         seq = DOTween.Sequence();
 
         ButtonClickEffect(_settingButton, false, false);
-        seq.AppendInterval(0.1f);
-        seq.Append(_settingBackGround.transform.DOMoveY(2560 / 2, 0.15f));
+        seq.AppendInterval(0.1f);   
+        seq.Append(_settingBackGround.DOAnchorPosY(-1920, 0.15f));
     }
 
     private void CloseStoreUI()
     {
         ButtonClickEffect(_storeBackButton, false, true);
-        _storeBackGround.transform.DOMoveY(-2560 / 2, 0.34f);
+        _storeBackGround.DOAnchorPosY(-1920, 0.34f);
     }
 
     private void CloseSetting()
     {
         ButtonClickEffect(_settingBackButton, false, true);
-        _settingBackGround.transform.DOMoveY(2560 + (2560 / 2), 0.34f);
+        _settingBackGround.DOAnchorPosY(0, 0.34f);
     }
 
     /// <summary>
