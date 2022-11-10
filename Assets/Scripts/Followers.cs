@@ -10,23 +10,9 @@ public class Followers : MonoBehaviour
     public float time;
     float distance;
 
-    [SerializeField]
-    private Vector3 _upYPos; // 조정할 좌표 
-
     private bool isLazer = false;
-    private WallManager wallManager;
+    private WallManager wallManager;    
 
-
-    private void Awake()
-    {
-        pathCreator ??= FindObjectOfType<PathCreator>(); 
-    }
-
-    private void OnEnable()
-    {
-        distance = 0; 
-        speed = 0; 
-    }
     private void Start()
     {
         wallManager = GameObject.Find("Manager").GetComponent<WallManager>();
@@ -36,14 +22,15 @@ public class Followers : MonoBehaviour
     void Update()
     {
 
-        // speed = Mathf.Log(WallManager.stageLevel * 1.00001f);
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-            speed = Mathf.Log(WallManager.stageLevel * 80f);
-        //}
+        speed = Mathf.Log(WallManager.stageLevel * 1.00001f);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            speed = Mathf.Log(WallManager.stageLevel * 80f);
+            
+        }
         distance += speed * Time.deltaTime;
-        transform.localPosition = pathCreator.path.GetPointAtDistance(distance) + _upYPos;
+        transform.localPosition = pathCreator.path.GetPointAtDistance(distance);
         transform.localRotation = pathCreator.path.GetRotationAtDistance(distance);
     }
 
@@ -60,7 +47,7 @@ public class Followers : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(time);
+        //Debug.Log(time);
         if (collision.transform.CompareTag("Bullet"))
         {
             Debug.Log("됬음");

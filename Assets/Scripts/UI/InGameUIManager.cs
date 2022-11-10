@@ -20,6 +20,7 @@ public class InGameUIManager : MonoBehaviour
     private Sequence _seq;
     public CinemachineVirtualCamera inGameVCam;
 
+
     public void OnClickStartButton()
     {
         _seq = DOTween.Sequence();

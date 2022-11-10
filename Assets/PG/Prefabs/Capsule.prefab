@@ -309,6 +309,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle System (1) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 88300708107879814, guid: 61d8dae0bd854c64ba0771cf8daecf69, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 88300708672976225, guid: 61d8dae0bd854c64ba0771cf8daecf69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -345,9 +349,25 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 88300709160482258, guid: 61d8dae0bd854c64ba0771cf8daecf69, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 88300709160482258, guid: 61d8dae0bd854c64ba0771cf8daecf69, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 88300709160482258, guid: 61d8dae0bd854c64ba0771cf8daecf69, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 88300709160482268, guid: 61d8dae0bd854c64ba0771cf8daecf69, type: 3}
       propertyPath: ShapeModule.type
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 88300709160482268, guid: 61d8dae0bd854c64ba0771cf8daecf69, type: 3}
+      propertyPath: ShapeModule.placementMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 88300709160482268, guid: 61d8dae0bd854c64ba0771cf8daecf69, type: 3}
       propertyPath: ShapeModule.m_MeshRenderer

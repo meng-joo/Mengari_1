@@ -12,29 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f67295e107981845b4b7e482511a319, type: 3}
   m_Name: RandomShapeSO
   m_EditorClassIdentifier: 
-  _allShape:
-  - {fileID: 2100000, guid: 1dc081e2052f96e47a5f614a2ff1f5f3, type: 2}
-  - {fileID: 2100000, guid: db349aa0cf2372c4081ef798b6d0cb21, type: 2}
-  - {fileID: 2100000, guid: 34421171b9a7c3740ad692e7d4983c08, type: 2}
-  - {fileID: 2100000, guid: fb21036b0fd40db459462ea456a78e4a, type: 2}
-  - {fileID: 2100000, guid: 32526e72f54e002429a0cb3beb91963d, type: 2}
-  - {fileID: 2100000, guid: fd533d9a88209364ea9094d92d822d79, type: 2}
-  - {fileID: 2100000, guid: 076132e6fd1d4714ebce6ffffdc2f848, type: 2}
-  - {fileID: 2100000, guid: c2357e5cee176ac438d2b8f58edcd4a3, type: 2}
   _allCardShape:
   - enumShape: 0
-    sprite: {fileID: 21300000, guid: b25f26cd88095cb489f172e028bc733e, type: 3}
-  - enumShape: 8
-    sprite: {fileID: 21300000, guid: 34010433f014551448fb454999c2e9d3, type: 3}
-  - enumShape: 2
-    sprite: {fileID: 21300000, guid: 3124367213f062340b3f3009a95801c8, type: 3}
+    _allShape: {fileID: 2100000, guid: 1dc081e2052f96e47a5f614a2ff1f5f3, type: 2}
+    sprite: {fileID: 21300000, guid: 0b8647b767d8a3c4cbaee55c70b95fde, type: 3}
   - enumShape: 1
-    sprite: {fileID: 21300000, guid: fe0e362f05aa47d4885123280a87f45a, type: 3}
-  - enumShape: 5
-    sprite: {fileID: 21300000, guid: 29bdceaa44314494896d861d91980fd7, type: 3}
+    _allShape: {fileID: 2100000, guid: db349aa0cf2372c4081ef798b6d0cb21, type: 2}
+    sprite: {fileID: 21300000, guid: d82560e17b98853498acbbea256508aa, type: 3}
+  - enumShape: 2
+    _allShape: {fileID: 2100000, guid: 34421171b9a7c3740ad692e7d4983c08, type: 2}
+    sprite: {fileID: 21300000, guid: b9ed99c6161b513459d508d5287f23f4, type: 3}
+  - enumShape: 3
+    _allShape: {fileID: 2100000, guid: fb21036b0fd40db459462ea456a78e4a, type: 2}
+    sprite: {fileID: 21300000, guid: 392cd3ee8909028429da8e0244939b28, type: 3}
   - enumShape: 4
-    sprite: {fileID: 21300000, guid: 4037fd2e5f36c624d9956f2c9507b82f, type: 3}
+    _allShape: {fileID: 2100000, guid: 32526e72f54e002429a0cb3beb91963d, type: 2}
+    sprite: {fileID: 21300000, guid: c1aef667df15ebe41869d53aef20d360, type: 3}
+  - enumShape: 5
+    _allShape: {fileID: 2100000, guid: fd533d9a88209364ea9094d92d822d79, type: 2}
+    sprite: {fileID: 21300000, guid: 0e270466cbd799d42b5db5a294dd7184, type: 3}
+  - enumShape: 6
+    _allShape: {fileID: 2100000, guid: 076132e6fd1d4714ebce6ffffdc2f848, type: 2}
+    sprite: {fileID: 21300000, guid: 5acd607d71a25984a9b9f06043e77531, type: 3}
   - enumShape: 7
-    sprite: {fileID: 21300000, guid: 63f082771cea4fe41b47538eddb08f4f, type: 3}
-  - enumShape: 9
-    sprite: {fileID: 21300000, guid: aae69082d25e02d45be2d6be18d49c11, type: 3}
+    _allShape: {fileID: 2100000, guid: c2357e5cee176ac438d2b8f58edcd4a3, type: 2}
+    sprite: {fileID: 21300000, guid: 094990ca3cee64c4bbc8d9415c82eef7, type: 3}
