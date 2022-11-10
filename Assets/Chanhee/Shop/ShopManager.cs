@@ -24,11 +24,7 @@ public class ShopManager : MonoBehaviour
             ItemData itemData = _itemDataList.itemDataLists[i];
 
             _itemDataDictionary.Add(itemData, newSlot);
-            newSlot.GetComponent<Slot>().SetItemData(itemData);
+            newSlot.GetComponent<Slot>().ITEMDATA = itemData;
         }
-
     }
-
-
-
 }

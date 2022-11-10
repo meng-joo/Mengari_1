@@ -98,8 +98,8 @@ public class DaeheeRefactoringUI : MonoBehaviour
     {
         seq = DOTween.Sequence();
 
-        seq.Append(button.transform.DOScale(1.8f, 0.1f));
-        seq.Append(button.transform.DOScale(2f, 0.05f));
+        seq.Append(button.transform.DOScale(.8f, 0.1f));
+        seq.Append(button.transform.DOScale(1f, 0.05f));
 
        // int fadevalue = isFade ? 0 : 1;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using JetBrains.Annotations;
 
 public class Slot : MonoBehaviour
 {
@@ -23,34 +24,52 @@ public class Slot : MonoBehaviour
         set => SetItemData(value);
     }
 
+    public void ReplaceUI()
+    {
+        if(_itemData.itemBuy)
+        {
+            _buyBtn.gameObject.SetActive(false);
+            _useBtn.gameObject.SetActive(true);
+        }
+
+        else
+        {
+            _useBtn.gameObject.SetActive(false);
+            _buyBtn.gameObject.SetActive(true);
+        }
+    }
+
     public void SetItemData(ItemData itemData)
     {
         _itemData = itemData;
 
-        //_nameText.text = _itemData.itemName;
-        //_costText.text = _itemData.itemCost.ToString();
-        //_image.sprite = _itemData.itemSprite;
+        _nameText.text = _itemData.itemName;
+        _costText.text = _itemData.itemCost.ToString();
+        _image.sprite = _itemData.itemSprite;
 
-        //_useBtn.onClick.AddListener(() => UseBtn());
-        //_buyBtn.onClick.AddListener(() => BuyBtn());
+        _useBtn.onClick.AddListener(() => UseBtn());
+        _buyBtn.onClick.AddListener(() => BuyBtn());
+        ReplaceUI();
+        if (_itemData.itemUnlock)
+        {
+            // 아이템이 잠김
+            _lockImage.alpha = 0.3f;
+            _lockImage.blocksRaycasts = true;
+            return;
+        }
+        else
+        {
+            _lockImage.alpha = 0;
+            _lockImage.blocksRaycasts = false;
+        }
 
-        //if (_itemData.itemUnlock)
-        //{
-        //    // 아이템이 잠김
-        //    _lockImage.alpha = 0.3f;
-        //    _lockImage.blocksRaycasts = true;
-        //    return;
-        //}
-        //else
-        //{
-        //    _lockImage.alpha = 0;
-        //    _lockImage.blocksRaycasts = false;
-        //}
+
     }
 
     public void UseBtn()
     {
         if (_itemData.itemUnlock) return;
+        if (!_itemData.itemBuy) return;
         if (_itemData.itemBuy)
         {
             ItemData item = SaveManager.Instance.ITEMDATALIST.usingItemData;
@@ -73,6 +92,7 @@ public class Slot : MonoBehaviour
             SaveManager.Instance.USERDATA.userMoney -= _itemData.itemCost;
             SaveManager.Instance.SaveUserData();
             _itemData.itemBuy = true;
+            ReplaceUI();
         }
         else
         {
