@@ -67,6 +67,7 @@ MonoBehaviour:
   poolType: 100
   _brokenWall: {fileID: 2710207080807750119}
   _originWall: {fileID: 8288897386968291232}
+  _showShape: {fileID: 1404680097863510288}
 --- !u!65 &8578247685165006460
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -171,6 +172,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5145930169047441289, guid: b602b693859cd504a8c262c094a5601d, type: 3}
+      propertyPath: m_VersionIndex
+      value: 37
+      objectReference: {fileID: 0}
     - target: {fileID: 5145930169047441335, guid: b602b693859cd504a8c262c094a5601d, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -183,6 +188,17 @@ PrefabInstance:
     - {fileID: 6664430427588758084, guid: b602b693859cd504a8c262c094a5601d, type: 3}
     - {fileID: 652653302, guid: b602b693859cd504a8c262c094a5601d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b602b693859cd504a8c262c094a5601d, type: 3}
+--- !u!114 &1404680097863510288 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2818265334955794690, guid: b602b693859cd504a8c262c094a5601d, type: 3}
+  m_PrefabInstance: {fileID: 3774597548440897554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987b6b26b685fa840b624031dc423bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2710207080807750119 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1296621642942386677, guid: b602b693859cd504a8c262c094a5601d, type: 3}

@@ -31,9 +31,9 @@ public class WallManager : MonoBehaviour
         Wall wall = PoolManager.Instance.Pop(poolType) as Wall;
         wall.SetShape(); 
         wall.SetPosAndRot(_createdTrans.position, Vector3.up * 90);
+        wall.IsCollision = true; 
 
-
-        if(_wallList.Contains(wall) == false)
+        if (_wallList.Contains(wall) == false)
         {
             _wallList.Add(wall);
         }

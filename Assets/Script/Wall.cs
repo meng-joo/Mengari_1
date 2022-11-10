@@ -5,19 +5,31 @@ using UnityEngine;
 
 public class Wall : PoolableMono
 {
-    private Vector3 _originPos; 
-    private Followers _followers; 
+    [SerializeField]
+    private Vector3 _originPos;
+    private Followers _followers;
     [SerializeField]
     private GameObject _brokenWall, _originWall;
 
-    private bool _isCollision = false; 
+    [SerializeField]
+    private bool _isCollision = false;
+    [SerializeField]
     private ShowShape _showShape;
     //private GameObject _randomShape;
 
     public GameObject BrokenWall => _brokenWall ??= transform.GetChild(0).GetChild(0).gameObject;
     public GameObject OriginWall => _originWall ??= transform.GetChild(0).GetChild(1).gameObject;
 
-    public Action brokenEvent = null;
+    public bool IsCollision
+    {
+        get => _isCollision;
+        set
+        {
+            _isCollision = value; 
+        }
+    }
+
+public Action brokenEvent = null;
 
     private void Awake()
     {
@@ -27,17 +39,17 @@ public class Wall : PoolableMono
 
     private void Start()
     {
-        _showShape = gameObject.GetComponentInChildren<ShowShape>();
+        _showShape = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ShowShape>(); 
      //   _randomShape = transform.GetChild(3).GetComponent<GameObject>();
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (_isCollision == false) return; 
+        if (_isCollision == false) return;
+        
         if (other.CompareTag("Bullet"))
         {
             Debug.Log("충돌");
-            _isCollision = false; 
             HitBullet();
             other.GetComponent<Bullet>().DestroyBullet();
             // 진동 
@@ -45,7 +57,6 @@ public class Wall : PoolableMono
         else if (other.CompareTag("Laser"))
         {
             Debug.Log("충돌");
-            _isCollision = false; 
             HitBullet();
         }
     }
@@ -66,8 +77,9 @@ public class Wall : PoolableMono
         _originWall.SetActive(false);
     //    _randomShape.SetActive(false);
         _brokenWall.SetActive(true);
-        _showShape.randomShape.ShapeShake();
+        _showShape.RandomShape.ShapeShake();
 
+        _isCollision = false;
     }
 
     public void Reseting()
@@ -78,11 +90,12 @@ public class Wall : PoolableMono
 
     public override void SetPosAndRot(Vector3 pos, Vector3 rot)
     {
-        _originPos = pos; 
+        _originPos = new Vector3(-22.64f, 1.44f, 0.303f);  //pos; 
         base.SetPosAndRot(pos, rot);
     }
     public override void Reset()
     {
+        Debug.Log("충돌"); 
         // 포지션 지정 
         transform.position = _originPos;
         _followers.enabled = true;
@@ -90,7 +103,6 @@ public class Wall : PoolableMono
      //   _randomShape.SetActive(true);
         BrokenWall.SetActive(false);
 
-        _isCollision = true;
-
     }
+    
 }
