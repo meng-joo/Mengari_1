@@ -72,33 +72,34 @@ public class CardPanelManager : MonoBehaviour
         AddCard();
     }
 
-    public void ShuffleList(List<Sprite> list1, List<EnumShape> list2)
-    {
-        int random1;
-        int random2;
+    //public void ShuffleList(List<Sprite> list1, List<EnumShape> list2)
+    //{
+    //    int random1;
+    //    int random2;
 
-        for (int index = 0; index < 250; ++index)
-        {
-            random1 = UnityEngine.Random.Range(0, appearCardCount);
-            random2 = UnityEngine.Random.Range(0, appearCardCount);
+    //    for (int index = 0; index < 1; ++index)
+    //    {
+    //        random1 = UnityEngine.Random.Range(0, appearCardCount);
+    //        random2 = UnityEngine.Random.Range(0, appearCardCount);
+    //        Debug.Log(list1[random1]);
+    //        Debug.Log(list1[random2]);
+    //        var tmp1 = list1[random1];
+    //        list1[random1] = list1[random2];
+    //        list1[random2] = tmp1;
 
-            var tmp1 = list1[random1];
-            list1[random1] = list1[random2];
-            list1[random2] = tmp1;
-
-            var tmp2 = list2[random1];
-            list2[random1] = list2[random2];
-            list2[random2] = tmp2;
-        }
-    }
+    //        var tmp2 = list2[random1];
+    //        list2[random1] = list2[random2];
+    //        list2[random2] = tmp2;
+    //    }
+    //}
 
     void CardReset()
     {
         for (int i = 0; i < appearCardCount; i++)
         {
-            cards[i].shape.enumShape = randomShape.enumData[i];
-            cards[i].shape.sprite = randomShape.spriteData[i];
-            cards[i].button.image.sprite = randomShape.spriteData[i];
+            cards[i].shape.enumShape = randomShape.cardEnumData[i];
+            cards[i].shape.sprite = randomShape.cardSpriteData[i];
+            cards[i].button.image.sprite = randomShape.cardSpriteData[i];
         }
     }
 
@@ -106,10 +107,6 @@ public class CardPanelManager : MonoBehaviour
     {
         LevelUp();
         CardReSize();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CreateCard();
-        }
     }
 
     private void LevelUp()
@@ -181,7 +178,7 @@ public class CardPanelManager : MonoBehaviour
     [ContextMenu("카드 만들기")]
     public void CreateCard()
     {
-        ShuffleList(randomShape.spriteData, randomShape.enumData);
+        //ShuffleList(randomShape.spriteData, randomShape.enumData);
         CardReset();
         CardReSize();
 

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDataLists:
   - {fileID: 11400000, guid: 432054afc710e464383840dead950399, type: 2}
-  useItem: {fileID: 0}
+  - {fileID: 11400000, guid: dd1043da0b661a54b92d08c640667305, type: 2}
+  usingItemData: {fileID: 0}

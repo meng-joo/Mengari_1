@@ -23,29 +23,29 @@ public class Slot : MonoBehaviour
         set => SetItemData(value);
     }
 
-    void SetItemData(ItemData itemData)
+    public void SetItemData(ItemData itemData)
     {
         _itemData = itemData;
 
-        _nameText.text = _itemData.itemName;
-        _costText.text = _itemData.itemCost.ToString();
-        _image.sprite = _itemData.itemSprite;
+        //_nameText.text = _itemData.itemName;
+        //_costText.text = _itemData.itemCost.ToString();
+        //_image.sprite = _itemData.itemSprite;
 
-        _useBtn.onClick.AddListener(() => UseBtn());
-        _buyBtn.onClick.AddListener(() => BuyBtn());
+        //_useBtn.onClick.AddListener(() => UseBtn());
+        //_buyBtn.onClick.AddListener(() => BuyBtn());
 
-        if (_itemData.itemUnlock)
-        {
-            // 아이템이 잠김
-            _lockImage.alpha = 0.3f;
-            _lockImage.blocksRaycasts = true;
-            return;
-        }
-        else
-        {
-            _lockImage.alpha = 0;
-            _lockImage.blocksRaycasts = false;
-        }
+        //if (_itemData.itemUnlock)
+        //{
+        //    // 아이템이 잠김
+        //    _lockImage.alpha = 0.3f;
+        //    _lockImage.blocksRaycasts = true;
+        //    return;
+        //}
+        //else
+        //{
+        //    _lockImage.alpha = 0;
+        //    _lockImage.blocksRaycasts = false;
+        //}
     }
 
     public void UseBtn()
@@ -53,7 +53,11 @@ public class Slot : MonoBehaviour
         if (_itemData.itemUnlock) return;
         if (_itemData.itemBuy)
         {
-            // 교체;
+            ItemData item = SaveManager.Instance.ITEMDATALIST.usingItemData;
+            item.itemUse = false;
+
+            SaveManager.Instance.ITEMDATALIST.usingItemData = _itemData;
+            _itemData.itemUse = true;
         }
         else
         {
@@ -66,7 +70,9 @@ public class Slot : MonoBehaviour
         if (_itemData.itemUnlock) return;
         if (_itemData.itemCost <= SaveManager.Instance.USERDATA.userMoney)
         {
-            // buy;
+            SaveManager.Instance.USERDATA.userMoney -= _itemData.itemCost;
+            SaveManager.Instance.SaveUserData();
+            _itemData.itemBuy = true;
         }
         else
         {

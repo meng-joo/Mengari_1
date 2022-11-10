@@ -8,6 +8,14 @@ public class Wall_RandomShape : MonoBehaviour
     public List<Material> shapeData = new List<Material>();
     public List<Sprite> spriteData = new List<Sprite>();
     public List<EnumShape> enumData = new List<EnumShape>();
+    public List<Sprite> cardSpriteData = new List<Sprite>();
+    public List<EnumShape> cardEnumData = new List<EnumShape>();
+
+    private StagePanelUI stagePanelUI;
+
+    private WallManager wallManager;
+
+    private CardPanelManager cardPanelManager;
 
     private void Awake()
     {
@@ -18,16 +26,23 @@ public class Wall_RandomShape : MonoBehaviour
             enumData.Add(_shapeDataSO._allCardShape[i].enumShape);
         }
 
-        ShapeShake();
+        //ShapeShake();
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            ShapeShake();
+        stagePanelUI = GetComponent<StagePanelUI>();
+        wallManager = GetComponent<WallManager>();
+        cardPanelManager = GetComponent<CardPanelManager>();
     }
 
-    void ShapeShake()
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //        ShapeShake();
+    //}
+
+    public void ShapeShake()
     {
         for (int i = 0; i < 50; i++)
         {
@@ -46,18 +61,52 @@ public class Wall_RandomShape : MonoBehaviour
             enumData[randA] = enumData[randB];
             enumData[randB] = _enum;
         }
-
-        ShowShape();
-    }
-
-    void ShowShape()
-    {
-        for (int i = 0; i < transform.childCount; i++)
+        cardSpriteData.Clear();
+        cardEnumData.Clear();
+        for(int i=0;i< _shapeDataSO._allCardShape.Length; i++)
         {
-            for (int j = 0; j < transform.GetChild(i).childCount; j++)
-            {
-                transform.GetChild(i).GetChild(j).GetComponent<MeshRenderer>().material = shapeData[j];
-            }
+            cardSpriteData.Add(spriteData[i]);
+            cardEnumData.Add(enumData[i]);
         }
+        for (int i = 0; i < 50; i++)
+        {
+            int randA = Random.Range(0, cardPanelManager.appearCardCount);
+            int randB = Random.Range(0, cardPanelManager.appearCardCount);
+
+            Sprite _sprite = cardSpriteData[randA];
+            cardSpriteData[randA] = cardSpriteData[randB];
+            cardSpriteData[randB] = _sprite;
+
+            EnumShape _enum = cardEnumData[randA];
+            cardEnumData[randA] = cardEnumData[randB];
+            cardEnumData[randB] = _enum;
+        }
+        //stagePanelUI.Renewal();
+
+        // 여기 
+
+        StartCoroutine(WallCreate());
+        //Invoke(wallManager.CreateWall(), 1);
+        //ShowShape();
     }
+
+    IEnumerator WallCreate()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        Debug.Log("Wall생성@@");
+        cardPanelManager.CreateCard();
+        wallManager.CreateWall();
+
+    }
+
+    //void ShowShape()
+    //{
+    //    for (int i = 0; i < transform.childCount; i++)
+    //    {
+    //        for (int j = 0; j < transform.GetChild(i).childCount; j++)
+    //        {
+    //            transform.GetChild(i).GetChild(j).GetComponent<MeshRenderer>().material = shapeData[j];
+    //        }
+    //    }
+    //}
 }
