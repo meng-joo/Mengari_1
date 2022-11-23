@@ -17,6 +17,10 @@ public class Bullet : PoolableMono
 
     private Vector3 _originScale = Vector3.one * 4;
 
+    // 시간
+    private bool _isTimer = false;
+    private float _time = 0;
+    private float _maxTime = 4f; 
     private void Start()
     {
         _originScale = transform.localScale;
@@ -30,17 +34,25 @@ public class Bullet : PoolableMono
         _particleEffect = GetComponentInChildren<ParticleEffect>();
     }
 
+    private void Update()
+    {
+        // Timer(); 
+    }
+
     public void UpScale()
     {
         DOTween.KillAll();
         transform.DOScale(_originScale.x * 1.2f, _originScale.y * 1.2f);
     }
 
+    private Vector3 moveDir = new Vector3(-1,0.1f,0); 
     // 총알 앞으로 이동 
     public void MoveForward()
     {
         Debug.Log("앞으로 이동"); 
-        _rigid.AddForce(Vector3.left * _bulletSpeed,ForceMode.Impulse);
+        _rigid.AddForce(moveDir * _bulletSpeed,ForceMode.Impulse);
+
+        //StartTimer(); 
     }
 
     // 총알 충돌시 삭제 (레이캐스트) 
@@ -63,10 +75,30 @@ public class Bullet : PoolableMono
 
     public override void Reset()
     {
+        _time = 0;
+        _isTimer = false; 
         transform.position = Vector3.one;
-        transform.localScale = _originScale; 
+        transform.localScale = _originScale;
+        _rigid.velocity = Vector3.zero;  
         Rendering(false); 
     }
     // 날아갈때 렌더러 이펙트, 화면으로 빨려들어가는 듯한 효과(진동, 아웃포커싱) 
 
+    // 타이머 관련 
+    private void StartTimer()
+    {
+        _time = 0;
+        _isTimer = true; 
+    }
+
+    private void Timer()
+    {
+        if (_isTimer == false) return; 
+
+        _time += Time.deltaTime;
+        if (_time > _maxTime)
+        {
+            PoolManager.Instance.Push(this);
+        }
+    }
 }

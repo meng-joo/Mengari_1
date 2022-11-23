@@ -35,7 +35,7 @@ public class InGameUIManager : MonoBehaviour
         _seq.Join(cardPanel.transform.DOMoveY(500f, 1.2f));
         for (int i = 0; i < levelImages.Length; i++)
         {
-            _seq.Append(levelImages[i].transform.DOMoveY(2320f, 0.25f).SetEase(Ease.OutBack));
+            _seq.Append(levelImages[i].GetComponent<RectTransform>().DOAnchorPosY(-900f, 0.25f).SetEase(Ease.OutBack));
         }
     }
 }

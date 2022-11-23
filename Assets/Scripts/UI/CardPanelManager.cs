@@ -33,9 +33,12 @@ public class CardPanelManager : MonoBehaviour
 
     private Wall_RandomShape randomShape;
 
+    private BulletManager _bulletManager; 
+
     private void Awake()
     {
         randomShape = GetComponent<Wall_RandomShape>();
+        _bulletManager = FindObjectOfType<BulletManager>(); 
     }
 
     private void Start()
@@ -212,6 +215,8 @@ public class CardPanelManager : MonoBehaviour
             Debug.Log("야스");
             clickedCards.Add(clickObject.GetComponent<Button>());
             clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
+            // 총알 생성 
+            _bulletManager.CreateBullet(); 
         }
         else
         {
