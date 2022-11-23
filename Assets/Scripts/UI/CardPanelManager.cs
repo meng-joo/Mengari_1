@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using System;
 using UnityEngine.Events;
+using Cinemachine;
 
 public class CardPanelManager : MonoBehaviour
 {
@@ -29,9 +30,13 @@ public class CardPanelManager : MonoBehaviour
 
     public RectTransform finalCardLocation;
 
+    public Image wrongEffect;
+
     private Sequence _seq;
 
     private Wall_RandomShape randomShape;
+
+    public CinemachineVirtualCamera cinemachineVirtualCamera;
 
     private void Awake()
     {
@@ -70,6 +75,16 @@ public class CardPanelManager : MonoBehaviour
             eventTrigger.triggers.Add(entry_PointerUp);
         }
         AddCard();
+    }
+
+    IEnumerator ShakeCamera(float intensity, float time)
+    {
+        CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
+            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
+        yield return new WaitForSeconds(time);
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0;
     }
 
     //public void ShuffleList(List<Sprite> list1, List<EnumShape> list2)
@@ -203,23 +218,39 @@ public class CardPanelManager : MonoBehaviour
             return;
         Debug.Log("PointerDown");
 
+        _seq = DOTween.Sequence();
+
         var clickObject = EventSystem.current.currentSelectedGameObject;
 
         int number = randomShape.enumData.IndexOf(clickObject.GetComponent<Frame>().shape.enumShape);
-
+        Debug.Log(number + " " + maxinumCardNumber);
         if (number < maxinumCardNumber)
         {
-            Debug.Log("야스");
+            clickObject.transform.DOScale(0.75f, 0.2f).SetEase(Ease.OutBack);
             clickedCards.Add(clickObject.GetComponent<Button>());
             clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
         }
         else
         {
-            Debug.Log("기모찌");
-            for(int i=0;i<clickedCards.Count;i++)
+            StartCoroutine(ShakeCamera(5f, 1f));
+            wrongEffect.gameObject.SetActive(true);
+            for (int i=0;i<clickedCards.Count;i++)
             {
                 clickedCards[i].GetComponent<Image>().DOColor(Color.black, 0.1f);
             }
+            _seq.Append(wrongEffect.DOFade(0.5f, 0.6f));
+            _seq.Append(wrongEffect.DOFade(0f, 0.6f));
+            _seq.AppendCallback(() => {
+                wrongEffect.gameObject.SetActive(false);
+            });
+            for (int i = 0; i < cards.Count; i++)
+            {
+                Debug.Log(cards[i]);
+
+                //cards[i].transform.DOScale(0.8f, 0.3f).SetLoops(2,LoopType.Yoyo);
+                cards[i].transform.DOShakePosition(0.4f, 30f, 80, 80);
+            }
+
             clickedCards.Clear();
         }
         //if(clickObject.GetComponent<Frame>().shape.enumShape)
@@ -235,8 +266,10 @@ public class CardPanelManager : MonoBehaviour
         //    clickObject.GetComponent<Image>().DOColor(Color.black, 0.1f);
         //}
 
-        clickObject.transform.DOScale(0.75f, 0.2f).SetEase(Ease.OutBack);
+        
     }
+
+
 
     public void OnPointerUp(PointerEventData data)
     {
