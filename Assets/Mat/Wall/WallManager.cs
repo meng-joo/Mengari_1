@@ -17,9 +17,6 @@ public class WallManager : MonoBehaviour
     private List<Wall> _wallList = new List<Wall>();
     // 벽 생성 , 벽 삭제, 벽 체크 레이캐스트 
 
-
-    
-
     /// <summary>
     ///  벽 생성 
     /// </summary>
@@ -28,12 +25,13 @@ public class WallManager : MonoBehaviour
     {
         Debug.Log("벽 생성"); 
         PoolType poolType = SelectRandomWall();
-        Wall wall = PoolManager.Instance.Pop(poolType) as Wall;
+        Wall wall = PoolManager.Instance.Pop(poolType,false) as Wall;
         wall.SetShape(); 
         wall.SetPosAndRot(_createdTrans.position, Vector3.up * 90);
+        wall.gameObject.SetActive(true);
+        wall.IsCollision = true; 
 
-
-        if(_wallList.Contains(wall) == false)
+        if (_wallList.Contains(wall) == false)
         {
             _wallList.Add(wall);
         }
