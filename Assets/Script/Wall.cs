@@ -90,7 +90,7 @@ public Action brokenEvent = null;
 
     public override void SetPosAndRot(Vector3 pos, Vector3 rot)
     {
-        _originPos = new Vector3(-22.64f, 1.44f, 0.303f);  //pos; 
+        _originPos = pos;  //pos; 
         base.SetPosAndRot(pos, rot);
     }
     public override void Reset()
