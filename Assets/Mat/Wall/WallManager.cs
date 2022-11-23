@@ -17,9 +17,6 @@ public class WallManager : MonoBehaviour
     private List<Wall> _wallList = new List<Wall>();
     // 벽 생성 , 벽 삭제, 벽 체크 레이캐스트 
 
-
-    
-
     /// <summary>
     ///  벽 생성 
     /// </summary>
