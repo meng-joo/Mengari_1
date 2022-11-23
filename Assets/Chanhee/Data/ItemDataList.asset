@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: ItemDataList
   m_EditorClassIdentifier: 
   itemDataLists:
-  - {fileID: 11400000, guid: 432054afc710e464383840dead950399, type: 2}
+  - {fileID: 11400000, guid: 26e19d2d0e9006245b5c8b7a2922f5e5, type: 2}
+  - {fileID: 11400000, guid: eb4eac9c48d33f245b1b7a4b9b084d77, type: 2}
+  - {fileID: 11400000, guid: c80755d2ef1bdec49baf34c8df70c906, type: 2}
+  - {fileID: 11400000, guid: 9994911df94014c449b1755adc37256a, type: 2}
+  - {fileID: 11400000, guid: 96c290026d0ee5e4ea82ec0a43f45012, type: 2}
+  - {fileID: 11400000, guid: ef75e6e89a5185348937ad51a9199c86, type: 2}
+  - {fileID: 11400000, guid: 7f797bfc25967904eae4a988caca9b9d, type: 2}
   - {fileID: 11400000, guid: dd1043da0b661a54b92d08c640667305, type: 2}
-  usingItemData: {fileID: 0}
+  - {fileID: 11400000, guid: 432054afc710e464383840dead950399, type: 2}
+  usingItemData: {fileID: 11400000, guid: eb4eac9c48d33f245b1b7a4b9b084d77, type: 2}
