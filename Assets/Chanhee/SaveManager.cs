@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+using TMPro;
 
 [Serializable]
 public struct ReturnUser
@@ -54,6 +56,9 @@ public class SaveManager : MonoSingleton<SaveManager>
         set => userDataList = value;
     }
 
+    [SerializeField] private GameObject _userDataPanel; 
+    [SerializeField] private TMP_InputField _userInput = null;
+    [SerializeField] private Button _userBtn;
     public void RefreshUser()
     {
         if (!isLoading)
@@ -68,6 +73,12 @@ public class SaveManager : MonoSingleton<SaveManager>
                 }
             }));
         }
+    }
+
+    private void Awake()
+    {
+        _userDataPanel.SetActive(false);
+        _userBtn.onClick.AddListener(() => BtnClick());
     }
 
     private void Start()
@@ -122,15 +133,29 @@ public class SaveManager : MonoSingleton<SaveManager>
                 // ¾øÀ½
                 else
                 {
-                    userData.ResetUserData();
-                    userData.userName = "NULL";
-                    isLoading = true;
-                    SaveUserData();
+                    StartCoroutine(CreateUserData());
+
                 }
             }
         }, form);
 
         isLoading = false;
+    }
+
+    bool _isBtnClick = false;
+    public void BtnClick()
+    {
+        _isBtnClick = true;
+    }
+    IEnumerator CreateUserData()
+    {
+        userData.ResetUserData();
+        _userDataPanel.SetActive(true);
+        yield return new WaitUntil(() => _isBtnClick);
+        userData.userName = _userInput.text;
+        isLoading = true;
+        _userDataPanel.SetActive(false);
+        SaveUserData();
     }
 
     public void SaveUserData()
