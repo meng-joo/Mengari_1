@@ -81,10 +81,14 @@ public class BulletManager : MonoBehaviour
 
         Draggable draggable;
         draggable = bullet.GetComponent<Draggable>();
-        
+
         // 총알 드래그 이벤트 등록 
-        draggable.beginDragEvent = () => { draggable.beginDragEvent = null; bullet.UpScale(); };
-        draggable.endDragEvent = () => { draggable.endDragEvent = null; bullet.MoveForward(); };
+        //draggable.beginDragEvent = () => { draggable.beginDragEvent = null; bullet.UpScale(); };
+        draggable.endDragEvent = null;
+        draggable.stayClickEvent = null;
+
+        draggable.endDragEvent = () => {  bullet.MoveForward(); };
+        draggable.stayClickEvent = () => {  bullet.ScaleUp(); };
         //draggable.exitPointerEvent = () => { draggable.exitPointerEvent = null; bullet.MoveForward(); };
     }
 

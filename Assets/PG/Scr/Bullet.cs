@@ -39,6 +39,12 @@ public class Bullet : PoolableMono
         // Timer(); 
     }
 
+    public void ScaleUp()
+    {
+        // 클릭중 
+        Debug.Log("스케일업");
+        transform.localScale = Vector3.Lerp(transform.localScale, _originScale * 1.4f, Time.deltaTime* 10f);
+    }
     public void UpScale()
     {
         DOTween.KillAll();
