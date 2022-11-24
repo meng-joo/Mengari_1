@@ -40,7 +40,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler//
         _isClick = false; 
         endPos = eventData.position;
         Debug.Log("끝" + endPos);
-        if(endPos.y - _startClickPos.y > 500f)
+        if(endPos.y - _startClickPos.y > 100f)
         {
             Debug.Log("위로 드래그");
 //            exitPointerEvent?.Invoke();

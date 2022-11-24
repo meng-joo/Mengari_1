@@ -44,6 +44,7 @@ public class Bullet : PoolableMono
         // 클릭중 
         Debug.Log("스케일업");
         transform.localScale = Vector3.Lerp(transform.localScale, _originScale * 1.4f, Time.deltaTime* 10f);
+        Time.timeScale = 0.2f; 
     }
     public void UpScale()
     {
@@ -57,6 +58,7 @@ public class Bullet : PoolableMono
     {
         Debug.Log("앞으로 이동"); 
         _rigid.AddForce(moveDir * _bulletSpeed,ForceMode.Impulse);
+        Time.timeScale = 1f;
 
         //StartTimer(); 
     }
