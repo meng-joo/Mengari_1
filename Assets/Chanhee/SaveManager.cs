@@ -12,6 +12,13 @@ public struct ReturnUser
 }
 
 [Serializable]
+public struct ReturnUsers
+{
+    public bool success;
+    public List<User> msg;
+}
+
+[Serializable]
 public struct ReturnMsg
 {
     public bool success;
@@ -25,6 +32,7 @@ public class SaveManager : MonoSingleton<SaveManager>
 
     private string DEVICEID = string.Empty;
     private bool isLoading = false;
+    public bool ISLOADING => isLoading;
     #endregion
 
     [SerializeField] UserData userData;
@@ -39,7 +47,28 @@ public class SaveManager : MonoSingleton<SaveManager>
         get => itemDataList;
         set => itemDataList = value;
     }
+    [SerializeField] private List<User> userDataList;
+    public List<User> USERDATALIST
+    {
+        get => userDataList;
+        set => userDataList = value;
+    }
 
+    public void RefreshUser()
+    {
+        if (!isLoading)
+        {
+            isLoading = true;
+            StartCoroutine(Rank((success, data) =>
+            {
+                if (success == true)
+                {
+                    ReturnUsers returnUsers = JsonUtility.FromJson<ReturnUsers>(data);
+                    userDataList = returnUsers.msg;
+                }
+            }));
+        }
+    }
 
     private void Start()
     {
@@ -50,6 +79,23 @@ public class SaveManager : MonoSingleton<SaveManager>
             isLoading = true;
             LoadUserData();
         }
+    }
+
+    IEnumerator Rank(Action<bool, string> Callback)
+    {
+        UnityWebRequest req = UnityWebRequest.Get($"{URL}/userList");
+        yield return req.SendWebRequest();
+
+        if (req.result == UnityWebRequest.Result.Success)
+        {
+            Callback(true, req.downloadHandler.text);
+
+        }
+        else
+        {
+            Callback(false, string.Empty);
+        }
+        isLoading = false;
     }
 
     private void OnApplicationQuit()
@@ -77,7 +123,7 @@ public class SaveManager : MonoSingleton<SaveManager>
                 else
                 {
                     userData.ResetUserData();
-
+                    userData.userName = "NULL";
                     isLoading = true;
                     SaveUserData();
                 }
