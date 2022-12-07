@@ -232,7 +232,8 @@ public class CardPanelManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ShakeCamera(5f, 1f));
+            //StartCoroutine(ShakeCamera(5f, 1f));
+            Handheld.Vibrate();
             wrongEffect.gameObject.SetActive(true);
             for (int i=0;i<clickedCards.Count;i++)
             {
@@ -281,6 +282,7 @@ public class CardPanelManager : MonoBehaviour
         _seq = DOTween.Sequence();
         if (clickedCards.Count >= maxinumCardNumber)
         {
+
             for (int i = 0; i < clickedCards.Count; i++)
             {
                 _seq.Join(clickedCards[i].GetComponent<RectTransform>().DOMove(finalCardLocation.transform.position, 0.6f));
