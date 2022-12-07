@@ -25,9 +25,10 @@ public class WallManager : MonoBehaviour
     {
         Debug.Log("º® »ý¼º"); 
         PoolType poolType = SelectRandomWall();
-        Wall wall = PoolManager.Instance.Pop(poolType) as Wall;
+        Wall wall = PoolManager.Instance.Pop(poolType,false) as Wall;
         wall.SetShape(); 
         wall.SetPosAndRot(_createdTrans.position, Vector3.up * 90);
+        wall.gameObject.SetActive(true);
         wall.IsCollision = true; 
 
         if (_wallList.Contains(wall) == false)
