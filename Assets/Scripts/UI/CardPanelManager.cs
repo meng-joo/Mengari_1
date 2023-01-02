@@ -239,7 +239,7 @@ public class CardPanelManager : MonoBehaviour
             {
                 clickedCards[i].GetComponent<Image>().DOColor(Color.black, 0.1f);
             }
-            _seq.Append(wrongEffect.DOFade(0.5f, 0.6f));
+            _seq.Append(wrongEffect.DOFade(1.0f, 0.6f));
             _seq.Append(wrongEffect.DOFade(0f, 0.6f));
             _seq.AppendCallback(() => {
                 wrongEffect.gameObject.SetActive(false);
