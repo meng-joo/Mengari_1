@@ -10,6 +10,7 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler//
     private Vector2 _dragDir = Vector2.up;  // 드래그할 방향 
     public Action beginDragEvent = null;
     public Action endDragEvent = null;
+    public Action endClickEvent = null; 
     public Action stayClickEvent; 
     //public Action exitPointerEvent = null;
 
@@ -45,7 +46,9 @@ public class Draggable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler//
             Debug.Log("위로 드래그");
 //            exitPointerEvent?.Invoke();
             endDragEvent?.Invoke();
+            return; 
         }
+        endClickEvent?.Invoke(); 
     }
 
     public void OnPointerDown(PointerEventData eventData)

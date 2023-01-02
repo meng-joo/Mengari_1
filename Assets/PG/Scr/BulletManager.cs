@@ -88,6 +88,7 @@ public class BulletManager : MonoBehaviour
         draggable.stayClickEvent = null;
 
         draggable.endDragEvent = () => {  bullet.MoveForward(); };
+        draggable.endClickEvent = () => { Time.timeScale = 1f; };
         draggable.stayClickEvent = () => {  bullet.ScaleUp(); };
         //draggable.exitPointerEvent = () => { draggable.exitPointerEvent = null; bullet.MoveForward(); };
     }
