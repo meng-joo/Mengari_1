@@ -65,8 +65,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 100
+  _originPos: {x: 0, y: 0, z: 0}
   _brokenWall: {fileID: 2710207080807750119}
   _originWall: {fileID: 8288897386968291232}
+  _isCollision: 0
   _showShape: {fileID: 1404680097863510288}
 --- !u!65 &8578247685165006460
 BoxCollider:

@@ -17,14 +17,15 @@ public class StagePanelUI : MonoBehaviour
     private void Start()
     {
         _inGameUIManager = GetComponent<InGameUIManager>();
+        
     }
     //레벨업시 UI갱신
     [ContextMenu("레벨업 UI갱신")]
     public void Renewal()
     {
         frontStageNumber = WallManager.stageLevel / 6 + 1;
-        backStageNumber = WallManager.stageLevel % 6 + 1;
-
+       
+        backStageNumber = WallManager.stageLevel2 % 6 + 1;   
         //색깔 하양색으로 Reset
         if (backStageNumber == 1)
         {

@@ -16,7 +16,7 @@ public class Wall : PoolableMono
     [SerializeField]
     private ShowShape _showShape;
     //private GameObject _randomShape;
-
+    private StagePanelUI stagePanelUI;
     public GameObject BrokenWall => _brokenWall ??= transform.GetChild(0).GetChild(0).gameObject;
     public GameObject OriginWall => _originWall ??= transform.GetChild(0).GetChild(1).gameObject;
 
@@ -39,7 +39,9 @@ public Action brokenEvent = null;
 
     private void Start()
     {
-        _showShape = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ShowShape>(); 
+        _showShape = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ShowShape>();
+        stagePanelUI = GameObject.Find("Manager").GetComponent<StagePanelUI>();
+
      //   _randomShape = transform.GetChild(3).GetComponent<GameObject>();
     }
 
@@ -73,6 +75,10 @@ public Action brokenEvent = null;
     }
     public void HitBullet()
     {
+        Debug.Log(WallManager.stageLevel);
+        ++WallManager.stageLevel;
+        ++WallManager.stageLevel2;
+        stagePanelUI.Renewal();
         _followers.enabled = false; 
         _originWall.SetActive(false);
     //    _randomShape.SetActive(false);

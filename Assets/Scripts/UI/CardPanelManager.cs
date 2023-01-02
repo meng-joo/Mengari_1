@@ -233,8 +233,6 @@ public class CardPanelManager : MonoBehaviour
             clickedCards.Add(clickObject.GetComponent<Button>());
             clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
 
-            //총알 만들기
-            _bulletManager.CreateBullet(); 
         }
         else
         {
@@ -243,7 +241,7 @@ public class CardPanelManager : MonoBehaviour
             wrongEffect.gameObject.SetActive(true);
             for (int i=0;i<clickedCards.Count;i++)
             {
-                clickedCards[i].GetComponent<Image>().DOColor(Color.black, 0.1f);
+                clickedCards[i].GetComponent<Image>().DOColor(Color.black, 0.05f);
             }
             _seq.Append(wrongEffect.DOFade(0.5f, 0.6f));
             _seq.Append(wrongEffect.DOFade(0f, 0.6f));
@@ -302,6 +300,9 @@ public class CardPanelManager : MonoBehaviour
                 }
                 //Invoke("CreateCard", 1f);
             });
+
+            //총알 만들기
+            _bulletManager.CreateBullet();
         }
     }
 }

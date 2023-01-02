@@ -62,7 +62,7 @@ public class Followers : MonoBehaviour
         if (collision.transform.CompareTag("Bullet"))
         {
             Debug.Log("‰çÀ½");
-            WallManager.stageLevel++;
+            //WallManager.stageLevel++;
             wallManager.levelUpEvent?.Invoke();
         }
     }

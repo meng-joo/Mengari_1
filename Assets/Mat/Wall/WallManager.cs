@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class WallManager : MonoBehaviour
 {
     public static int stageLevel = 1;
+    public static int stageLevel2 = 0;
     public UnityEvent levelUpEvent;
 
     [SerializeField]
@@ -63,17 +64,5 @@ public class WallManager : MonoBehaviour
     private void Update()
     {
         nowLevel = stageLevel;
-    }
-
-    [ContextMenu("Up")]
-    public void Up()
-    {
-        stageLevel++;
-    }
-
-    [ContextMenu("Down")]
-    public void Down()
-    {
-        stageLevel--;
     }
 }
