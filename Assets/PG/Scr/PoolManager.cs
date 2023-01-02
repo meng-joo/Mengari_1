@@ -45,7 +45,7 @@ public class PoolManager : MonoSingleton<PoolManager>
         return obj;
     }
 
-    public PoolableMono Pop(PoolType poolType)
+    public PoolableMono Pop(PoolType poolType, bool isActive = true)
     {
         if (!poolDict.ContainsKey(poolType))
         {
@@ -67,7 +67,7 @@ public class PoolManager : MonoSingleton<PoolManager>
         }
 
         item = poolDict[poolType].Dequeue();
-        item.gameObject.SetActive(true); 
+        item.gameObject.SetActive(isActive); 
         item.Reset();
         return item;
     }

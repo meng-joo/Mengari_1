@@ -205,16 +205,35 @@ public class CardPanelManager : MonoBehaviour
 
         var clickObject = EventSystem.current.currentSelectedGameObject;
 
-        if (clickObject.GetComponent<Image>().color != Color.gray)
+        int number = randomShape.enumData.IndexOf(clickObject.GetComponent<Frame>().shape.enumShape);
+
+        if (number < maxinumCardNumber)
         {
+            Debug.Log("야스");
             clickedCards.Add(clickObject.GetComponent<Button>());
             clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
         }
         else
         {
-            clickedCards.Remove(clickObject.GetComponent<Button>());
-            clickObject.GetComponent<Image>().DOColor(Color.black, 0.1f);
+            Debug.Log("기모찌");
+            for(int i=0;i<clickedCards.Count;i++)
+            {
+                clickedCards[i].GetComponent<Image>().DOColor(Color.black, 0.1f);
+            }
+            clickedCards.Clear();
         }
+        //if(clickObject.GetComponent<Frame>().shape.enumShape)
+
+        //if (clickObject.GetComponent<Image>().color != Color.gray)
+        //{
+        //    clickedCards.Add(clickObject.GetComponent<Button>());
+        //    clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
+        //}
+        //else
+        //{
+        //    clickedCards.Remove(clickObject.GetComponent<Button>());
+        //    clickObject.GetComponent<Image>().DOColor(Color.black, 0.1f);
+        //}
 
         clickObject.transform.DOScale(0.75f, 0.2f).SetEase(Ease.OutBack);
     }

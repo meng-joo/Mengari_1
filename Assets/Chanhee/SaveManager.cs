@@ -3,12 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+using TMPro;
 
 [Serializable]
 public struct ReturnUser
 {
     public bool success;
     public User msg;
+}
+
+[Serializable]
+public struct ReturnUsers
+{
+    public bool success;
+    public List<User> msg;
 }
 
 [Serializable]
@@ -25,6 +34,7 @@ public class SaveManager : MonoSingleton<SaveManager>
 
     private string DEVICEID = string.Empty;
     private bool isLoading = false;
+    public bool ISLOADING => isLoading;
     #endregion
 
     [SerializeField] UserData userData;
@@ -39,7 +49,37 @@ public class SaveManager : MonoSingleton<SaveManager>
         get => itemDataList;
         set => itemDataList = value;
     }
+    [SerializeField] private List<User> userDataList;
+    public List<User> USERDATALIST
+    {
+        get => userDataList;
+        set => userDataList = value;
+    }
 
+    [SerializeField] private GameObject _userDataPanel; 
+    [SerializeField] private TMP_InputField _userInput = null;
+    [SerializeField] private Button _userBtn;
+    public void RefreshUser()
+    {
+        if (!isLoading)
+        {
+            isLoading = true;
+            StartCoroutine(Rank((success, data) =>
+            {
+                if (success == true)
+                {
+                    ReturnUsers returnUsers = JsonUtility.FromJson<ReturnUsers>(data);
+                    userDataList = returnUsers.msg;
+                }
+            }));
+        }
+    }
+
+    private void Awake()
+    {
+        _userDataPanel.SetActive(false);
+        _userBtn.onClick.AddListener(() => BtnClick());
+    }
 
     private void Start()
     {
@@ -50,6 +90,23 @@ public class SaveManager : MonoSingleton<SaveManager>
             isLoading = true;
             LoadUserData();
         }
+    }
+
+    IEnumerator Rank(Action<bool, string> Callback)
+    {
+        UnityWebRequest req = UnityWebRequest.Get($"{URL}/userList");
+        yield return req.SendWebRequest();
+
+        if (req.result == UnityWebRequest.Result.Success)
+        {
+            Callback(true, req.downloadHandler.text);
+
+        }
+        else
+        {
+            Callback(false, string.Empty);
+        }
+        isLoading = false;
     }
 
     private void OnApplicationQuit()
@@ -76,15 +133,29 @@ public class SaveManager : MonoSingleton<SaveManager>
                 // ¾øÀ½
                 else
                 {
-                    userData.ResetUserData();
+                    StartCoroutine(CreateUserData());
 
-                    isLoading = true;
-                    SaveUserData();
                 }
             }
         }, form);
 
         isLoading = false;
+    }
+
+    bool _isBtnClick = false;
+    public void BtnClick()
+    {
+        _isBtnClick = true;
+    }
+    IEnumerator CreateUserData()
+    {
+        userData.ResetUserData();
+        _userDataPanel.SetActive(true);
+        yield return new WaitUntil(() => _isBtnClick);
+        userData.userName = _userInput.text;
+        isLoading = true;
+        _userDataPanel.SetActive(false);
+        SaveUserData();
     }
 
     public void SaveUserData()
