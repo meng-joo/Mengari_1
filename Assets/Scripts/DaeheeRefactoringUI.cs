@@ -16,6 +16,8 @@ public class DaeheeRefactoringUI : MonoBehaviour
     [SerializeField] private Button _settingButton;
     [SerializeField] private Button _settingBackButton;
     [SerializeField] private Button _restartButton;
+    [SerializeField] private Button _startButton;
+    [SerializeField] private TMP_Text _endText;
     [SerializeField] private List<Button> _overBtnList;
     [SerializeField] private List<Button> _btnGrp;
     [SerializeField] private List<TextMeshProUGUI> _wallTextList;
@@ -41,6 +43,8 @@ public class DaeheeRefactoringUI : MonoBehaviour
         _settingButton.onClick.AddListener(() => PopupSetting());
         _settingBackButton.onClick.AddListener(() => CloseSetting());
         _restartButton.onClick.AddListener(() => Restart());
+        _startButton.onClick.AddListener(() => SetStartBtnEnd());
+        _startButton.transform.DOMoveY(-3000f, 0.5f);
         foreach (Button btn in _btnGrp)
         {
             btn.onClick.AddListener(() => UISound());
@@ -48,6 +52,33 @@ public class DaeheeRefactoringUI : MonoBehaviour
         _isMute = false;
         SetBtnPosOver();
         CloseWallText();
+        SetEndTextStart();
+        SetEndTextEnd();
+    }
+
+    void SetEndTextStart()
+    {
+        _endText.gameObject.transform.DOMoveY(3000f, 0.4f);
+    }
+
+    void SetEndTextEnd()
+    {
+        _endText.gameObject.transform.DOMoveY(1600f, 0.4f);
+
+    }
+
+    void SetStartBtnStart()
+    {
+        seq = DOTween.Sequence();
+        seq.Join(_startButton.transform.DOMoveY(+700f, 0.3f));
+        seq.AppendCallback(() => seq.Kill());
+    }
+
+    void SetStartBtnEnd()
+    {
+        seq = DOTween.Sequence();
+        seq.Join(_startButton.transform.DOMoveY(-3000f, 0.3f));
+        seq.AppendCallback(() => seq.Kill());
     }
 
     #region 오버화면 버튼 위치 설정 메서드
@@ -56,7 +87,7 @@ public class DaeheeRefactoringUI : MonoBehaviour
         seq = DOTween.Sequence();
         foreach(Button btn in _overBtnList)
         {
-            seq.Join(btn.transform.DOMoveY(+300f, 0.3f));
+            seq.Join(btn.transform.DOMoveY(-300f, 0.3f));
         }
         seq.AppendInterval(2f);
         seq.AppendCallback(() => seq.Kill());
@@ -67,7 +98,7 @@ public class DaeheeRefactoringUI : MonoBehaviour
         Debug.Log("sdfasdf");
         foreach (Button btn in _overBtnList)
         {
-            seq.Join(btn.transform.DOMoveY(-300f, 0.3f));
+            seq.Join(btn.transform.DOMoveY(+300f, 0.3f));
         }
         seq.AppendInterval(2f);
         seq.AppendCallback(()=>seq.Kill());
@@ -105,6 +136,8 @@ public class DaeheeRefactoringUI : MonoBehaviour
     }
     private void Restart()
     {
+        SetEndTextStart();
+        SetStartBtnStart();
         SetBtnPosStart();
         ShowWallText();
         _restartButton.gameObject.SetActive(false);
