@@ -38,9 +38,12 @@ public class CardPanelManager : MonoBehaviour
 
     public CinemachineVirtualCamera cinemachineVirtualCamera;
 
+    private BulletManager _bulletManager; 
+
     private void Awake()
     {
         randomShape = GetComponent<Wall_RandomShape>();
+        _bulletManager = FindObjectOfType<BulletManager>(); 
     }
 
     private void Start()
@@ -229,6 +232,9 @@ public class CardPanelManager : MonoBehaviour
             clickObject.transform.DOScale(0.75f, 0.2f).SetEase(Ease.OutBack);
             clickedCards.Add(clickObject.GetComponent<Button>());
             clickObject.GetComponent<Image>().DOColor(Color.gray, 0.1f);
+
+            //총알 만들기
+            _bulletManager.CreateBullet(); 
         }
         else
         {

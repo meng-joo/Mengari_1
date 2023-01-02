@@ -5,11 +5,14 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StartScene.unity
     guid: 0262814870b790c4e973272c392370e1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MapWorkScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/HJMapWorkScene.unity
+    guid: ff5adf5e3b8126f4ca4cfbec004314ad
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 32cefb5f222993c41b9228c2d20b3d65, type: 2}

@@ -32,10 +32,10 @@ public class InGameUIManager : MonoBehaviour
         _seq.AppendInterval(1.4f);
 
         _seq.Append(levelText.transform.DOMoveY(2430f, 0.8f));
-        _seq.Join(cardPanel.transform.DOMoveY(500f, 1.2f));
+        _seq.Join(cardPanel.transform.DOMoveY(460f, 1.2f));
         for (int i = 0; i < levelImages.Length; i++)
         {
-            _seq.Append(levelImages[i].GetComponent<RectTransform>().DOAnchorPosY(-900f, 0.25f).SetEase(Ease.OutBack));
+            _seq.Append(levelImages[i].GetComponent<RectTransform>().DOAnchorPosY(-450f, 0.25f).SetEase(Ease.OutBack));
         }
     }
 }
