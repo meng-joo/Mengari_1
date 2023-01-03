@@ -16,5 +16,5 @@ MonoBehaviour:
   itemCost: 0
   itemSprite: {fileID: 0}
   itemUse: 0
-  itemBuy: 0
+  itemBuy: 1
   itemUnlock: 0

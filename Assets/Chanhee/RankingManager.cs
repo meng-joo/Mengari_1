@@ -1,16 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using UnityEngine.UI;
 
 public class RankingManager : MonoBehaviour
 {
     private List<GameObject> _rankPanelList = new List<GameObject>();
     [SerializeField] private Transform _content = null;
     [SerializeField] private GameObject _rankPanel = null;
+    [SerializeField] private Button _goBackBtn = null;
 
+    private Sequence _seq;
     private List<User> _userDataList = new List<User>();
+
+    public void Awake()
+    {
+        _goBackBtn.onClick.AddListener(GoBack);
+    }
+
+    public void GoBack()
+    {
+        _seq = DOTween.Sequence();
+        _seq.Append(_rankPanel.gameObject.transform.DOMoveX(720f*3, 0.2f));
+        _seq.AppendCallback(() =>
+        {
+            _seq.Kill();
+        });
+    }
     public void RefreshRankPanel()
     {
+        _seq = DOTween.Sequence();
+
+        _seq.Append(_rankPanel.gameObject.transform.DOMoveX(720f,0.2f));
         if (_rankPanelList.Count != 0)
         {
             for (int i = 0; i < _rankPanelList.Count; i++)
@@ -19,7 +41,10 @@ public class RankingManager : MonoBehaviour
             }
             _rankPanelList.Clear();
         }
-
+        _seq.AppendCallback(() =>
+        {
+            _seq.Kill();
+        });
         StartCoroutine(LoadList());
     }
 

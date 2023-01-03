@@ -6,14 +6,14 @@ using TMPro;
 
 public class RankPanel : MonoBehaviour
 {
-    TextMeshProUGUI _userNameText = null;
-    TextMeshProUGUI _userStageText = null;
+  public  TextMeshProUGUI _userNameText = null;
+    public TextMeshProUGUI _userStageText = null;
 
-    private void Awake()
-    {
-        _userNameText = transform.Find("UserNameText").GetComponent<TextMeshProUGUI>();
-        _userStageText = transform.Find("UserStageText").GetComponent<TextMeshProUGUI>();
-    }
+    //private void Awake()
+    //{
+    //    _userNameText = transform.Find("UserNameText").GetComponent<TextMeshProUGUI>();
+    //    _userStageText = transform.Find("UserStageText").GetComponent<TextMeshProUGUI>();
+    //}
 
     public void Init(User user)
     {

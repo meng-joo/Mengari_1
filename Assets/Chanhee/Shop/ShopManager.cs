@@ -8,10 +8,20 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject _slot;
 
     private ItemDataList _itemDataList;
+    public ItemDataList ITEMDATALIST
+    {
+        get => _itemDataList;
+        set => _itemDataList = value;
+    }
 
     [SerializeField] private Transform _content;
 
     [SerializeField] private Dictionary<ItemData, GameObject> _itemDataDictionary;
+    public Dictionary<ItemData, GameObject> ITEMDATADICTIONARY
+    {
+        get => _itemDataDictionary;
+        set => _itemDataDictionary = value;
+    }
 
     private void Start()
     {
@@ -24,11 +34,7 @@ public class ShopManager : MonoBehaviour
             ItemData itemData = _itemDataList.itemDataLists[i];
 
             _itemDataDictionary.Add(itemData, newSlot);
-            newSlot.GetComponent<Slot>().SetItemData(itemData);
+            newSlot.GetComponent<Slot>().ITEMDATA = itemData;
         }
-
     }
-
-
-
 }
