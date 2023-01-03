@@ -44,16 +44,31 @@ public class DaeheeRefactoringUI : MonoBehaviour
         _settingBackButton.onClick.AddListener(() => CloseSetting());
         _restartButton.onClick.AddListener(() => Restart());
         _startButton.onClick.AddListener(() => SetStartBtnEnd());
-        _startButton.transform.DOMoveY(-3000f, 0.5f);
         foreach (Button btn in _btnGrp)
         {
             btn.onClick.AddListener(() => UISound());
         }
         _isMute = false;
+        StartEndScene();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        { SetEnd(); }
+    }
+    void SetEnd()
+    {
+        StartEndScene();
+        SetEndTextEnd();
+    }
+    void StartEndScene() // 게임오버 시작
+    {
+        _startButton.transform.DOMoveY(-3000f, 0.5f);
+        _isMute = false;
         SetBtnPosOver();
         CloseWallText();
-        SetEndTextStart();
-        SetEndTextEnd();
+        _restartButton.gameObject.SetActive(true);
     }
 
     void SetEndTextStart()
@@ -64,7 +79,6 @@ public class DaeheeRefactoringUI : MonoBehaviour
     void SetEndTextEnd()
     {
         _endText.gameObject.transform.DOMoveY(1600f, 0.4f);
-
     }
 
     void SetStartBtnStart()
@@ -77,7 +91,9 @@ public class DaeheeRefactoringUI : MonoBehaviour
     void SetStartBtnEnd()
     {
         seq = DOTween.Sequence();
+        StartEndScene();
         seq.Join(_startButton.transform.DOMoveY(-3000f, 0.3f));
+        _restartButton.gameObject.SetActive(false);
         seq.AppendCallback(() => seq.Kill());
     }
 
@@ -125,7 +141,7 @@ public class DaeheeRefactoringUI : MonoBehaviour
         {
             seq.Join(go.DOFade(0, .2f));
         }
-        seq.AppendInterval(1f);
+        seq.AppendInterval(2f);
         seq.AppendCallback(() => seq.Kill());
     }
     #endregion
@@ -140,6 +156,7 @@ public class DaeheeRefactoringUI : MonoBehaviour
         SetStartBtnStart();
         SetBtnPosStart();
         ShowWallText();
+
         _restartButton.gameObject.SetActive(false);
 
     }
