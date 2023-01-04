@@ -61,11 +61,14 @@ public class BulletManager : MonoBehaviour
         StartCoroutine(CreateBullet(pos)); 
     }
 
+    private Bullet _curBullet; 
 
     IEnumerator CreateBullet(Vector3 bulletPos)
     {
         //ParticleEffect effect = PoolManager.Instance.Pop(PoolType.BulletCreateEffect) as ParticleEffect;"
         Bullet bullet = PoolManager.Instance.Pop(PoolType.Bullet) as Bullet;
+
+        _curBullet = bullet; 
 
         bullet.SetPosAndRot(bulletPos, Vector3.up * 270);
 
@@ -91,6 +94,14 @@ public class BulletManager : MonoBehaviour
         draggable.endClickEvent = () => { Time.timeScale = 1f; };
         draggable.stayClickEvent = () => {  bullet.ScaleUp(); };
         //draggable.exitPointerEvent = () => { draggable.exitPointerEvent = null; bullet.MoveForward(); };
+    }
+
+    /// <summary>
+    /// ÃÑ¾Ë »èÁ¦ 
+    /// </summary>
+    public void ResetBullets()
+    {
+        PoolManager.Instance.Push(_curBullet); 
     }
 
 }

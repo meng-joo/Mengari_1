@@ -19,8 +19,6 @@ public class InGameUIManager : MonoBehaviour
 
     private Sequence _seq;
     public CinemachineVirtualCamera inGameVCam;
-
-
     public void OnClickStartButton()
     {
         _seq = DOTween.Sequence();
@@ -37,5 +35,17 @@ public class InGameUIManager : MonoBehaviour
         {
             _seq.Append(levelImages[i].GetComponent<RectTransform>().DOAnchorPosY(-450f, 0.25f).SetEase(Ease.OutBack));
         }
+    }
+
+    [ContextMenu("√ ±‚»≠")]
+    public void EndCardPanelUI()
+    {
+        _seq.Append(cardPanel.transform.DOMoveY(-460f, -1.2f));
+        for (int i = 0; i < levelImages.Length; i++)
+        {
+            _seq.Join(levelImages[i].GetComponent<RectTransform>().DOAnchorPosY(450f, 0.25f).SetEase(Ease.OutBack));
+            _seq.Join(levelImages[i].DOColor(new Color(255,255, 255), 0.1f));
+        }
+        
     }
 }

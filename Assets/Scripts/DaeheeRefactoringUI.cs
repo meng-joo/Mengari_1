@@ -49,7 +49,7 @@ public class DaeheeRefactoringUI : MonoBehaviour
             btn.onClick.AddListener(() => UISound());
         }
         _isMute = false;
-        StartEndScene();
+       // StartEndScene();
     }
 
     private void Update()
@@ -57,7 +57,7 @@ public class DaeheeRefactoringUI : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         { SetEnd(); }
     }
-    void SetEnd()
+    public void SetEnd()
     {
         StartEndScene();
         SetEndTextEnd();

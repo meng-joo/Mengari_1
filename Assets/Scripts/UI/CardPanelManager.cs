@@ -24,6 +24,8 @@ public class CardPanelManager : MonoBehaviour
 
     public List<Shape> shapeList = new List<Shape>();
 
+    public StagePanelUI stagePanelUI;
+
     public GridLayoutGroup cardGridLayoutGroup;
 
     public RectTransform cardPanel;
@@ -40,10 +42,13 @@ public class CardPanelManager : MonoBehaviour
 
     private BulletManager _bulletManager; 
 
+    public Wall_RandomShape RandomShape => randomShape;
+
     private void Awake()
     {
         randomShape = GetComponent<Wall_RandomShape>();
-        _bulletManager = FindObjectOfType<BulletManager>(); 
+        _bulletManager = FindObjectOfType<BulletManager>();
+        stagePanelUI = GetComponent<StagePanelUI>();
     }
 
     private void Start()
@@ -118,6 +123,8 @@ public class CardPanelManager : MonoBehaviour
             cards[i].shape.enumShape = randomShape.cardEnumData[i];
             cards[i].shape.sprite = randomShape.cardSpriteData[i];
             cards[i].button.image.sprite = randomShape.cardSpriteData[i];
+            cardButtons[i].button.interactable = true;
+            //clickedCards[i].transform.DOScale(1, 0.1f);
         }
     }
 
@@ -169,25 +176,21 @@ public class CardPanelManager : MonoBehaviour
     {
         if (appearCardCount == 2)
         {
-            maxinumCardNumber = 1;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(600, 700);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 50);
         }
         else if (appearCardCount == 4)
         {
-            maxinumCardNumber = 2;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(350, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(200, 50);
         }
         else if (appearCardCount == 6)
         {
-            maxinumCardNumber = 4;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(300, 400);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(150, 50);
         }
         else if (appearCardCount == 8)
         {
-            maxinumCardNumber = 5;
             cardPanel.GetComponent<GridLayoutGroup>().cellSize = new Vector2(250, 350);
             cardPanel.GetComponent<GridLayoutGroup>().spacing = new Vector2(100, 100);
         }
@@ -290,6 +293,8 @@ public class CardPanelManager : MonoBehaviour
             for (int i = 0; i < clickedCards.Count; i++)
             {
                 _seq.Join(clickedCards[i].GetComponent<RectTransform>().DOMove(finalCardLocation.transform.position, 0.6f));
+                //_seq.Join(clickedCards[i].transform.DOScale(0, 0.6f));
+                clickedCards[i].interactable = false;
             }
 
             _seq.AppendCallback(() => {
@@ -304,5 +309,21 @@ public class CardPanelManager : MonoBehaviour
             //총알 만들기
             _bulletManager.CreateBullet();
         }
+    }
+
+
+    //종료했을때
+    [ContextMenu("초기화")]
+    public void EndLegend()
+    {
+        for (int i = 2; i < cardButtons.Count; i++)
+        {
+            cardButtons[i].GetComponent<Image>().enabled = false;
+        }
+        appearCardCount = 2;
+        maxinumCardNumber = 1;
+        WallManager.stageLevel = 1;
+        WallManager.stageLevel2 = 0;
+        stagePanelUI.Renewal();
     }
 }

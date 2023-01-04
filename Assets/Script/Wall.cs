@@ -17,6 +17,9 @@ public class Wall : PoolableMono
     private ShowShape _showShape;
     //private GameObject _randomShape;
     private StagePanelUI stagePanelUI;
+    private DaeheeRefactoringUI _endUIComponent;
+    private CardPanelManager _cardPanelManager;
+    private BulletManager _bulletManager; 
     public GameObject BrokenWall => _brokenWall ??= transform.GetChild(0).GetChild(0).gameObject;
     public GameObject OriginWall => _originWall ??= transform.GetChild(0).GetChild(1).gameObject;
 
@@ -33,7 +36,10 @@ public Action brokenEvent = null;
 
     private void Awake()
     {
-        _followers = GetComponentInChildren<Followers>(); 
+        _followers = GetComponentInChildren<Followers>();
+        _endUIComponent = FindObjectOfType<DaeheeRefactoringUI>();
+        _cardPanelManager = FindObjectOfType<CardPanelManager>();
+        _bulletManager = FindObjectOfType<BulletManager>(); 
         SetWall(); 
     }
 
@@ -52,14 +58,21 @@ public Action brokenEvent = null;
         if (other.CompareTag("Bullet"))
         {
             Debug.Log("충돌");
-            HitBullet();
+            HitBullet(false);
             other.GetComponent<Bullet>().DestroyBullet();
             // 진동 
         }
         else if (other.CompareTag("Laser"))
         {
             Debug.Log("충돌");
-            HitBullet();
+            HitBullet(true);
+            _endUIComponent.SetEnd();
+            _cardPanelManager.EndLegend();
+            stagePanelUI.InGameUIManager.EndCardPanelUI();
+            
+            _cardPanelManager.RandomShape.ResetWall();
+            _bulletManager.ResetBullets(); 
+            // 여기 
         }
     }
 
@@ -73,19 +86,34 @@ public Action brokenEvent = null;
     {
         _showShape.ShowShapeMaterial(); 
     }
-    public void HitBullet()
+    public void HitBullet(bool isla)
     {
-        Debug.Log(WallManager.stageLevel);
-        ++WallManager.stageLevel;
-        ++WallManager.stageLevel2;
-        stagePanelUI.Renewal();
-        _followers.enabled = false; 
-        _originWall.SetActive(false);
-    //    _randomShape.SetActive(false);
-        _brokenWall.SetActive(true);
-        _showShape.RandomShape.ShapeShake();
+        if (!isla)
+        {
+            Debug.Log(WallManager.stageLevel);
+            ++WallManager.stageLevel;
+            ++WallManager.stageLevel2;
+            stagePanelUI.Renewal();
+            _followers.enabled = false;
+            _originWall.SetActive(false);
+            //    _randomShape.SetActive(false);
+            _brokenWall.SetActive(true);
+            _showShape.RandomShape.ShapeShake();
 
-        _isCollision = false;
+            _isCollision = false;
+        }
+
+        else
+        {
+            _followers.enabled = false;
+            _originWall.SetActive(false);
+            //    _randomShape.SetActive(false);
+            _brokenWall.SetActive(true);
+            _showShape.RandomShape.ShapeShake();
+            _isCollision = false;
+        }
+        // GameOver 
+
     }
 
     public void Reseting()

@@ -128,8 +128,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 0
+  _originPos: {x: 0, y: 0, z: 0}
   _brokenWall: {fileID: 0}
   _originWall: {fileID: 0}
+  _isCollision: 0
+  _showShape: {fileID: 0}
 --- !u!114 &6664430427588758084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,6 +526,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 940457561417323984, guid: 4d127871acb7213458f89845beceef78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625294949350393096, guid: 4d127871acb7213458f89845beceef78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829010791758640900, guid: 4d127871acb7213458f89845beceef78, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5034561489697915154, guid: 4d127871acb7213458f89845beceef78, type: 3}

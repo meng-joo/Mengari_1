@@ -14,6 +14,7 @@ public class StagePanelUI : MonoBehaviour
 
     InGameUIManager _inGameUIManager;
 
+    public InGameUIManager InGameUIManager => _inGameUIManager; 
     private void Start()
     {
         _inGameUIManager = GetComponent<InGameUIManager>();

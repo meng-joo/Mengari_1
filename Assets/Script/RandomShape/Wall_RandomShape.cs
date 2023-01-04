@@ -99,6 +99,12 @@ public class Wall_RandomShape : MonoBehaviour
 
     }
 
+    public void ResetWall()
+    {
+        StopAllCoroutines(); 
+
+    }
+
     //void ShowShape()
     //{
     //    for (int i = 0; i < transform.childCount; i++)
