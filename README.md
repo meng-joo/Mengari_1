@@ -7,7 +7,7 @@
 
 게임 설명: 다가오는 벽을 모양을 맞춰서 부수자!
 
-[![유튜브영상](https://user-images.githubusercontent.com/101493216/214756327-e756c30b-b29b-4fb7-ba71-0c4f1a53cb73.png)](https://www.youtube.com/watch?v=E61_uPV81kM)
+[![유튜브영상](https://user-images.githubusercontent.com/101493216/214756327-e756c30b-b29b-4fb7-ba71-0c4f1a53cb73.png)](https://www.youtube.com/watch?v=b2UTtslOV8k)
  
  <p align="center">
 <img width="30%" src="https://user-images.githubusercontent.com/101493216/214879833-4f017f7c-7071-4e58-960d-1899838be816.png"/>
