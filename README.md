@@ -1,16 +1,27 @@
-# Wall
-2학년 동아리 프로젝트
+# 💥Wall💥
+> 2학년 2학기 동아리 프로젝트입니다.
 
-게임 제목: Wall
+![image](https://user-images.githubusercontent.com/101493216/224554616-8797f987-b648-4076-b2a5-af5ea93083ad.gif)
 
-게임 장르: 캐주얼, 아케이드
+---
 
-게임 설명: 다가오는 벽을 모양을 맞춰서 부수자!
+## 🍰 서론
 
-[![유튜브영상](https://user-images.githubusercontent.com/101493216/214756327-e756c30b-b29b-4fb7-ba71-0c4f1a53cb73.png)](https://www.youtube.com/watch?v=b2UTtslOV8k)
+- *게임 장르* : 캐주얼, 아케이드
+- *플랫폼* : 안드로이드 모바일
+- *제작 인원* : 6인
+- *사용 엔진과 언어* : Unity, C#
+
+## 🍰 플레이 영상 보러 가기! (유튜브)
+
+- <https://www.youtube.com/watch?v=b2UTtslOV8k>
+
+---
  
  <p align="center">
 <img width="30%" src="https://user-images.githubusercontent.com/101493216/214879833-4f017f7c-7071-4e58-960d-1899838be816.png"/>
 <img width="30%" src="https://user-images.githubusercontent.com/101493216/214879847-759d64b0-760b-4865-a220-3d0db5bdaa30.png"/>
 <img width="30%" src="https://user-images.githubusercontent.com/101493216/214879851-f5e0b6b8-309f-4e84-8439-a541256ed6ee.png"/>
 <figcaption align="center">
+
+---
